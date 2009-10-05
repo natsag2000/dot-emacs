@@ -1,0 +1,6 @@
+Folding:
+--------
+M-<Number> C-x $  -> will fold (or hide) lines started width <Number>
+C-x $  -> back to normal mode
+
+
