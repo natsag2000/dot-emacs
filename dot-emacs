@@ -1,0 +1,1623 @@
+;; -----------------------------------------------------------------------------
+;; Бичсэн         : Шагдарын Нацагдорж
+;; Тодорхойлолт  : Миний эмакс тохиргоо
+;; Энэ файлын бүтэц:
+;;   - Ерөнхий тохиргоо ( анхдагч суулгацтай ажиллаж болно )
+;;   - Гарын товчлолууд
+;;   - Өөрчилсөн функцууд
+;;   - Нэмэлт горим болон програм бүрд зориулсан тохиргоо
+;;   - Skeleton буюу арьснууд
+;;
+;; Сануулгууд:
+;;   - Болж өгвөл (message "text") гэж алдааг олохоор тохируулах
+;;   -
+;; АНХААР!
+;; эхлэл сан дотроо .backups .autosaves гэсэн хоёр сан үүсгэхээ бүү март
+;; -----------------------------------------------------------------------------
+
+;; -----------------------------------------------------------------------------
+;; Ерөнхий тохиргоо
+;;
+;; энэ хэсэг нь нэмэлт програм суулгах шаардлагаггүй анхдагч тохиргоогоор
+;; тохируулж болох хэсэг байх ёстой
+;; -----------------------------------------------------------------------------
+
+(setq debug-on-error t)
+
+;; my custom elisp file directory
+(setq custom-basedir (expand-file-name "~/elisp"))
+
+(defun add-path (p)
+  (add-to-list 'load-path (concat custom-basedir p)))
+
+;; make common lisp function avaliable
+;; энгийн лиспийн функцуудийг ашиглаж болно
+(require 'cl)
+
+
+;; uniquify
+;; --------
+;; If you work with multiple projects having similarly named files,
+;; use uniquify and set the name style for reverse.
+;; That way the buffer name will be filename/path
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'reverse)
+
+;; find file at point
+;; ------------------
+(require 'ffap)
+;; rebind C-x C-f and others to the ffap bindings (see variable ffap-bindings)
+(ffap-bindings)
+;; C-u C-x C-f finds the file at point
+(setq ffap-require-prefix t)
+;; browse urls at point via w3m
+(setq ffap-url-fetcher 'w3m-browse-url)
+
+;; dired
+;; -----
+;; Don't copy files to open dired buffers via drag&drop
+(setq dired-dnd-protocol-alist nil)
+(load "sorter" t t)
+;; automatic handle
+(setq dired-guess-shell-alist-user
+       (list
+        ;;(list "\\.fig" "c:\\utils\\4\\4nt /c fig2eps" "xfig")
+        (list "\\.ps" "gv")
+        (list "\\.doc" "oowriter")
+        (list "\\.ppt" "ooimpress")
+        (list "\\.xls" "oocalc")
+        (list "\\.sxc" "oocalc")
+        (list "\\.png" "gimp")
+        (list "\\.pdf" "xpdf")))
+;; stop globbing buffers when navigate through folders
+;; push "a" for comming into folder without globbering
+;; push "f" for normal navigate with globber
+(put 'dired-find-alternate-file 'disabled nil)
+
+;; dired jump
+;; ----------
+;; C-x C-j opens a dired buffer with point at the actual file name.
+(load "dired-x")
+
+;; Save Desktop
+;; ------------
+;; save a list of open files in ~/.emacs.desktop
+;; save the desktop file automatically if it already exists
+(setq desktop-save 'if-exists)
+(desktop-save-mode 1)
+
+;; save a bunch of variables to the desktop file
+;; for lists specify the len of the maximal saved data also
+(setq desktop-globals-to-save
+      (append '((extended-command-history . 30)
+                (file-name-history        . 100)
+                (grep-history             . 30)
+                (compile-history          . 30)
+                (minibuffer-history       . 50)
+                (query-replace-history    . 60)
+                (read-expression-history  . 60)
+                (regexp-history           . 60)
+                (regexp-search-ring       . 20)
+                (search-ring              . 20)
+                (shell-command-history    . 50)
+                tags-file-name
+                register-alist)))
+
+;; Use F12 to invoke ibuffer
+;; -------------------------
+(setq ibuffer-shrink-to-minimum-size t)
+(setq ibuffer-always-show-last-buffer nil)
+(setq ibuffer-sorting-mode 'recency)
+(setq ibuffer-use-header-line t)
+(global-set-key [(f12)] 'ibuffer)
+
+;; woof.el
+;; -------
+;; Web Offer One File
+;; wget http://www.xsteve.at/prg/emacs/woof.el
+(require 'woof)
+
+
+;; set temporary off
+;;(require 'tramp)
+;;(setq tramp-default-method "scp")
+
+;; Эмаксад сануулсныг бусад цонхноос буулгаж болдог болгох (мөн эсрэгээр)
+(setq x-select-enable-clipboard t)
+;;(setq x-select-enable-primary nil)  ; stops killing/yanking interacting with primary X11 selection
+
+;; Эмаксийг сервер болгож ажиллуулах
+(server-start)
+
+;; Эхлэл тэмдэг зургийг нь хорих
+(setq inhibit-splash-screen t)
+
+
+
+;; Setup Emacs to run csh as its primary shell.
+(setq shell-file-name "tcsh")
+(setq shell-command-switch "-c")
+(setq explicit-shell-file-name shell-file-name)
+(setenv "SHELL" shell-file-name)
+(setq explicit-sh-args '("-login" "-i"))
+
+;; setting default font
+(set-default-font "-misc-fixed-medium-r-*-*-14-130-75-75-*-*-iso10646-*")
+
+;; recentf-open-files
+;; сүүлд нээгдсэн файлуудыг нээх
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-saved-items 200)
+(setq recentf-max-menu-items 60)
+;;(global-set-key [?\C-c ?r ?f] 'recentf-open-files)
+(global-set-key [(meta f12)] 'recentf-open-files)
+
+;; set wrapping line on the every buffer
+;; буфер болгонд мөрийг нугална
+(setq truncate-partial-width-windows nil)
+
+;; tabs replaced with spaces
+;; зай авалтыг хоосон зайгаар нөхнө
+(setq-default indent-tabs-mode nil)
+
+;; мөрийн төгсгөлд байгаа хоосон зайг харуулах
+(setq-default show-trailing-whitespace t)
+
+;; highlight selection
+(setq-default transient-mark-mode t)
+
+;; tab width
+;; зай авалтын урт
+(setq default-tab-width 2)
+
+;; show time
+;; цаг харуулалт
+(display-time)
+
+;; make the y or n suffice for a yes or no question
+;; тийм үгүй гэсэн асуултанд нэг үсгээр хариулна
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; show column number in status bar
+;; төлвийн самбарт баганы дугаарыг харуул
+(column-number-mode t)
+
+;; show paren, brace, and curly brace "partners" at all times
+;; хаасан юмуу нээсэн хаалтанд очингуут нөгөө талыг нь гэрэлтүүл
+(show-paren-mode t)
+
+;; show more info in taskbar/icon than just "Emacs"
+;; гарчигийн талбарт файлын нэр мөн бүтэн замыг харуулах
+(setq-default frame-title-format (list "%65b %f"))
+(setq-default icon-title-format (list "%b"))
+
+;; бүс хэсгийг том үсгээр, бага үсгээр, мөн тусад нь бүслэх
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+
+;; for global options for unicode
+(setq locale-coding-system 'utf-8)
+   (set-terminal-coding-system 'utf-8)
+   (set-keyboard-coding-system 'utf-8)
+   (set-selection-coding-system 'utf-8)
+   (prefer-coding-system 'utf-8)
+
+;; for menus and toolbars
+;; зарим цэснээс харуулахгүй болгох
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+
+;; ispell ийн оронд aspell-г ашиглах
+;; анхаар: aspell-г суулгасан байх хэрэгтэй
+(setq-default ispell-program-name "aspell")
+(setq-default ispell-extra-args '("--sug-mode=ultra"))
+;;(setq-default ispell-extra-args '("--reverse"))
+(require 'ispell)
+(setq ispell-dictionary "mongolian")
+
+;; цонх тохируулга
+;;(smart-frame-positioning-mode 0)
+;;(setq default-major-mode 'text-mode) ;; анхдагч текст горимд оруулах
+;;(setq-default default-fill-column 79)
+
+;; хэвлэгч
+;;
+(require 'printing)   ; load printing package
+(setq pr-path-alist
+ '((unix      "." "/usr/local/bin" ghostview mpage PATH)
+   (ghostview "$HOME/bin/gsview-dir")
+   (mpage     "$HOME/bin/mpage-dir")
+      ))
+(setq pr-txt-name      'Ricoh_aficio_mp_C2000)
+(setq pr-txt-printer-alist
+  '((Ricoh_aficio_mp_C2000 "lpr" nil "Ricoh_aficio_mp_C2000")
+    ))
+(setq pr-ps-name       'Ricoh_aficio_mp_C2000)
+(setq pr-ps-printer-alist
+  '((Ricoh_aficio_mp_C2000 "lpr" nil "-P" "Ricoh_aficio_mp_C2000")
+    ))
+(pr-update-menus t)   ; update now printer and utility menus
+
+;; Maintain a stack of buffer positions, useful when recusively
+;; looking up function definitions.
+;; байгаа газраа тэмдэглээд дараа нь өөр тийшээ үсэрсэн хойноо
+;; уг тэмдэг рүүгээ буцаж ирнэ. Стэк маягийн зохицуулалттай учраас
+;; өмнө нь тэмдэглэсэн дарааллаараа буцах болно.
+;; функц дуудалтыг дагаж мөрдөхөд зохимжтой
+
+(defvar postack-stack '() "The position stack")
+
+(defun postack-goto (marker)
+  "Should be marker-goto."
+  (switch-to-buffer (marker-buffer pos))
+  (goto-char (marker-position pos)))
+
+(defun postack-push ()
+  "Push the current position on the position stack."
+  (interactive)
+  (let ((pos (point-marker)))
+    (setq postack-stack (cons pos postack-stack))
+    (message (format "Marked: (%s:%s)" (marker-buffer pos) (marker-position pos))) ))
+
+(defun postack-pop ()
+  "Remove the top position from the position stack and make it current."
+  (interactive)
+  (let ((pos (car postack-stack)))
+    (setq postack-stack (cdr postack-stack))
+    (cond ((null pos)
+           (message "Position stack empty"))
+          ((markerp pos)
+           (postack-goto pos)
+           (message (format "Position: (%s:%s)" (marker-buffer pos) (marker-position pos))))
+          (t
+           (message "Invalid position in stack")) ) ))
+
+(global-set-key "\C-cm" 'postack-push)
+(global-set-key "\C-cp" 'postack-pop)
+
+;; switch to buffers directional
+(defalias 'wwu 'windmove-up)
+(defalias 'wwd 'windmove-down)
+(defalias 'wwl 'windmove-left)
+(defalias 'wwr 'windmove-right)
+
+;; other nice shortcuts
+(defalias 'ifs 'isearch-forward-regexp)
+(defalias 'ibs 'isearch-backward-regexp)
+(global-set-key "\M-s" 'isearch-forward-regexp)
+(global-set-key "\M-a" 'isearch-backward-regexp)
+
+;; -----------------------------------------------------------------------------
+;; Гарын товчлолууд
+;; -----------------------------------------------------------------------------
+
+;; М-х ийг C-x C-m юмуу C-c C-m аар мөн хэрэглэж болно
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
+
+;; for backward-kill-word over backspace
+(global-set-key "\C-w" 'backward-kill-word)
+
+;; kill region alternatives
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)
+
+;; тайлбар тавих
+(defalias 'cr 'comment-region)
+(defalias 'ucr 'uncomment-region)
+
+(global-set-key [f1] 'help-command)
+(global-set-key "\C-h" 'delete-backward-char)
+
+;; -----------------------------------------------------------------------------
+;; Өөрчилсөн функцууд
+;; -----------------------------------------------------------------------------
+
+;; insert date into buffer
+(defun insert-date ()
+  "Insert date at point."
+  (interactive)
+  (insert (format-time-string "%a %b %e, %Y %l:%M %p")))
+;;  (insert (format-time-string "%Y-%m-%d-%R")))
+
+;; энүүнээс өөр бэлэн тушаал байдаг шиг санагдаж байна
+;; convert a buffer from dos ^M end of lines to unix end of lines
+(defun dos2unix ()
+  (interactive)
+    (goto-char (point-min))
+      (while (search-forward "\r" nil t) (replace-match "")))
+
+;; vice versa
+(defun unix2dos ()
+  (interactive)
+    (goto-char (point-min))
+      (while (search-forward "\n" nil t) (replace-match "\r\n")))
+
+;; redefining the make-backup-file-name function in order to get
+;; backup files in ~/.backups/ rather than scattered around all over
+;; the filesystem. Note that you must have a directory ~/.backups/
+;; made.  This function looks first to see if that folder exists.  If
+;; it does not the standard backup copy is made.
+(defun make-backup-file-name (file-name)
+  "Create the non-numeric backup file name for `file-name'."
+  (require 'dired)
+  (if (file-exists-p "~/.backups")
+      (concat (expand-file-name "~/.backups/")
+              (replace-regexp-in-string "/" "!" file-name))
+    (concat file-name "~")))
+
+;; redefining the make-auto-save-file-name function in order to get
+;; autosave files sent to a single directory.  Note that this function
+;; looks first to determine if you have a ~/.autosaves/ directory.  If
+;; you do not it proceeds with the standard auto-save procedure.
+(defun make-auto-save-file-name ()
+  "Return file name to use for auto-saves of current buffer.."
+  (if buffer-file-name
+      (if (file-exists-p "~/.autosaves/")
+          (concat (expand-file-name "~/.autosaves/") "#"
+                  (replace-regexp-in-string "/" "!" buffer-file-name)
+                  "#")
+         (concat
+          (file-name-directory buffer-file-name)
+          "#"
+          (file-name-nondirectory buffer-file-name)
+          "#"))
+    (expand-file-name
+     (concat "#%" (buffer-name) "#"))))
+
+(defun trim-ws-in-string (string)
+  "This function removes the leading and trailing whitespace from
+   a string"
+  (replace-regexp-in-string "\\(^[ \t]*\\|[ \t]*$\\)" "" string))
+
+;; delete leading white spaces in whole buffer C-x C-h
+(defun my-delete-leading-whitespace (start end)
+  "Delete whitespace at the beginning of each line in region."
+  (interactive "*r")
+  (save-excursion
+    (if (not (bolp))
+        (forward-line 1))
+    (delete-whitespace-rectangle (point) end nil)))
+
+;; ============================================================================
+;; corpora functions by nagi
+;; ============================================================================
+(defun seek-and-play-duration ()
+  (shell-command (concat "mmpc.sh "
+   (extract-seek-pos-and-play-duration (thing-at-point 'line)))))
+
+(defun extract-seek-pos-and-play-duration (timestr)
+  (let ((time-part  (first (split-string timestr "----")))
+  (seek-pos 0) (end-pos 0))
+    (multiple-value-bind
+    (seek-pos end-pos)
+  (mapcar 'change-time-format (split-string time-part "-"))
+      (concat (number-to-string seek-pos) " " (number-to-string (- end-pos seek-pos))))))
+
+(defun change-time-format (time-str)
+  (let ((m (string-to-number (first (split-string time-str ":"))))
+    (s (string-to-number (second (split-string time-str ":")))))
+    (+ (* m 60) s)))
+
+;; need for redeclaring the time stamp
+(defun insert-new-timestamp ()
+  (let ((rest-sent (second (split-string (thing-at-point 'line) "----"))))
+    (insert-time-pos)
+    (kill-line)
+    (insert rest-sent)))
+
+;; not necessary :(
+(defun create-time-var ()
+  (setq start-time-pos 0)
+  (setq end-time-pos 0))
+
+(defun get-time ()
+  (shell-command-to-string "mmpc-get-time.sh" ))
+
+(defun insert-time-pos ()
+  (interactive)
+  (beginning-of-line)
+  (insert (concat (get-end-time-with-start) "----")))
+
+(defun get-start-time ()
+  (setq start-time-pos (get-time)))
+
+(defun get-end-time-with-start ()
+  (setq end-time-pos (get-time))
+  (concat start-time-pos "-" end-time-pos))
+
+;; F5
+(defun pause-toggle ()
+  (interactive)
+  (shell-command "mpc toggle"))
+;; F6
+(defun mark-start-time ()
+  (interactive)
+  (get-start-time))
+;; F7
+(defun mark-end-time ()
+  (interactive)
+  (insert-time-pos))
+
+;; F3
+(defun seek-minus-small ()
+  (interactive)
+  (shell-command "mpc seek -2"))
+
+;; F4
+(defun seek-plus-small ()
+  (interactive)
+  (shell-command "mpc seek +2"))
+
+;; F8
+(defun play-time-duration ()
+  (interactive)
+  (seek-and-play-duration))
+
+;; F9
+(defun seek-minus-big ()
+  (interactive)
+  (shell-command "mpc seek -7"))
+
+;; F10
+(defun seek-plus-big ()
+  (interactive)
+  (shell-command "mpc seek +7"))
+
+;; F11
+(defun load-file-to-player ()
+  (interactive)
+  (shell-command
+   (concat "mmpc-load-file.sh "
+           (replace-regexp-in-string "-I.txt" ".wav" (buffer-name)))))
+
+;; insert <FL> tag
+(defun insert-fl-tag ()
+  (interactive)
+  (insert "<FL>"))
+
+;; insert <NI> tag
+(defun insert-ni-tag ()
+  (interactive)
+  (insert "<NI>"))
+
+;; some usefull replaces for corpora
+(defun replace-this-abbr (from-str to-str)
+  (goto-char (point-min))
+  (setq case-fold-search nil)
+  (while (search-forward from-str nil t)
+         (replace-match to-str t t))
+  (setq case-fold-search t))
+
+;; convert numbers to string transliteration
+;; ---------------------------------------------------------
+
+(setq *number-to-string*
+      '((1 "нэг" "нэгэн" "арав" "арван")
+        (2 "хоёр" "хоёрон" "хорь" "хорин")
+        (3 "гурав" "гурван" "гуч" "гучин")
+        (4 "дөрөв" "дөрвөн" "дөч" "дөчин")
+        (5 "тав" "таван" "тавь" "тавин")
+        (6 "зургаа" "зургаан" "жар" "жаран")
+        (7 "долоо" "долоон" "дал" "далан")
+        (8 "найм" "найман" "ная" "наян")
+        (9 "ес" "есөн" "ер" "ерэн")))
+
+(defun replace-numbers-to-string ()
+  (goto-char (point-min))
+  (while (re-search-forward "[0-9]+" nil t)
+    (replace-match (number-to-literal-string (match-string 0) ) nil nil)))
+
+(defun get-hundred-thousand (number)
+   (cond ((= number 1) "")
+         ((= number 2) (second (assoc number *number-to-string*)))
+         (t (third (assoc number *number-to-string*)))))
+
+(defun get-string-from-number (number position)
+  (nth position (assoc number *number-to-string*)))
+
+(defun inverse-number-string (number-str)
+  (apply 'string (reverse (string-to-list number-str))))
+
+(defun split-per-one-char (string num)
+  (substring string num (+ 1 num)))
+
+(defun get-number-relative-position (whole-number number pos)
+  (cond ((= number 0) "")
+        ((= pos 0) (third (assoc number *number-to-string*)))
+        ((= pos 1) (cond ((is-this-zero whole-number 0) (fifth (assoc number *number-to-string*)))
+                         (t (fifth (assoc number *number-to-string*)))))
+        ((= pos 2) (concat
+                    (cond ((is-this-zero whole-number 1) (get-hundred-thousand number))
+                          (t (get-hundred-thousand number))) " " "зуун"))
+        ((= pos 3) (concat (get-hundred-thousand number) " " "мянга"))
+        (t "")))
+
+(defun is-this-zero (number-str pos)
+  (= 0 (string-to-number (split-per-one-char number-str pos))))
+
+(defun number-to-literal-string (string-number)
+  (let ((value "") (mystring (inverse-number-string string-number)))
+    (dotimes (counter  (length string-number) value)
+      (setq value
+            (concat
+             (get-number-relative-position mystring
+              (string-to-number (split-per-one-char mystring counter)) counter) " " value)))))
+
+;; ---------------------------------------------------------
+
+(defun replace-some-abbr ()
+  (interactive)
+  (replace-this-abbr "Д.Медведев" "Дмитрий Медведев")
+  (replace-this-abbr "АНУ-ын" "Америкийн Нэгдсэн Улсын")
+  (replace-this-abbr "АНУ" "Америкийн Нэгдсэн Улс")
+  (replace-this-abbr "БНСУ" "Бүгд Найрамдах Солонгос Улс")
+  (replace-this-abbr "хямарл" "хямрал")
+  (replace-this-abbr "хямарал" "хямрал")
+  (replace-this-abbr "НҮБ-ын" "Нэгдсэн Үндэсний Байгууллагын")
+  (replace-this-abbr "НҮБ-д" "Нэгдсэн Үндэсний Байгууллагад")
+  (replace-this-abbr "ЗХУ-д" "Зөвлөлт холбоот улсад")
+  (replace-this-abbr "ЗХУ-н" "Зөвлөлт холбоот улсын")
+  (replace-this-abbr "ЗХУ" "Зөвлөлт холбоот улс")
+  (replace-this-abbr "ОХУ-ын" "Оросын Холбооны Улсын")
+  (replace-this-abbr "ОХУ-д" "Оросын Холбооны Улсад")
+  (replace-this-abbr "ОХУ" "Оросын Холбооны Улс")
+  (replace-this-abbr "БНХАУ-ын" "Бүгд найрамдах хятад ард улсын")
+  (replace-this-abbr "БНХАУ-д" "Бүгд найрамдах хятад ард улсад")
+  (replace-this-abbr "БНХАУ" "Бүгд найрамдах хятад ард улс")
+  (replace-numbers-to-string)
+  (goto-char (point-min)))
+
+;; keyboard shortcuts for corpora tools!
+;(global-set-key "\M-p" 'pause-toggle)
+;(global-set-key [f6] 'mark-start-time)
+;(global-set-key [f7] 'mark-end-time)
+;(global-set-key "\M-n" 'seek-minus-small)
+(global-set-key [f4] 'seek-plus-small)
+;(global-set-key [f8] 'play-time-duration)
+(global-set-key [f6] 'replace-some-abbr)
+(global-set-key [f7] 'insert-ni-tag)
+(global-set-key [f8] 'insert-fl-tag)
+(global-set-key [f9] 'seek-minus-big)
+(global-set-key [f10] 'seek-plus-big)
+(global-set-key [f2] 'load-file-to-player)
+
+;; -----------------------------------------------------------------------------
+;; Нэмэлт горим болон програм бүрд зориулсан
+;; портоос суулгаж болдогийг нь тусад нь,
+;; ~/elisp сан доторхыг нь бас тусад нь ангилав
+;; -----------------------------------------------------------------------------
+;;
+;; --------------------------------------------------------------------
+;; because of speedbar 0.14beta, emacs-rails cannot be installed!
+;; --------------------------------------------------------------------\/
+;; find-recursive.el
+;; wget http://www.webweavertech.com/ovidiu/emacs/find-recursive.txt
+;; find files recursively into a directory
+;; -----------------
+;; (require 'find-recursive)
+;;
+;; snippet.el
+;; ----------
+;; wget http://www.kazmier.com/computer/snippet.el
+;; rails requires!
+;;(require 'snippet)
+
+;; emacs-rails
+;; -----------
+;; http://rubyforge.org/projects/emacs-rails
+;; (setq load-path (cons "~/elisp/emacs-rails" load-path))
+;; (require 'rails)
+;; --------------------------------------------------------------------/\
+
+;; ==========================
+;; tagging.el
+;; wget http://lisperati.com/tagging.el
+;; ==========================
+(load "tagging.el")
+
+;; tabbar.el
+;; --------
+(require 'tabbar)
+(tabbar-mode 1)
+(global-set-key "\M-[" 'tabbar-backward)
+(global-set-key "\M-]" 'tabbar-forward)
+
+;; x-dict.el
+;; --------
+;; online dictionary
+;; wget http://www.xsteve.at/prg/python/x-dict  -> save it to PATH
+;; wget http://www.xsteve.at/prg/emacs/x-dict.el
+(require 'x-dict)
+
+;; pager.el
+;; for better scrolling
+;; wget http://user.it.uu.se/~mic/pager.el
+(require 'pager)
+;;; Bind scrolling functions from pager library.
+(global-set-key [next]     'pager-page-down)
+(global-set-key "\C-v"     'pager-page-down)
+(global-set-key [prior]    'pager-page-up)
+(global-set-key "\M-v"     'pager-page-up)
+(global-set-key "\M-p"    'pager-row-up)
+(global-set-key "\M-n"  'pager-row-down)
+(global-set-key "\C-n"  'next-line)
+(global-set-key "\C-p"  'previous-line)
+
+;; w3m mode
+;; ---------------
+;; wget http://emacs-w3m.namazu.org/emacs-w3m-1.4.4.tar.gz
+;; or download development version ( recommended )
+;; ./configure
+;; make && make install && make install-icons
+(require 'w3m-load)
+
+;; autoinstall mode
+;; ----------------
+;; wget http://www.emacswiki.org/emacs/auto-install.el
+;;(add-to-list 'load-path (expand-file-name "~/elisp"))
+(require 'auto-install)
+(setq auto-install-directory "~/elisp/")
+
+;; anything mode
+;; --------------
+;; M-x auto-install-batch RET
+;; Input "anything"
+(require 'anything-config)
+
+;; nXML mode
+(load "rng-auto.el")
+(setq auto-mode-alist
+      (cons '("\\.\\(xml\\|\xsl\\|rng\\|xhtml\\)\\'" . nxml-mode)
+            auto-mode-alist))
+;; complete </ end tag automatically
+(setq nxml-slash-auto-complete-flag 1)
+;; sexp element functions on xml elements
+(setq nxml-sexp-element-flag 1)
+;; pretty print xml code snippet
+(defun bf-pretty-print-xml-region (begin end)
+  "Pretty format XML markup in region. You need to have nxml-mode
+http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
+this.  The function inserts linebreaks to separate tags that have
+nothing but whitespace between them.  It then indents the markup
+by using nxml's indentation rules."
+  (interactive "r")
+  (save-excursion
+      (nxml-mode)
+      (goto-char begin)
+      (while (search-forward-regexp "\>[ \\t]*\<" nil t)
+        (backward-char) (insert "\n"))
+      (indent-region begin end)
+      (delete-trailing-whitespace))
+    (message "Ah, much better!"))
+;; OR you can use xmllint command for pretty printing!
+;; e.g C-x h M-| xmllint --format -
+
+;; Haskell mode
+;; -----------------
+;; cvs -d :pserver:anoncvs@cvs.haskell.org:/cvs login # password 'cvs'
+;; cvs -d :pserver:anoncvs@cvs.haskell.org:/cvs co fptools/CONTRIB/haskell-modes/emacs
+;;(load "~/elisp/haskell-mode/haskell-site-file")
+(load "haskell-site-file")
+(defun unicode-symbol (name)
+   "Translate a symbolic name for a Unicode character -- e.g., LEFT-ARROW
+ or GREATER-THAN into an actual Unicode character code. "
+   (decode-char 'ucs (case name
+      ('left-arrow 8592)
+                       ('up-arrow 8593)
+                       ('right-arrow 8594)
+                       ('down-arrow 8595)
+      ('double-vertical-bar #X2551)
+                       ('equal #X003d)
+                       ('not-equal #X2260)
+                       ('identical #X2261)
+                       ('not-identical #X2262)
+                       ('less-than #X003c)
+                       ('greater-than #X003e)
+              ('less-than-or-equal-to #X2264)
+                ('greater-than-or-equal-to #X2265)
+                       ('logical-and #X2227)
+                       ('logical-or #X2228)
+                       ('logical-neg #X00AC)
+                       ('nil #X2205)
+                       ('horizontal-ellipsis #X2026)
+                       ('double-exclamation #X203C)
+                       ('prime #X2032)
+                       ('double-prime #X2033)
+                       ('for-all #X2200)
+                       ('there-exists #X2203)
+                       ('element-of #X2208)
+                       ('square-root #X221A)
+                       ('squared #X00B2)
+                       ('cubed #X00B3)
+                       ('lambda #X03BB)
+                       ('alpha #X03B1)
+                       ('beta #X03B2)
+                       ('gamma #X03B3)
+                       ('delta #X03B4))))
+
+(defun substitute-pattern-with-unicode (pattern symbol)
+    "Add a font lock hook to replace the matched part of PATTERN with the
+     Unicode symbol SYMBOL looked up with UNICODE-SYMBOL."
+    (interactive)
+    (font-lock-add-keywords
+    nil `((,pattern
+           (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                     ,(unicode-symbol symbol)
+                                     'decompose-region)
+                             nil))))))
+
+(defun substitute-patterns-with-unicode (patterns)
+   "Call SUBSTITUTE-PATTERN-WITH-UNICODE repeatedly."
+   (mapcar #'(lambda (x)
+               (substitute-pattern-with-unicode (car x)
+                                                (cdr x)))
+           patterns))
+
+(defun haskell-unicode ()
+ (interactive)
+ (substitute-patterns-with-unicode
+  (list (cons "\\(<-\\)" 'left-arrow)
+        (cons "\\(->\\)" 'right-arrow)
+        (cons "\\(==\\)" 'identical)
+        (cons "\\(/=\\)" 'not-identical)
+        (cons "\\(()\\)" 'nil)
+        (cons "\\<\\(sqrt\\)\\>" 'square-root)
+        (cons "\\(&&\\)" 'logical-and)
+        (cons "\\(||\\)" 'logical-or)
+        (cons "\\<\\(not\\)\\>" 'logical-neg)
+        (cons "\\(>\\)\\[^=\\]" 'greater-than)
+        (cons "\\(<\\)\\[^=\\]" 'less-than)
+        (cons "\\(>=\\)" 'greater-than-or-equal-to)
+        (cons "\\(<=\\)" 'less-than-or-equal-to)
+        (cons "\\<\\(alpha\\)\\>" 'alpha)
+        (cons "\\<\\(beta\\)\\>" 'beta)
+        (cons "\\<\\(gamma\\)\\>" 'gamma)
+        (cons "\\<\\(delta\\)\\>" 'delta)
+        (cons "\\(''\\)" 'double-prime)
+        (cons "\\('\\)" 'prime)
+        (cons "\\(!!\\)" 'double-exclamation)
+        (cons "\\(\\.\\.\\)" 'horizontal-ellipsis))))
+
+(add-hook 'haskell-mode-hook 'haskell-unicode)
+
+;; Erlang emacs mode
+;; -----------------
+;; ~/elisp/erlware-mode-0.1.7
+(add-to-list 'load-path "~/elisp/erlware-mode-0.1.11")
+(setq erlang-root-dir "/usr/lib/erlang")
+(setq exec-path (cons "/usr/local/bin" exec-path))
+(require 'erlang-start)
+(setq erlang-man-root-dir "/usr/lib/erlang/man")
+
+;; this is needed for Distel setup
+;; svn checkout http://distel.googlecode.com/svn/trunk/ distel
+(let ((distel-dir "/usr/local/share/distel/elisp"))
+  (unless (member distel-dir load-path)
+    ;; Add distel-dir to the end of load-path
+    (setq load-path (append load-path (list distel-dir)))))
+(require 'distel)
+(distel-setup)
+
+;; Some Erlang customizations
+(add-hook 'erlang-mode-hook
+          (lambda ()
+            ;; when starting an Erlang shell in Emacs, default in the mode name
+            (setq inferior-erlang-machine-options '("-sname" "emacs"))
+            ;; add Erlang functions to an imenu menu
+            (imenu-add-to-menubar "imenu")))
+;; A number of the erlang-extended-mode key bindings are useful in the shell too
+(defconst distel-shell-keys
+  '(("\C-\M-i"  erl-complete)
+    ("\M-?"     erl-complete)
+    ("\M-."     erl-find-source-under-point)
+    ("\M-,"     erl-find-source-unwind)
+    ("\M-*"     erl-find-source-unwind)
+    )
+  "Additional keys to bind when in Erlang shell.")
+
+(add-hook 'erlang-shell-mode-hook
+          (lambda ()
+            ;; add some Distel bindings to the Erlang shell
+            (dolist (spec distel-shell-keys)
+              (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
+
+
+;; Bongo player
+;; --------------------
+;; бас дуу хөгжим тоглуулагч
+;; (add-to-list 'load-path "~/elisp/bongo")
+;; (require 'bongo)
+;; (require 'bongo-mplayer)
+
+;; ;; EMMS emac multimedia
+;; ;; --------------------
+;; ;; Дуу хөгжим кино сонсож үзэгч
+;; ;; /usr/ports/audio/emms
+;; (require 'emms-setup)
+;; (emms-standard)
+;; (emms-default-players)
+;; (global-set-key "\C-c\C-l" 'bongo-seek)
+
+;; muse
+;; ----
+;; текст засварлагч, экспортлогч
+;; /usr/ports/textproc/muse --old way
+;; git clone git://repo.or.cz/muse-el.git muse
+(add-to-list 'load-path "~/elisp/muse")
+(require 'muse-mode)
+(require 'muse-html)  ; load publishing styles
+(require 'muse-latex)
+(require 'muse-texinfo)
+(require 'muse-docbook)
+(require 'muse-project) ; publish files in project
+; my muse project folder
+(setq muse-project-alist
+      '(("howto-pages" ("~/mymuses" :default "index")
+         (:base "html" :path "~/mymuse-outputs/html")
+         (:base "pdf" :path "~/mymuse-outputs/pdf"))))
+
+;; psvn
+;; ----
+;; subversion програмын хувилбар зохицуулагч
+;; /usr/ports/devel/psvn
+(require 'psvn)
+
+;; color-themes
+;; ------------
+;; Төрөл бүрийн харуулах маягууд
+;; /usr/ports/misc/color-theme.el -old way!
+;; wget http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz
+(add-to-list 'load-path "~/elisp/color-theme-6.6.0")
+(require 'color-theme)
+;; default color theme is billw (I liked it :)
+(color-theme-initialize)
+(color-theme-oswald)
+
+;; flymake with python
+;; -------------------
+;; flymake-г могойтой хэрэглэхэд хэрэглэгдэх тохиргоо
+;; epylint файлыг /usr/local/bin дотор хуулна
+;; /usr/ports/devel/pylint
+(when (load "flymake" t)
+  (defun flymake-pylint-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+       (local-file (file-relative-name
+                    temp-file
+                    (file-name-directory buffer-file-name))))
+      (list "epylint" (list local-file))))
+
+  (add-to-list 'flymake-allowed-file-name-masks
+           '("\\.py\\'" flymake-pylint-init)))
+
+;; figlet
+;; ------
+;; текстийг том зураасаар дүрслэгч
+;; ~/elisp/figlet.el
+(require 'figlet)
+
+;; yasnippet
+;; ---------
+;; төрөл бүрийн програмуудад тохирсон товчлолууд
+;; xx-bundle.el хувилбар нь анхлан хэрэглэгчийнх шүү!!
+;; svn checkout http://yasnippet.googlecode.com/svn/trunk/ yasnippet
+(add-to-list 'load-path "~/elisp/yasnippet")
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory "~/elisp/yasnippet/snippets")
+
+;; ido
+;; ---
+;; буфер сэлгэх үйлдлийг амарчлагч
+;; ~/elisp/ido.el
+(require 'ido)
+(ido-mode t)
+;;(ido-mode 'buffer)
+(setq ido-enable-flex-matching t)
+
+;; Python
+;; ------
+;; Могойд зориулсан тохиргоо
+;; ~/elisp/python.el
+;;(require 'python)
+
+;; Python indentation mode
+;; Могойд зориулсан зай авалт
+;; тухайн мөрөн дээр ТАБ дарахад тохирсон зайг авдаг
+(defun my-python-indent-setup ()
+  (setq indent-tabs-mode nil)
+  (setq py-indent-offset 4))
+(add-hook 'python-mode-hook 'my-python-indent-setup)
+
+;; pymacs
+;; могойд зориулсан туслах горим
+;; ~/elisp/rope
+;; ~/elisp/ropemacs
+;; (autoload 'pymacs-apply "pymacs")
+;; (autoload 'pymacs-call "pymacs")
+;; (autoload 'pymacs-eval "pymacs" nil t)
+;; (autoload 'pymacs-exec "pymacs" nil t)
+;; (autoload 'pymacs-load "pymacs" nil t)
+;; ;; ROPE - for refactoring and auto-completion
+;; (load "~/elisp/pymacs.el")
+;; (pymacs-load "ropemacs" "rope-")
+;; ;; enabling autoimport
+;; (setq ropemacs-enable-autoimport 't)
+;; ;; telling ropemacs which modules to cache
+;; ;;(setq ropemacs-autoimport-modules '("django"))
+
+;; ;; python electric pair
+;; ;; төрөл бүрийн хаалт нээнгүүт хаах тохиргоо
+;; (add-hook 'python-hook
+;;    (lambda ()
+;;      (define-key python-map "\"" 'electric-pair)
+;;      (define-key python-map "\'" 'electric-pair)
+;;      (define-key python-map "(" 'electric-pair)
+;;      (define-key python-map "[" 'electric-pair)
+;;      (define-key python-map "{" 'electric-pair)))
+;; (defun electric-pair ()
+;;   "Insert character pair without sournding spaces"
+;;   (interactive)
+;;   (let (parens-require-spaces)
+;;     (insert-pair)))
+
+;; predictive
+;; ----------
+;; Урьдчилан нөхөж бичигч
+;; ~/elisp/predictive
+(add-to-list 'load-path "~/elisp/predictive")
+(autoload 'predictive-mode "predictive" "predictive" t)
+
+;; linum
+;; -----
+;; Мөрийн дугаар харуулагч
+;; ~/elisp/linum.el
+(require 'linum)
+(global-linum-mode t)
+
+
+;; SLIME
+;; -----
+;; Лисп програмыг хөгжүүлэхэд хэрэглэгдэх хамгийн хүчтэй горим
+;; ~/sources/slime   cvs эх кодоор нь суулгана:
+;; cvs -d :pserver:anonymous@common-lisp.net:/project/slime/cvsroot login
+;; # Password is "anonymous"
+;; cvs -d :pserver:anonymous@common-lisp.net:/project/slime/cvsroot checkout slime
+
+(add-to-list 'load-path "~/usr/share/emacs22/site-lisp/slime")
+(require 'slime)
+
+(slime-setup '(slime-fancy slime-asdf))
+
+(setq inferior-lisp-program "/usr/bin/sbcl"
+      lisp-indent-function 'common-lisp-indent-function
+      slime-complete-symbol-function 'slime-fuzzy-complete-symbol
+      slime-startup-animation t
+      slime-highlight-compiler-notes t
+      slime-fuzzy-completion-in-place nil)
+
+;; for short time - nagi
+;;(global-set-key [f9] 'slime-selector)
+
+;; paredit minor mode (lisp)
+;; wget http://www.bloodandcoffee.net/campbell/paredit.el or
+;; wget http://mumble.net/~campbell/emacs/paredit.el
+(add-to-list 'load-path "~/elisp/paredit/")
+(require 'paredit)
+
+;; custom keybindings to SLIME LISP mode
+(define-key slime-mode-map (kbd "(") 'paredit-open-parenthesis)
+(define-key slime-mode-map (kbd ")") 'paredit-close-parenthesis)
+
+(define-key slime-mode-map (kbd "\"") 'paredit-doublequote)
+(define-key slime-mode-map (kbd "\\") 'paredit-backslash)
+
+(define-key slime-mode-map (kbd "RET") 'newline)
+(define-key slime-mode-map (kbd "<return>") 'newline)
+(define-key slime-mode-map (kbd "C-j") 'paredit-newline)
+
+(define-key slime-mode-map (kbd "C-h") 'backward-sexp)
+(define-key slime-mode-map (kbd "C-t") 'transpose-sexps)
+(define-key slime-mode-map (kbd "C-M-t") 'transpose-chars)
+;;(define-key slime-mode-map (kbd "C-n") 'forward-sexp)
+(define-key slime-mode-map (kbd "C-k") 'kill-sexp)
+(define-key slime-mode-map (kbd "C-M-k") 'paredit-kill)
+(define-key slime-mode-map (kbd "C-'") 'paredit-splice-sexp)
+(define-key slime-mode-map (kbd "C-M-l") 'paredit-recentre-on-sexp)
+(define-key slime-mode-map (kbd "C-,") 'paredit-backward-slurp-sexp)
+(define-key slime-mode-map (kbd "C-.") 'paredit-forward-slurp-sexp)
+(define-key slime-mode-map (kbd "C-<") 'paredit-backward-barf-sexp)
+(define-key slime-mode-map (kbd "C->") 'paredit-forward-barf-sexp)
+;; bound C-M-u to 'backward-up-list (default)
+;;(define-key slime-mode-map (kbd "C-/") 'backward-up-list)
+(define-key slime-mode-map (kbd "C-=") 'down-list)
+(define-key slime-mode-map (kbd "TAB") 'slime-indent-and-complete-symbol)
+(define-key slime-mode-map (kbd "C-c TAB") 'slime-complete-form)
+;; ;;;; this may seem strange, but i often use the C-<whatever> motion
+;; ;;;; commands in sequence to reformat code and having to take a finger off of control
+;; ;;;; to add a return is a pain
+(define-key slime-mode-map (kbd "C-<return>") 'paredit-newline)
+;; ;;;; i hate having to take my key off of ctrl for this and i don't use complete-form anyway...
+(define-key slime-mode-map (kbd "C-c C-i") 'slime-inspect)
+
+;; Java Environment
+;; -----------------
+;; install-jde.sh may be good alternative for installation
+;; wget http://wttools.cvs.sourceforge.net/*checkout*/wttools/wttools/emacs-stuff/install-jde.sh
+;; install-jde -h for help, install-jde -v for verbose output
+
+(load-file "~/.emacs.d/site-lisp/cedet/common/cedet.el")
+;(global-ede-mode t)
+(semantic-load-enable-minimum-features)
+(require 'semantic-ia)
+
+(setq defer-loading-jde t)
+
+;; java-mode-indent-annotations.el
+;; --------------------
+;; wget http://www.emacswiki.org/cgi-bin/wiki/download/java-mode-indent-annotations.el
+(require'java-mode-indent-annotations)
+
+(defun my-jde-mode-hook ()
+  "Hook for running Java file..."
+  (message "Loading my-java-hook")
+  (setq c-basic-offset 2)
+  (setq jde-java-directory "/usr/share/java")
+  (java-mode-indent-annotations-setup) ; need java-mode-indent-annotations.el
+  (message "my-jde-mode-hook function executed"))
+
+;; ;;; Some more customization for JDEE
+;; ;;; check this out and use it if you need it
+;;
+;; (defun my-jde-mode-hook ()
+;;   "Hook for running Java file..."
+;;   (message "Loading my-java-hook...")
+;;   (define-key c-mode-base-map "\C-ca" 'jde-javadoc-generate-javadoc-template)
+;;   (define-key c-mode-base-map "\C-m" 'newline-and-indent)
+;;   (c-set-offset 'substatement-open 0)
+;;   (c-set-offset 'statement-case-open 0)
+;;   (c-set-offset 'case-label '+)
+;;   (fset 'my-javadoc-code
+;;  [?< ?c ?o ?d ?e ?>?< ?/ ?c ?o ?d ?e ?> left left left left left left left])
+;;   (define-key c-mode-base-map "\C-cx" 'my-javadoc-code)
+;;   (abbrev-mode t)
+;;   (setq c-comment-continuation-stars "* "
+;;  tab-width 4
+;;  indent-tabs-mode nil
+;;  tempo-interactive t
+;;  c-basic-offset 4)
+;;   (message "my-jde-mode-hook function executed")
+;; )
+
+(add-hook 'jde-mode-hook 'my-jde-mode-hook)
+
+
+(if defer-loading-jde
+    (progn
+      (autoload 'jde-mode "jde" "JDE mode." t)
+      (setq auto-mode-alist
+      (append
+       '(("\\.java\\'" . jde-mode))
+       auto-mode-alist)))
+  (require 'jde))
+
+(require 'jde-maven2)
+
+(global-set-key (kbd "C-c C-v g") 'jde-maven2-set-current-goal)
+(defun jc ()
+  (interactive)
+  "set current goal to compile and run compile"
+  (jde-maven2-set-current-goal "compile")
+  (jde-build))
+
+(defun jt ()
+  (interactive)
+  "set current goal to compile and run compile"
+  (jde-maven2-set-current-goal "test")
+  (jde-build))
+
+
+
+;; htmlize.el mode
+;; wget http://www.emacswiki.org/emacs/download/htmlize.el
+(require 'htmlize)
+
+;; code browsing
+;; --------------
+;; source from http://ecb.sourceforge.net
+(add-to-list 'load-path "~/elisp/ecb-2.32")
+(require 'ecb)
+
+;; some more basic keybindings
+;;(global-set-key [f1] 'man-follow)
+(global-set-key [f4] 'speedbar-get-focus)
+(global-set-key [f6] 'buffer-menu)
+(global-set-key [M-return] 'expand-abbrev)
+;; next and previous buffer selection
+(global-set-key '[C-tab] 'bs-cycle-next)
+(global-set-key [S-tab] 'bs-cycle-previous)
+
+;; -----------------------------------------------------------------------------
+;; Sekeleton буюу арьснууд
+;;
+;; эд нар нь функц дуудангуут орлуулга хийдэг үйлдлүүд билээ
+;; миний хуулбарласан оригинал тайлбар нь:
+;;
+;; The following skeletons can be called by their function names.  To
+;; add a new one I suggest looking at latex-brief-article-skeleton as
+;; an example.  To have more than one variable look to
+;; latex-letter-skeleton as a model.
+;;
+;; These can be added to the menu bar as above file using
+;; easy-menu-add-item.
+;;
+;; http://www.math.umd.edu/~halbert/dotemacs.html
+;; -----------------------------------------------------------------------------
+
+;; тайлбар хэсэг орлуулах функц
+(define-skeleton elisp-separator-skeleton
+  "Inserts a separator for elisp file."
+  nil
+  ";; -----------------------------------------------------------------------------\n"
+  ";; "_"\n"
+  ";; -----------------------------------------------------------------------------\n"
+  )
+
+(defun latex-letter-skeleton (receivers-address)
+  "Inserts a LaTeX letter skeleton into current buffer.  This
+  only makes sense for empty buffers."
+  (interactive "MReceiver's Address? ")
+  (skeleton-insert
+   '(nil                ;no prompt
+     "\\documentclass[12pt]{letter}\n"
+     "\\usepackage[margin=1in]{geometry}\n"
+     "\\usepackage{pdfsync}\n"
+     "% Some of the article customisations are relevant for this class\n"
+     "\n"
+     "\\name{S.Natsagdorj} % return address on the envelope\n"
+     "\\signature{S. Natsagdorj} % Goes after the closing\n"
+     "\\address{Address}\n"
+     "\n"
+     "%\\makelabels % this command prints envelope labels on the final\n"
+     "            % page of the document\n"
+     "\n"
+     "\\begin{document}\n"
+     "\\begin{letter}{"receivers-address"}\n"
+     "\n"
+     "\\opening{" _ "} % eg Hello.\n"
+     "\n"
+     "\n"
+     "\n"
+     "\\closing{} % eg Regards,\n"
+     "\n"
+     "%\\cc{} % people this letter is cc-ed to\n"
+     "%\\encl{} % list of anything enclosed\n"
+     "%\\ps{} % any post scriptums.\n"
+     "\n"
+     "\\end{letter}\n"
+     "\\end{document}\n")))
+
+(define-skeleton latex-simple-text-skeleton
+  "inserts a simple blank page skeleton."
+  nil
+  "\\documentclass{article}\n"
+  "\\usepackage{geometry}\n"
+  "\\geometry{margin=1in}\n"
+  "\\usepackage{graphicx}\n"
+  "\\usepackage{shortcuts}\n"
+  "\\usepackage{pdfsync}\n"
+  "\\usepackage{amssymb, amsmath, latexsym}\n"
+  "\\setlength{\\parskip}{2.3ex}            % vertical space between paragraphs\n"
+  "\\setlength{\\parindent}{0in}            % amount of indentation of paragraph\n"
+  "%this package allows for hyperlinks within the pdf document\n"
+  "\\usepackage[colorlinks=true, linkcolor=blue,pdfstartview=FitV,\n"
+  "citecolor=gray40, urlcolor=blue]{hyperref}\n"
+  "\n"
+  "\\begin{document}\n"
+  "\\thispagestyle{empty}\n"
+  "\\begin{center}\n"
+  "  \\large{\\textbf{Title}}\n"
+  "\\end{center}\n"
+  "\n"
+  "An example of a\n"
+  "\\href{http://www.math.umd.edu/research/spotlight}{hyperlink} is\n"
+  "given here.\n"
+  _"\n"
+  "\\end{document}\n")
+
+(define-skeleton elisp-skeleton
+  "Inserts a elisp skeleton."
+  nil
+  ";;; " (file-name-nondirectory buffer-file-name) "--- \n"
+  ";;\n"
+  ";;\n"
+  ";;\n"
+  ";; Author: " (user-full-name) "\n"
+  ";;\n"
+  ";;; Commentary:\n"
+  ";; "_"\n"
+  ";; \n"
+  ";;; Code:\n")
+
+(define-skeleton latex-foils-skeleton
+  "Inserts a template for foiltex slides."
+  nil
+  "\\documentclass{foils}\n"
+  "\\usepackage{amssymb, amsmath}\n"
+  "\\usepackage{graphicx}\n"
+  "\\usepackage[mathscr]{eucal}\n"
+  "\\usepackage{pb-diagram}\n"
+  "\\usepackage{shortcuts}\n"
+  "\\usepackage{pdfsync}\n"
+  "\\usepackage{color}\n"
+  "\\pagenumbering{arabic}\n"
+  "\n"
+  "\\title{"_"}\n"
+  "\\author{S.Natsagdorj}\n"
+  "\\date{\\today}\n"
+  "\n"
+  "\\MyLogo{-- Short Talk Title --}\n"
+  "%\\Restriction{}\n"
+  "%\\leftfooter{} \n"
+  "%\\rightfooter{}\n"
+  "%\\leftheader{S.Natsagdorj}\n"
+  "%\\rightheader{\\foiltexdate}\n"
+  "\n"
+  "\\begin{document}\n"
+  "\\maketitle\n"
+  "\\foilhead{}                     %References\n"
+  "\\nocite{chorin2002}\n"
+  "\\nocite{zwanzig:1960}\n"
+  "\\nocite{zwanzig:1961}\n"
+  "\n"
+  "\\bibliographystyle{amsplain}\n"
+  "\\bibliography{research}\n"
+  "\\foilhead{Overview}\n"
+  "\\begin{itemize}\n"
+  "\\item \n"
+  "\\end{itemize}\n"
+  "\n"
+  "\\rotatefoilhead{}               %landscape slide\n"
+  "\n"
+  "\\rotatefoilhead[-1in]{}         %landscape with adjustment\n"
+  "\n"
+  "\\begin{center}\n"
+  "  \\Large{The End.}\n"
+  "\\end{center}\n"
+  "\\end{document}\n")
+
+(define-skeleton latex-AMS-article-skeleton
+  "Inserts a AMS LaTeX skeleton for an article."
+  nil
+  "\\documentclass[10pt]{amsart}\n"
+  "\\usepackage{amssymb,latexsym}\n"
+  "\\usepackage{graphicx}\n"
+  "\\usepackage{shortcuts}\n"
+  "\\usepackage{pdfsync}\n"
+  "\\usepackage[mathscr]{eucal}\n"
+  "\\thispagestyle{empty}\n"
+  "\n"
+  "%%% PAGE DIMENSIONS\n"
+  "\\usepackage{geometry} % to change the page dimensions\n"
+  "\\geometry{margin=0.75in} % for example, change the margins to 2 inches all round\n"
+  "%\\geometry{landscape} % set up the page for landscape\n"
+  "% read geometry.pdf for detailed page layout information\n"
+  "\n"
+  "\\newtheorem{theorem}{Theorem}\n"
+  "\\newtheorem{corollary}[theorem]{Corollary}\n"
+  "\\newtheorem{definition}{Definition}\n"
+  "\\newtheorem{lemma}{Lemma}\n"
+  "\\theoremstyle{remark}\n"
+  "\\newtheorem{remark}{Remark}\n"
+  "\n"
+  "\\begin{document}\n"
+  "\\title[short-title]{long title}\n"
+  "\\author{S.Natsagdorj}\n"
+  "\\address{Mathematics Department\\\\\n"
+  "        University of Maryland\\\\\n"
+  "        College Park, MD 20742}\n"
+  "\\email{halbert@math.umd.edu}\n"
+  "\\urladdr{http://www.math.umd.edu/$\\sim$halbert}\n"
+  "\\thanks{This work was done ...}\n"
+  "\\date{\\today}\n"
+  "\\begin{abstract}\n"
+  > _ \n
+  "\\end{abstract}\n"
+  "\\maketitle\n"
+  "\n"
+  "\n"
+  "\\bibliographystyle{amsplain}\n"
+  "\\bibliography{bib-database}\n"
+  "\\end{document}\n")
+
+(define-skeleton latex-brief-article-skeleton
+  "Inserts a LaTeX skeleton for a brief article."
+  "Title: "
+  "\\documentclass[11pt]{article}\n"
+  "\\usepackage{geometry}                % See geometry.pdf to learn the\n"
+  "                                     % layout options. There are lots.\n"
+  "\\geometry{letterpaper} \n"
+  "% \\geometry{landscape} % Activate for for rotated page geometry\n"
+  "% \\usepackage[parfill]{parskip} % Activate to begin paragraphs with an\n"
+  "                                % empty line rather than an indent\n"
+  "\\usepackage{graphicx}\n"
+  "\\usepackage{amssymb}\n"
+  "\\usepackage{epstopdf}\n"
+  "\\usepackage{pdfsync}\n"
+  "\\usepackage{shortcuts}\n"
+  "\n"
+  "\\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}\n"
+  "\n"
+  "\\title{"str | "Brief Article""}\n"
+  "\\author{S.Natsagdorj}\n"
+  "% \\date{} % Activate to display a given date or no date\n"
+  "\n"
+  "\\begin{document}\n"
+  "\\maketitle\n"
+  "%\\section{}\n"
+  "%\\subsection{}\n"
+  "\n"
+  > _ "\n"
+  "\n"
+  "\\end{document}\n")
+
+;;------------------------------- for mn keyboard layout ------------------------------
+;; ;; -----------------------------------------------------------------
+;; ;; this must be inserted to leim-list.el file
+;; ;; -----------------------------------------------------------------
+;; (register-input-method
+;;  "mongolian-cyrillic" "Mongolian" 'quail-use-package
+;;  "MN" "Mongolian standart computer layout"
+;;  "quail/cyrillic")
+;; (register-input-method
+;;  "nara-mongolian-cyrillic" "Mongolian-Nara" 'quail-use-package
+;;  "MNN" "Mongolian computer keyboard layout for my b-wife"
+;;  "quail/cyrillic")
+
+;; ;; -----------------------------------------------------------------
+;; ;; this must be inserted into cyrillic.el file
+;; ;; to convert into cyrillic.elc file:
+;; ;; emacs -batch -f batch-byte-compile cyrillic.el
+;; ;; -----------------------------------------------------------------
+;; ;; This is mongolian standart keyboard layout.
+;; (quail-define-package
+;;  "mongolian-cyrillic" "Mongolian" "MN" nil
+;;  "Mongolian standart computer layout"
+;;  nil t t t t nil nil nil nil nil t)
+
+;; ;;  №1 -2 "3 ₮4 :5 .6 ?7 ,8 (9 )0 еЕ щЩ =+
+;; ;;   Ф  Ц  У  Ж  Э  Н  Г  Ш  Ү  З  К  Ъ
+;; ;;    Й  Ы  Б  Ө  А  Х  Р  О  Л  Д  П
+;; ;;     Я  Ч  Ё  С  М  И  Т  Ь  В  Ю
+
+;; (quail-define-rules
+;;  ("1" ?№)
+;;  ("2" ?-)
+;;  ("3" ?\")
+;;  ("4" ?₮)
+;;  ("5" ?:)
+;;  ("6" ?.)
+;;  ("7" ??)
+;;  ("8" ?,)
+;;  ("9" ?()
+;;  ("0" ?))
+;;  ("-" ?е)
+;;  ("=" ?щ)
+;;  ("`" ?=)
+;;  ("q" ?ф)
+;;  ("w" ?ц)
+;;  ("e" ?у)
+;;  ("r" ?ж)
+;;  ("t" ?э)
+;;  ("y" ?н)
+;;  ("u" ?г)
+;;  ("i" ?ш)
+;;  ("o" ?ү)
+;;  ("p" ?з)
+;;  ("[" ?к)
+;;  ("]" ?ъ)
+;;  ("a" ?й)
+;;  ("s" ?ы)
+;;  ("d" ?б)
+;;  ("f" ?ө)
+;;  ("g" ?а)
+;;  ("h" ?х)
+;;  ("j" ?р)
+;;  ("k" ?о)
+;;  ("l" ?л)
+;;  (";" ?д)
+;;  ("'" ?п)
+;;  ("\\" ?\\)
+;;  ("z" ?я)
+;;  ("x" ?ч)
+;;  ("c" ?ё)
+;;  ("v" ?с)
+;;  ("b" ?м)
+;;  ("n" ?и)
+;;  ("m" ?т)
+;;  ("," ?ь)
+;;  ("." ?в)
+;;  ("/" ?ю)
+;;  ("!" ?1)
+;;  ("@" ?2)
+;;  ("#" ?3)
+;;  ("$" ?4)
+;;  ("%" ?5)
+;;  ("^" ?6)
+;;  ("&" ?7)
+;;  ("*" ?8)
+;;  ("(" ?9)
+;;  (")" ?0)
+;;  ("_" ?Е)
+;;  ("+" ?Щ)
+;;  ("~" ?+)
+;;  ("Q" ?Ф)
+;;  ("W" ?Ц)
+;;  ("E" ?У)
+;;  ("R" ?Ж)
+;;  ("T" ?Э)
+;;  ("Y" ?Н)
+;;  ("U" ?Г)
+;;  ("I" ?Ш)
+;;  ("O" ?Ү)
+;;  ("P" ?З)
+;;  ("{" ?К)
+;;  ("}" ?Ъ)
+;;  ("A" ?Й)
+;;  ("S" ?Ы)
+;;  ("D" ?Б)
+;;  ("F" ?Ө)
+;;  ("G" ?А)
+;;  ("H" ?Х)
+;;  ("J" ?Р)
+;;  ("K" ?О)
+;;  ("L" ?Л)
+;;  (":" ?Д)
+;;  ("\"" ?П)
+;;  ("|" ?|)
+;;  ("Z" ?Я)
+;;  ("X" ?Ч)
+;;  ("C" ?Ё)
+;;  ("V" ?С)
+;;  ("B" ?М)
+;;  ("N" ?И)
+;;  ("M" ?Т)
+;;  ("<" ?Ь)
+;;  (">" ?В)
+;;  ("?" ?Ю))
+
+
+;; ;; This is mongolian standart keyboard layout for my wife.
+;; (quail-define-package
+;;  "nara-mongolian-cyrillic" "Mongolian-Nara" "MNN" nil
+;;  "Mongolian computer keyboard layout for my wife"
+;;  nil t t t t nil nil nil nil nil t)
+
+;; ;;  №1 -2 "3 ₮4 :5 .6 ?7 ,8 (9 )0 еЕ ёЁ =+
+;; ;;   Ш  Ч  Э  Р  Т  З  У  И  О  П  Ү  Ь
+;; ;;    А  С  Д  Ф  Г  Х  Ж  К  Л  Ө  Й
+;; ;;     Ю  Я  Ц  В  Б  И  М  ,  .  Ъ
+;; (quail-define-rules
+;;  ("1" ?№)
+;;  ("2" ?-)
+;;  ("3" ?\")
+;;  ("4" ?₮)
+;;  ("5" ?:)
+;;  ("6" ?.)
+;;  ("7" ??)
+;;  ("8" ?,)
+;;  ("9" ?()
+;;  ("0" ?))
+;;  ("-" ?е)
+;;  ("=" ?ё)
+;;  ("`" ?=)
+;;  ("q" ?ш)
+;;  ("w" ?ч)
+;;  ("e" ?э)
+;;  ("r" ?р)
+;;  ("t" ?т)
+;;  ("y" ?з)
+;;  ("u" ?у)
+;;  ("i" ?и)
+;;  ("o" ?о)
+;;  ("p" ?п)
+;;  ("[" ?ү)
+;;  ("]" ?ь)
+;;  ("a" ?а)
+;;  ("s" ?с)
+;;  ("d" ?д)
+;;  ("f" ?ф)
+;;  ("g" ?г)
+;;  ("h" ?х)
+;;  ("j" ?ж)
+;;  ("k" ?к)
+;;  ("l" ?л)
+;;  (";" ?ө)
+;;  ("'" ?й)
+;;  ("\\" ?\\)
+;;  ("z" ?ю)
+;;  ("x" ?я)
+;;  ("c" ?ц)
+;;  ("v" ?в)
+;;  ("b" ?б)
+;;  ("n" ?н)
+;;  ("m" ?м)
+;;  ("," ?,)
+;;  ("." ?.)
+;;  ("/" ?ъ)
+;;  ("!" ?1)
+;;  ("@" ?2)
+;;  ("#" ?3)
+;;  ("$" ?4)
+;;  ("%" ?5)
+;;  ("^" ?6)
+;;  ("&" ?7)
+;;  ("*" ?8)
+;;  ("(" ?9)
+;;  (")" ?0)
+;;  ("_" ?Е)
+;;  ("+" ?Ё)
+;;  ("~" ?+)
+;;  ("Q" ?Ш)
+;;  ("W" ?Ч)
+;;  ("E" ?Э)
+;;  ("R" ?Р)
+;;  ("T" ?Т)
+;;  ("Y" ?З)
+;;  ("U" ?У)
+;;  ("I" ?И)
+;;  ("O" ?О)
+;;  ("P" ?П)
+;;  ("{" ?Ү)
+;;  ("}" ?Ь)
+;;  ("A" ?А)
+;;  ("S" ?С)
+;;  ("D" ?Д)
+;;  ("F" ?Ф)
+;;  ("G" ?Г)
+;;  ("H" ?Х)
+;;  ("J" ?Ж)
+;;  ("K" ?К)
+;;  ("L" ?Л)
+;;  (":" ?Ө)
+;;  ("\"" ?Й)
+;;  ("|" ?|)
+;;  ("Z" ?Ю)
+;;  ("X" ?Я)
+;;  ("C" ?Ц)
+;;  ("V" ?В)
+;;  ("B" ?Б)
+;;  ("N" ?Н)
+;;  ("M" ?М)
+;;  ("<" ?Ь)
+;;  (">" ?В)
+;;  ("?" ?Ъ))
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(c-basic-offset 2)
+ '(ecb-options-version "2.32")
+ '(jde-help-browser-function "w3m-browse-url")
+ '(jde-help-docsets (quote (("JDK API" "" nil) ("User (javadoc)" "$SOURCES/OSCI/SDK_1_0/OSCI-Client-Enabler/api-doc/" nil) ("User (javadoc)" "$SOURCES/OSCI/SDK_1_0/Document-Interface/api-doc/" nil) ("User (javadoc)" "$SOURCES/OSCI/SDK_1_0/OSCI-Bibliothek/OSCI-Bibliothek-Java/apidoc/" nil) ("User (javadoc)" "$SOURCES/OSCI/SDK_1_0/OSCI-Manager/api-doc/" nil) ("User (javadoc)" "$SOURCES/OSCI/SDK_1_0/OSCI-Backend-Enabler/api-doc/" nil) ("User (javadoc)" "$SOURCES/OSCI/SDK_1_0/NetSigner/api-doc/" nil) ("User (javadoc)" "$SOURCES/OSCI/SDK_1_0/Technical-Preview/OSCI-Client-Enabler/api-doc/" nil))))
+ '(setq tab-width t))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
+;; here are some cool tricks
+;; =========================
+
+;; Folding:
+;; --------
+;; M-<Number> C-x $  -> will fold (or hide) lines started width <Number>
+;; C-x $  -> back to normal mode
