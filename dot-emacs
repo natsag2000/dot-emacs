@@ -2,21 +2,20 @@
 ;; Бичсэн буюу будаа идэгч         : Ш.Нацагдорж
 ;; Тодорхойлолт  : Миний эмакс тохиргоо
 ;;
-;; Сануулгууд:
-;;   - Болж өгвөл (message "text") гэж алдааг олохоор тохируулах
-
 ;; АНХААР!
 ;;   гэрийн сан дотроо .backups .autosaves гэсэн хоёр сан үүсгэхээ бүү март
 ;;
 ;; Зорилго:
-;; цэгц, цэвэрхэн, жижиглэсэн байлга
+;;   цэгц, цэвэрхэн, жижиглэсэн байлга
+;;
+;; TODO:
+;;   create a Makefile for external elisp files! ( download, compile etc., steps )
 ;; -----------------------------------------------------------------------------
 
 ;; My custom elisp file directory
 ;; Энэ санд миний бусад тохиргоонууд байрлана
 ;; -----------------------------------------------
 (setq custom-basedir (expand-file-name "~/elisp/"))
-(add-to-list 'load-path custom-basedir) ;; temp solution
 
 (defun add-path (p)
   (add-to-list 'load-path (concat custom-basedir p)))
@@ -24,28 +23,28 @@
 (defun ext-load-file (p)
   (load-file (concat custom-basedir p)))
 
-(message "Loading nagi-bootstrap.el ...")
+(message "Loading nagi-bootstrap.el ==============================>")
 (ext-load-file "nagi-bootstrap.el")
 
 (message "Loading nagi-general.el ...")
 (ext-load-file "nagi-general.el")
 
-(message "Loading nagi-global-alias-and-keys.el ...")
+(message "Loading nagi-global-alias-and-keys.el ==================>")
 (ext-load-file "nagi-global-alias-and-keys.el")
 
-(message "Loading nagi-general-functions.el ...")
+(message "Loading nagi-general-functions.el ======================>")
 (ext-load-file "nagi-general-functions.el")
 
-(message "Loading nagi-special-functions.el ...")
+(message "Loading nagi-special-functions.el ======================>")
 (ext-load-file "nagi-special-functions.el")
 
-(message "Loading nagi-skeletons.el ...")
+(message "Loading nagi-skeletons.el ==============================>")
 (ext-load-file "nagi-skeletons.el")
 
-(message "Loading nagi-emacs-custom-file.el ...")
+(message "Loading nagi-emacs-custom-file.el ======================>")
 (ext-load-file "nagi-emacs-custom-file.el")
 
-(message "Loading nagi-external-elisp.el ...")
+(message "Loading nagi-external-elisp.el =========================>")
 (ext-load-file "nagi-external-elisp.el")
 
 ;; (message "Loading nagi-printer.el ...")
