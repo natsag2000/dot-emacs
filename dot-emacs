@@ -26,7 +26,7 @@
 (message "Loading nagi-bootstrap.el ==============================>")
 (ext-load-file "nagi-bootstrap.el")
 
-(message "Loading nagi-general.el ...")
+(message "Loading nagi-general.el ================================>")
 (ext-load-file "nagi-general.el")
 
 (message "Loading nagi-global-alias-and-keys.el ==================>")
