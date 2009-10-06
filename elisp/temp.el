@@ -1,5 +1,3 @@
-
-
 ;; nXML mode
 ;; ---------
 (load "rng-auto.el")
@@ -159,7 +157,6 @@ by using nxml's indentation rules."
             (dolist (spec distel-shell-keys)
               (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
 
-
 ;; Bongo player
 ;; --------------------
 ;; бас дуу хөгжим тоглуулагч
@@ -199,8 +196,6 @@ by using nxml's indentation rules."
 ;; subversion програмын хувилбар зохицуулагч
 ;; /usr/ports/devel/psvn
 (require 'psvn)
-
-
 
 ;; flymake with python
 ;; -------------------
@@ -285,12 +280,7 @@ by using nxml's indentation rules."
 (add-to-list 'load-path "~/elisp/predictive")
 (autoload 'predictive-mode "predictive" "predictive" t)
 
-;; linum
-;; -----
-;; Мөрийн дугаар харуулагч
-;; ~/elisp/linum.el
-(require 'linum)
-(global-linum-mode t)
+
 
 
 ;; SLIME
@@ -358,21 +348,13 @@ by using nxml's indentation rules."
 (define-key slime-mode-map (kbd "C-c C-i") 'slime-inspect)
 
 
-;; htmlize.el mode
-;; wget http://www.emacswiki.org/emacs/download/htmlize.el
-(require 'htmlize)
-
 ;; code browsing
 ;; --------------
 ;; source from http://ecb.sourceforge.net
 ;;(add-to-list 'load-path "~/elisp/ecb-2.32")
 ;;(require 'ecb)
 
-;; woof.el
-;; -------
-;; Web Offer One File
-;; wget http://www.xsteve.at/prg/emacs/woof.el
-;;(require 'woof)
+
 
 ;; ==========================
 ;; tagging.el

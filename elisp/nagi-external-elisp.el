@@ -50,3 +50,13 @@
 ;; default color theme is billw (I liked it :)
 (color-theme-initialize)
 (color-theme-oswald)
+
+;; htmlize.el mode
+;; ---------------
+;; export a buffer to html
+(require 'htmlize)
+
+;; woof.el
+;; -------
+;; Web Offer One File
+(require 'woof)

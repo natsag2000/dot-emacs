@@ -34,10 +34,14 @@
 
 ;; using ido for switch buffer
 ;; буфер сэлгэх үйлдлийг амарчлагч
-(require 'ido)
 (ido-mode t)
 ;;(ido-mode 'buffer)
 (setq ido-enable-flex-matching t)
+
+;; linum
+;; -----
+;; Мөрийн дугаар харуулагч
+(global-linum-mode t)
 
 ;; uniquify
 ;; --------
