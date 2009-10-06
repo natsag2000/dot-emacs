@@ -6,7 +6,10 @@
 ;;;    pager.el
 ;;;    tabbar.el
 ;;;    figlet.el
+;;;    htmlize.el
+;;;    woof.el
 ;;;    color-theme
+;;;    muse
 ;;;-----------------------------------------------------------------------
 
 ;; x-dict.el
@@ -60,3 +63,20 @@
 ;; -------
 ;; Web Offer One File
 (require 'woof)
+
+;; muse
+;; ----
+;; текст засварлагч, экспортлогч
+;; git clone git://repo.or.cz/muse-el.git muse or with use web URL
+;;(add-to-list 'load-path "~/elisp/muse")
+(require 'muse-mode)
+(require 'muse-html)  ; load publishing styles
+(require 'muse-latex)
+(require 'muse-texinfo)
+(require 'muse-docbook)
+(require 'muse-project) ; publish files in project
+; my muse project folder
+(setq muse-project-alist
+      '(("howto-pages" ("~/mymuses" :default "index")
+         (:base "html" :path "~/mymuse-outputs/html")
+         (:base "pdf" :path "~/mymuse-outputs/pdf"))))

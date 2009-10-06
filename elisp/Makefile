@@ -13,6 +13,8 @@ woof.el_URL			 = "http://www.xsteve.at/prg/emacs/woof.el"
 x-dict.el_URL		 = "http://www.xsteve.at/prg/emacs/x-dict.el"
 color-theme_URL  = "http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz"
 color-theme_NAME = "color-theme-6.6.0"
+muse_URL = "http://repo.or.cz/w/muse-el.git?a=snapshot;h=617fa8c5d1ed92e8b2eff4d6d2b53e608440db20;sf=tgz"
+muse_NAME = "muse-3.12"
 
 REMOVE	= rm -rf
 
@@ -38,10 +40,20 @@ color-theme: $(EXTERN)
 		tar xvfz $(DISTS)/$($@_NAME).tar.gz -C $(EXTERN) ;\
 	fi
 
+muse: $(EXTERN)
+	if test ! -d "$(EXTERN)/$@"; \
+	then \
+		wget $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
+		tar xvfz $(DISTS)/$($@_NAME).tar.gz -C $(EXTERN) ;\
+	fi
+
 general: x-dict.el pager.el tabbar.el figlet.el htmlize.el woof.el
 	echo "misc elisp files are downloaded."
 
-all : general color-theme
+extended: color-theme muse
+	echo "extended elisp files are downloaded."
+
+all : general extended
 	echo "DONE"
 
 install:

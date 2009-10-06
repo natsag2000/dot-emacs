@@ -27,7 +27,6 @@ by using nxml's indentation rules."
 ;; OR you can use xmllint command for pretty printing!
 ;; e.g C-x h M-| xmllint --format -
 
-
 ;; Haskell mode
 ;; -----------------
 ;; cvs -d :pserver:anoncvs@cvs.haskell.org:/cvs login # password 'cvs'
@@ -173,23 +172,6 @@ by using nxml's indentation rules."
 ;; (emms-default-players)
 ;; (global-set-key "\C-c\C-l" 'bongo-seek)
 
-;; muse
-;; ----
-;; текст засварлагч, экспортлогч
-;; /usr/ports/textproc/muse --old way
-;; git clone git://repo.or.cz/muse-el.git muse
-(add-to-list 'load-path "~/elisp/muse")
-(require 'muse-mode)
-(require 'muse-html)  ; load publishing styles
-(require 'muse-latex)
-(require 'muse-texinfo)
-(require 'muse-docbook)
-(require 'muse-project) ; publish files in project
-; my muse project folder
-(setq muse-project-alist
-      '(("howto-pages" ("~/mymuses" :default "index")
-         (:base "html" :path "~/mymuse-outputs/html")
-         (:base "pdf" :path "~/mymuse-outputs/pdf"))))
 
 ;; psvn
 ;; ----
@@ -214,8 +196,6 @@ by using nxml's indentation rules."
   (add-to-list 'flymake-allowed-file-name-masks
            '("\\.py\\'" flymake-pylint-init)))
 
-
-
 ;; yasnippet
 ;; ---------
 ;; төрөл бүрийн програмуудад тохирсон товчлолууд
@@ -225,7 +205,6 @@ by using nxml's indentation rules."
 (require 'yasnippet)
 (yas/initialize)
 (yas/load-directory "~/elisp/yasnippet/snippets")
-
 
 ;; Python
 ;; ------
@@ -279,9 +258,6 @@ by using nxml's indentation rules."
 ;; ~/elisp/predictive
 (add-to-list 'load-path "~/elisp/predictive")
 (autoload 'predictive-mode "predictive" "predictive" t)
-
-
-
 
 ;; SLIME
 ;; -----
@@ -354,17 +330,11 @@ by using nxml's indentation rules."
 ;;(add-to-list 'load-path "~/elisp/ecb-2.32")
 ;;(require 'ecb)
 
-
-
 ;; ==========================
 ;; tagging.el
 ;; wget http://lisperati.com/tagging.el
 ;; ==========================
 (load "tagging.el")
-
-
-
-
 
 ;; w3m mode
 ;; ---------------
