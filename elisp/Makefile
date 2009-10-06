@@ -1,8 +1,6 @@
 BASEDIR = elisp
 DISTS   = dist
-ERLANG	= erlang
 EXTERN  = ext
-JAVA		= java
 MISC		= misc
 
 figlet.el_URL						 = "http://repo.or.cz/w/ShellArchive.git?a=blob_plain;hb=HEAD;f=figlet.el"
@@ -17,6 +15,8 @@ muse_URL								 = "http://repo.or.cz/w/muse-el.git?a=snapshot;h=617fa8c5d1ed92e
 muse_NAME								 = "muse-3.12"
 erlang_URL							 = "http://erlware-mode.googlecode.com/files/erlware-mode-0.1.16.tar.gz"
 erlang_NAME							 = "erlware-mode-0.1.16"
+distel_URL							 = "http://distel.googlecode.com/svn/trunk/"
+distel_NAME							 = "distel"
 
 REMOVE	= rm -rf
 
@@ -56,10 +56,16 @@ erlang: $(EXTERN)
 		tar xvfz $(DISTS)/$($@_NAME).tar.gz -C $(EXTERN) ;\
 	fi
 
+distel: $(EXTERN)
+	if test ! -d "$(EXTERN)/$@"; \
+	then \
+		svn export $($@_URL) $(EXTERN)/$($@_NAME) ;\
+	fi
+
 general: x-dict.el pager.el tabbar.el figlet.el htmlize.el woof.el
 	echo "misc elisp files are downloaded."
 
-extended: color-theme muse erlang
+extended: color-theme muse erlang distel
 	echo "extended elisp files are downloaded."
 
 all : general extended

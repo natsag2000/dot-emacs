@@ -11,6 +11,7 @@
 ;;;    color-theme
 ;;;    muse
 ;;;    erlang
+;;;    distel
 ;;;-----------------------------------------------------------------------
 
 ;; x-dict.el
@@ -89,3 +90,11 @@
 (setq exec-path (cons "/usr/local/bin" exec-path))
 (require 'erlang-start)
 (setq erlang-man-root-dir "/usr/lib/erlang/man")
+
+;; this is needed for Distel setup
+(let ((distel-dir (expand-file-name "~/elisp/ext/distel/elisp")))
+  (unless (member distel-dir load-path)
+    ;; Add distel-dir to the end of load-path
+    (setq load-path (append load-path (list distel-dir)))))
+(require 'distel)
+(distel-setup)

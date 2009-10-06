@@ -115,23 +115,7 @@ by using nxml's indentation rules."
 
 (add-hook 'haskell-mode-hook 'haskell-unicode)
 
-;; Erlang emacs mode
-;; -----------------
-;; ~/elisp/erlware-mode-0.1.7
-(add-to-list 'load-path "~/elisp/erlware-mode-0.1.11")
-(setq erlang-root-dir "/usr/lib/erlang")
-(setq exec-path (cons "/usr/local/bin" exec-path))
-(require 'erlang-start)
-(setq erlang-man-root-dir "/usr/lib/erlang/man")
 
-;; this is needed for Distel setup
-;; svn checkout http://distel.googlecode.com/svn/trunk/ distel
-(let ((distel-dir "/usr/local/share/distel/elisp"))
-  (unless (member distel-dir load-path)
-    ;; Add distel-dir to the end of load-path
-    (setq load-path (append load-path (list distel-dir)))))
-(require 'distel)
-(distel-setup)
 
 ;; Some Erlang customizations
 (add-hook 'erlang-mode-hook
