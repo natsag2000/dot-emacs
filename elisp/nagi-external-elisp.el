@@ -10,6 +10,7 @@
 ;;;    woof.el
 ;;;    color-theme
 ;;;    muse
+;;;    erlang
 ;;;-----------------------------------------------------------------------
 
 ;; x-dict.el
@@ -80,3 +81,11 @@
       '(("howto-pages" ("~/mymuses" :default "index")
          (:base "html" :path "~/mymuse-outputs/html")
          (:base "pdf" :path "~/mymuse-outputs/pdf"))))
+
+;; Erlang emacs mode
+;; -----------------
+;(add-to-list 'load-path "~/elisp/erlware-mode-0.1.11")
+(setq erlang-root-dir "/usr/lib/erlang")
+(setq exec-path (cons "/usr/local/bin" exec-path))
+(require 'erlang-start)
+(setq erlang-man-root-dir "/usr/lib/erlang/man")
