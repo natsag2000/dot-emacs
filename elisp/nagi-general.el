@@ -32,6 +32,16 @@
    (set-selection-coding-system 'utf-8)
    (prefer-coding-system 'utf-8)
 
+;; using ido for switch buffer
+;; буфер сэлгэх үйлдлийг амарчлагч
+(ido-mode t)
+;;(ido-mode 'buffer)
+(setq ido-enable-flex-matching t)
+
+;; linum
+;; -----
+;; Мөрийн дугаар харуулагч
+(global-linum-mode t)
 
 ;; uniquify
 ;; --------

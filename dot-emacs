@@ -10,6 +10,7 @@
 ;;
 ;; TODO:
 ;;   create a Makefile for external elisp files! ( download, compile etc., steps )
+;;   recursive load-path doesn't work!!
 ;; -----------------------------------------------------------------------------
 
 ;; My custom elisp file directory
@@ -19,6 +20,8 @@
 
 (defun add-path (p)
   (add-to-list 'load-path (concat custom-basedir p)))
+
+(add-path "misc")
 
 (defun ext-load-file (p)
   (load-file (concat custom-basedir p)))
