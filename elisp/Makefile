@@ -11,6 +11,8 @@ pager.el_URL		 = "http://user.it.uu.se/~mic/pager.el"
 tabbar.el_URL    = "http://github.com/davidswelt/aquamacs-emacs/raw/master/aquamacs/src/site-lisp/tabbar/tabbar.el"
 woof.el_URL			 = "http://www.xsteve.at/prg/emacs/woof.el"
 x-dict.el_URL		 = "http://www.xsteve.at/prg/emacs/x-dict.el"
+color-theme_URL  = "http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz"
+color-theme_NAME = "color-theme-6.6.0"
 
 REMOVE	= rm -rf
 
@@ -32,10 +34,8 @@ $(DISTS):
 color-theme: $(EXTERN)
 	if test ! -d "$(EXTERN)/$@"; \
 	then \
-		wget http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz && \
-		tar xvfz color-theme-6.6.0.tar.gz && \
-		mv color-theme-6.6.0 $(EXTERN)/$@ && \
-		rm color-theme-6.6.0.tar.gz ;\
+		wget $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
+		tar xvfz $(DISTS)/$($@_NAME).tar.gz -C $(EXTERN) ;\
 	fi
 
 general: x-dict.el pager.el tabbar.el figlet.el htmlize.el woof.el
