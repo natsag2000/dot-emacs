@@ -23,7 +23,7 @@
 ;; custom-basedir дотор байгаа бүх сангуудыг нэмэх
 ;; --------------------------------------------------
 (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-    (let* ((my-lisp-dir custom-basedir)
-     (default-directory my-lisp-dir))
+    (let* ((my-lisp-dir "~/elisp/")
+           (default-directory my-lisp-dir))
       (setq load-path (cons my-lisp-dir load-path))
       (normal-top-level-add-subdirs-to-load-path)))
