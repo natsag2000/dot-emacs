@@ -57,10 +57,14 @@ all : general extended
 	echo "DONE"
 
 install:
-	rm -rf ~/$(BASEDIR)-old 2>/dev/null;
+	if test -d ~/$(BASEDIR)-old; then rm -rf ~/$(BASEDIR)-old 2>/dev/null; fi;
+	if test -d ~/$(BASEDIR); \
+	then \
+		mv ~/$(BASEDIR) ~/$(BASEDIR)-old ;\
+	fi; \
+	mkdir ~/$(BASEDIR); \
 	cp ../dot-emacs ~/.emacs && \
-	mv ~/$(BASEDIR) ~/$(BASEDIR)-old && mkdir ~/$(BASEDIR) && \
-	cp -r * ~/$(BASEDIR)
+	cp ./* ~/$(BASEDIR)/;
 
 clean:
 	$(REMOVE) $(MISC) $(EXTERN) $(DISTS)
