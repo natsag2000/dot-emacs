@@ -21,57 +21,62 @@
 ;;;
 ;;;-----------------------------------------------------------------------
 
+(defun nrequire (mod)
+  (unless (require mod nil t)
+    (message "|=|=|=|=|=|=|=|=|=|=|=|=|=|> %s is NOT found, so NOT LOADED!" mod)))
+
 ;; x-dict.el
 ;; --------
 ;; online dictionary
 ;; wget http://www.xsteve.at/prg/python/x-dict  -> save it to PATH
 ;; wget http://www.xsteve.at/prg/emacs/x-dict.el
-(require 'x-dict)
+(nrequire 'x-dict)
 
 ;; pager.el
 ;; --------
 ;; for better scrolling
-(require 'pager)
+(when (require 'pager nil t)
 ;;; Bind scrolling functions from pager library.
-(global-set-key  [next]  'pager-page-down)
-(global-set-key  "\C-v"  'pager-page-down)
-(global-set-key  [prior] 'pager-page-up)
-(global-set-key  "\M-v"  'pager-page-up)
-(global-set-key  "\M-p"  'pager-row-up)
-(global-set-key  "\M-n"  'pager-row-down)
-(global-set-key  "\C-n"  'next-line)
-(global-set-key  "\C-p"  'previous-line)
+  (global-set-key  [next]  'pager-page-down)
+  (global-set-key  "\C-v"  'pager-page-down)
+  (global-set-key  [prior] 'pager-page-up)
+  (global-set-key  "\M-v"  'pager-page-up)
+  (global-set-key  "\M-p"  'pager-row-up)
+  (global-set-key  "\M-n"  'pager-row-down)
+  (global-set-key  "\C-n"  'next-line)
+  (global-set-key  "\C-p"  'previous-line))
 
 ;; tabbar.el
 ;; --------
-(require 'tabbar)
-(tabbar-mode 1)
-(global-set-key "\M-[" 'tabbar-backward)
-(global-set-key "\M-]" 'tabbar-forward)
+(when (require 'tabbar nil t)
+  (tabbar-mode 1)
+  (global-set-key "\M-[" 'tabbar-backward)
+  (global-set-key "\M-]" 'tabbar-forward))
 
 ;; figlet
 ;; ------
 ;; текстийг том зураасаар дүрслэгч
-(require 'figlet)
+(when (file-exists-p "~/elisp/misc/figlet.el")
+  (require 'figlet))
 
 ;; color-theme
 ;; ------------
 ;; Төрөл бүрийн харуулах маягнууд
 ;;(add-to-list 'load-path "~/elisp/color-theme-6.6.0")
-(require 'color-theme)
-;; default color theme is billw (I liked it :)
-(color-theme-initialize)
-(color-theme-oswald)
+(when (require 'color-theme nil t)
+  ;; default color theme is billw (I liked it :)
+  (color-theme-initialize)
+  (color-theme-oswald))
 
 ;; htmlize.el mode
 ;; ---------------
 ;; export a buffer to html
-(require 'htmlize)
+(nrequire 'htmlize)
 
 ;; woof.el
 ;; -------
 ;; Web Offer One File
-(require 'woof)
+(nrequire 'woof)
 
 ;; autoinstall mode
 ;; автоматаар суулгагч
@@ -79,7 +84,7 @@
 ;;         input "anything" to install "anything" mode
 ;; ---------------------------------------------------
 ;;(add-to-list 'load-path (expand-file-name "~/elisp"))
-(require 'auto-install)
+(nrequire 'auto-install)
 (add-to-list 'load-path (expand-file-name "~/elisp/automatic/"))
 (setq auto-install-directory "~/elisp/automatic/")
 
@@ -87,29 +92,30 @@
 ;; --------------
 ;; M-x auto-install-batch RET
 ;; Input "anything"
-(require 'anything-config)
+(nrequire 'anything-config)
 
 ;; tagging.el
 ;; ----------
 ;; info : http://www.lisperati.com/tagging.html
-(load "tagging.el")
+(when (file-exists-p (expand-file-name "~/elisp/misc/tagging.el"))
+  (load "tagging.el"))
 
 ;; psvn.el
 ;; -------
 ;; CVS эх код зохицуулалт хийхийг амарчилсан эд.
-(require 'psvn)
+(nrequire 'psvn)
 
 ;; muse
 ;; ----
 ;; текст засварлагч, экспортлогч
 ;; git clone git://repo.or.cz/muse-el.git muse or with use web URL
 ;;(add-to-list 'load-path "~/elisp/muse")
-(require 'muse-mode)
-(require 'muse-html)  ; load publishing styles
-(require 'muse-latex)
-(require 'muse-texinfo)
-(require 'muse-docbook)
-(require 'muse-project) ; publish files in project
+(nrequire 'muse-mode)
+(nrequire 'muse-html)  ; load publishing styles
+(nrequire 'muse-latex)
+(nrequire 'muse-texinfo)
+(nrequire 'muse-docbook)
+(nrequire 'muse-project) ; publish files in project
 ; my muse project folder
 (setq muse-project-alist
       '(("howto-pages" ("~/mymuses" :default "index")
@@ -121,7 +127,7 @@
 ;(add-to-list 'load-path "~/elisp/erlware-mode-0.1.11")
 (setq erlang-root-dir "/usr/lib/erlang")
 (setq exec-path (cons "/usr/local/bin" exec-path))
-(require 'erlang-start)
+(nrequire 'erlang-start)
 (setq erlang-man-root-dir "/usr/lib/erlang/man")
 
 ;; this is needed for Distel setup
@@ -129,7 +135,7 @@
   (unless (member distel-dir load-path)
     ;; Add distel-dir to the end of load-path
     (setq load-path (append load-path (list distel-dir)))))
-(require 'distel)
+(nrequire 'distel)
 (distel-setup)
 
 ;; Some Erlang customizations
@@ -160,6 +166,6 @@
 ;; төрөл бүрийн програмуудад тохирсон товчлолууд
 ;; xx-bundle.el хувилбар нь анхлан хэрэглэгчийнх шүү!!
 ;(add-to-list 'load-path "~/elisp/ext/yasnippet")
-(require 'yasnippet)
-(yas/initialize)
-(yas/load-directory "~/elisp/ext/yasnippet/snippets/")
+(when (require 'yasnippet nil t)
+  (yas/initialize)
+  (yas/load-directory "~/elisp/ext/yasnippet/snippets/"))
