@@ -7,4 +7,15 @@ C-x $  -> back to normal mode
 
 C-x h M-| xmllint --format -
 
+* edit multiple
 
+1. M-x find-dired
+2. find file ( -type f -name *.java )
+3. mark the files you need ( t -> toggle, m -> mark, u -> unmark )
+4. do the find and replace
+   M-x dired-do-query-replace-regexp
+   y -> yes , n -> to skip, ! -> replace all occurence, C-g -> cancel all
+
+5. Save edited files
+   M-x ibuffer  , mark unsaved files ( *-u ) ( same as marking )
+   "S" -> save marked files
