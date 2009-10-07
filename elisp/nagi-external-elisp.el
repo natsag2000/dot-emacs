@@ -23,7 +23,7 @@
 
 (defun nrequire (mod)
   (unless (require mod nil t)
-    (message "|=|=|=|=|=|=|=|=|=|=|=|=|=|> %s is NOT found, so NOT LOADED!" mod)))
+    (message "####################> %s is NOT found, so NOT LOADED!" mod)))
 
 ;; x-dict.el
 ;; --------
@@ -31,6 +31,27 @@
 ;; wget http://www.xsteve.at/prg/python/x-dict  -> save it to PATH
 ;; wget http://www.xsteve.at/prg/emacs/x-dict.el
 (nrequire 'x-dict)
+
+;; htmlize.el mode
+;; ---------------
+;; export a buffer to html
+(nrequire 'htmlize)
+
+;; woof.el
+;; -------
+;; Web Offer One File
+(nrequire 'woof)
+
+;; anything mode
+;; --------------
+;; M-x auto-install-batch RET
+;; Input "anything"
+(nrequire 'anything-config)
+
+;; psvn.el
+;; -------
+;; CVS эх код зохицуулалт хийхийг амарчилсан эд.
+(nrequire 'psvn)
 
 ;; pager.el
 ;; --------
@@ -68,16 +89,6 @@
   (color-theme-initialize)
   (color-theme-oswald))
 
-;; htmlize.el mode
-;; ---------------
-;; export a buffer to html
-(nrequire 'htmlize)
-
-;; woof.el
-;; -------
-;; Web Offer One File
-(nrequire 'woof)
-
 ;; autoinstall mode
 ;; автоматаар суулгагч
 ;; жишээ: M-x auto-install-batch RET
@@ -88,39 +99,28 @@
 (add-to-list 'load-path (expand-file-name "~/elisp/automatic/"))
 (setq auto-install-directory "~/elisp/automatic/")
 
-;; anything mode
-;; --------------
-;; M-x auto-install-batch RET
-;; Input "anything"
-(nrequire 'anything-config)
-
 ;; tagging.el
 ;; ----------
 ;; info : http://www.lisperati.com/tagging.html
-(when (file-exists-p (expand-file-name "~/elisp/misc/tagging.el"))
-  (load "tagging.el"))
-
-;; psvn.el
-;; -------
-;; CVS эх код зохицуулалт хийхийг амарчилсан эд.
-(nrequire 'psvn)
+(unless (load "tagging.el" t)
+  (message "####################> tagging.el is NOT found, so NOT LOADED"))
 
 ;; muse
 ;; ----
 ;; текст засварлагч, экспортлогч
 ;; git clone git://repo.or.cz/muse-el.git muse or with use web URL
 ;;(add-to-list 'load-path "~/elisp/muse")
-(nrequire 'muse-mode)
-(nrequire 'muse-html)  ; load publishing styles
-(nrequire 'muse-latex)
-(nrequire 'muse-texinfo)
-(nrequire 'muse-docbook)
-(nrequire 'muse-project) ; publish files in project
-; my muse project folder
-(setq muse-project-alist
+(when (require 'muse-mode nil t)
+  (require 'muse-html)  ; load publishing styles
+  (require 'muse-latex)
+  (require 'muse-texinfo)
+  (require 'muse-docbook)
+  (require 'muse-project) ; publish files in project
+  ; my muse project folder
+  (setq muse-project-alist
       '(("howto-pages" ("~/mymuses" :default "index")
          (:base "html" :path "~/mymuse-outputs/html")
-         (:base "pdf" :path "~/mymuse-outputs/pdf"))))
+         (:base "pdf" :path "~/mymuse-outputs/pdf")))))
 
 ;; Erlang emacs mode
 ;; -----------------
