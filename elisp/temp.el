@@ -1,32 +1,3 @@
-;; nXML mode
-;; ---------
-(load "rng-auto.el")
-(setq auto-mode-alist
-      (cons '("\\.\\(xml\\|\xsl\\|rng\\|xhtml\\)\\'" . nxml-mode)
-            auto-mode-alist))
-;; complete </ end tag automatically
-(setq nxml-slash-auto-complete-flag 1)
-;; sexp element functions on xml elements
-(setq nxml-sexp-element-flag 1)
-;; pretty print xml code snippet
-(defun bf-pretty-print-xml-region (begin end)
-  "Pretty format XML markup in region. You need to have nxml-mode
-http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
-this.  The function inserts linebreaks to separate tags that have
-nothing but whitespace between them.  It then indents the markup
-by using nxml's indentation rules."
-  (interactive "r")
-  (save-excursion
-      (nxml-mode)
-      (goto-char begin)
-      (while (search-forward-regexp "\>[ \\t]*\<" nil t)
-        (backward-char) (insert "\n"))
-      (indent-region begin end)
-      (delete-trailing-whitespace))
-    (message "Ah, much better!"))
-;; OR you can use xmllint command for pretty printing!
-;; e.g C-x h M-| xmllint --format -
-
 ;; Haskell mode
 ;; -----------------
 ;; cvs -d :pserver:anoncvs@cvs.haskell.org:/cvs login # password 'cvs'
@@ -116,30 +87,6 @@ by using nxml's indentation rules."
 (add-hook 'haskell-mode-hook 'haskell-unicode)
 
 
-
-;; Some Erlang customizations
-(add-hook 'erlang-mode-hook
-          (lambda ()
-            ;; when starting an Erlang shell in Emacs, default in the mode name
-            (setq inferior-erlang-machine-options '("-sname" "emacs"))
-            ;; add Erlang functions to an imenu menu
-            (imenu-add-to-menubar "imenu")))
-;; A number of the erlang-extended-mode key bindings are useful in the shell too
-(defconst distel-shell-keys
-  '(("\C-\M-i"  erl-complete)
-    ("\M-?"     erl-complete)
-    ("\M-."     erl-find-source-under-point)
-    ("\M-,"     erl-find-source-unwind)
-    ("\M-*"     erl-find-source-unwind)
-    )
-  "Additional keys to bind when in Erlang shell.")
-
-(add-hook 'erlang-shell-mode-hook
-          (lambda ()
-            ;; add some Distel bindings to the Erlang shell
-            (dolist (spec distel-shell-keys)
-              (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
-
 ;; Bongo player
 ;; --------------------
 ;; бас дуу хөгжим тоглуулагч
@@ -155,13 +102,6 @@ by using nxml's indentation rules."
 ;; (emms-standard)
 ;; (emms-default-players)
 ;; (global-set-key "\C-c\C-l" 'bongo-seek)
-
-
-;; psvn
-;; ----
-;; subversion програмын хувилбар зохицуулагч
-;; /usr/ports/devel/psvn
-(require 'psvn)
 
 ;; flymake with python
 ;; -------------------
@@ -180,15 +120,6 @@ by using nxml's indentation rules."
   (add-to-list 'flymake-allowed-file-name-masks
            '("\\.py\\'" flymake-pylint-init)))
 
-;; yasnippet
-;; ---------
-;; төрөл бүрийн програмуудад тохирсон товчлолууд
-;; xx-bundle.el хувилбар нь анхлан хэрэглэгчийнх шүү!!
-;; svn checkout http://yasnippet.googlecode.com/svn/trunk/ yasnippet
-(add-to-list 'load-path "~/elisp/yasnippet")
-(require 'yasnippet)
-(yas/initialize)
-(yas/load-directory "~/elisp/yasnippet/snippets")
 
 ;; Python
 ;; ------
@@ -314,12 +245,6 @@ by using nxml's indentation rules."
 ;;(add-to-list 'load-path "~/elisp/ecb-2.32")
 ;;(require 'ecb)
 
-;; ==========================
-;; tagging.el
-;; wget http://lisperati.com/tagging.el
-;; ==========================
-(load "tagging.el")
-
 ;; w3m mode
 ;; ---------------
 ;; wget http://emacs-w3m.namazu.org/emacs-w3m-1.4.4.tar.gz
@@ -327,19 +252,6 @@ by using nxml's indentation rules."
 ;; ./configure
 ;; make && make install && make install-icons
 (require 'w3m-load)
-
-;; autoinstall mode
-;; ----------------
-;; wget http://www.emacswiki.org/emacs/auto-install.el
-;;(add-to-list 'load-path (expand-file-name "~/elisp"))
-(require 'auto-install)
-(setq auto-install-directory "~/elisp/")
-
-;; anything mode
-;; --------------
-;; M-x auto-install-batch RET
-;; Input "anything"
-(require 'anything-config)
 
 ;; --------------------------------------------------------------------
 ;; because of speedbar 0.14beta, emacs-rails cannot be installed!

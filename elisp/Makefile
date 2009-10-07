@@ -5,6 +5,9 @@ MISC		= misc
 
 figlet.el_URL						 = "http://repo.or.cz/w/ShellArchive.git?a=blob_plain;hb=HEAD;f=figlet.el"
 htmlize.el_URL					 = "http://www.emacswiki.org/emacs/download/htmlize.el"
+auto-install.el_URL		   = "http://www.emacswiki.org/emacs/download/auto-install.el"
+anything.el_URL					 = "http://www.emacswiki.org/emacs/download/anything.el"
+anything-config.el_URL	 = "http://www.emacswiki.org/emacs/download/anything-config.el"
 pager.el_URL						 = "http://user.it.uu.se/~mic/pager.el"
 tabbar.el_URL						 = "http://github.com/davidswelt/aquamacs-emacs/raw/master/aquamacs/src/site-lisp/tabbar/tabbar.el"
 woof.el_URL							 = "http://www.xsteve.at/prg/emacs/woof.el"
@@ -17,6 +20,11 @@ erlang_URL							 = "http://erlware-mode.googlecode.com/files/erlware-mode-0.1.1
 erlang_NAME							 = "erlware-mode-0.1.16"
 distel_URL							 = "http://distel.googlecode.com/svn/trunk/"
 distel_NAME							 = "distel"
+yasnippet_URL						 = "http://yasnippet.googlecode.com/svn/trunk/"
+yasnippet_NAME					 = "yasnippet"
+tagging.el_URL					 = "http://lisperati.com/tagging.el"
+psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
+
 
 REMOVE	= rm -rf
 
@@ -28,7 +36,6 @@ $(EXTERN): $(DISTS)
 
 $(DISTS):
 	test -d $@ || mkdir $@
-
 
 %.el: $(MISC)
 	if test ! -s "$(MISC)/$@"; \
@@ -63,11 +70,21 @@ distel: $(EXTERN)
 		svn export $($@_URL) $(EXTERN)/$($@_NAME) ;\
 	fi
 
-general: x-dict.el pager.el tabbar.el figlet.el htmlize.el woof.el
-	echo "misc elisp files are downloaded."
+yasnippet: $(EXTERN)
+	if test ! -d "$(EXTERN)/$@"; \
+	then \
+		svn export $($@_URL) $(EXTERN)/$($@_NAME) ;\
+	fi
 
-extended: color-theme muse erlang distel
-	echo "extended elisp files are downloaded."
+# general files that are mostly one elisp file.
+general: x-dict.el pager.el tabbar.el figlet.el htmlize.el \
+				 woof.el auto-install.el anything.el anything-config.el \
+				 tagging.el psvn.el
+	echo "misc elisp files are downloaded and copied to right place."
+
+# more complex files which need to download and extract.
+extended: color-theme muse erlang distel yasnippet
+	echo "extended elisp files are downloaded and extracted."
 
 all : general extended
 	echo "DONE"

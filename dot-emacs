@@ -9,8 +9,6 @@
 ;;   цэгц, цэвэрхэн, жижиглэсэн байлга
 ;;
 ;; TODO:
-;;   create a Makefile for external elisp files! ( download, compile etc., steps )
-;;   recursive load-path doesn't work!!
 ;; -----------------------------------------------------------------------------
 
 ;; My custom elisp file directory

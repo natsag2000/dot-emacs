@@ -1,6 +1,10 @@
-Folding:
---------
+* Folding
+
 M-<Number> C-x $  -> will fold (or hide) lines started width <Number>
 C-x $  -> back to normal mode
+
+* Format xmllint xml
+
+C-x h M-| xmllint --format -
 
 
