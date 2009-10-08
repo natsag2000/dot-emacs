@@ -159,7 +159,7 @@
           (lambda ()
             ;; add some Distel bindings to the Erlang shell
             (dolist (spec distel-shell-keys)
-              (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
+              (definge-key erlang-shell-mode-map (car spec) (cadr spec)))))
 
 ;; yasnippet
 ;; ---------
@@ -169,3 +169,16 @@
 (when (require 'yasnippet nil t)
   (yas/initialize)
   (yas/load-directory "~/elisp/ext/yasnippet/snippets/"))
+
+;; nXML mode
+;; ---------
+(unless (load "rng-auto.el" t)
+  (message "####################> rng-auto.el is NOT found, so NOT LOADED!"))
+
+(setq auto-mode-alist
+      (cons '("\\.\\(xml\\|\xsl\\|rng\\|xhtml\\)\\'" . nxml-mode)
+            auto-mode-alist))
+;; complete </ end tag automatically
+(setq nxml-slash-auto-complete-flag 1)
+;; sexp element functions on xml elements
+(setq nxml-sexp-element-flag 1)

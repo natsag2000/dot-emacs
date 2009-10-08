@@ -30,6 +30,8 @@ yasnippet_URL						 = "http://yasnippet.googlecode.com/svn/trunk/"
 yasnippet_NAME					 = "yasnippet"
 tagging.el_URL					 = "http://lisperati.com/tagging.el"
 psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
+nxml-mode_URL						 = "http://www.thaiopensource.com/download/nxml-mode-20041004.tar.gz"
+
 
 
 REMOVE	= rm -rf
@@ -82,6 +84,13 @@ yasnippet: $(EXTERN)
 		svn export $($@_URL) $(EXTERN)/$($@_NAME) ;\
 	fi
 
+nxml-mode: $(EXTERN)
+	if test ! -d "$(EXTERN)/$@"; \
+	then \
+		wget $($@_URL) -O $(DISTS)/$@.tar.gz && \
+		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) ;\
+	fi
+
 # general files that are mostly one elisp file.
 general: x-dict.el pager.el tabbar.el figlet.el htmlize.el \
 				 woof.el auto-install.el anything.el anything-config.el \
@@ -89,7 +98,7 @@ general: x-dict.el pager.el tabbar.el figlet.el htmlize.el \
 	echo "misc elisp files are downloaded and copied to right place."
 
 # more complex files which need to download and extract.
-extended: color-theme muse erlang distel yasnippet
+extended: color-theme muse erlang distel yasnippet nxml-mode
 	echo "extended elisp files are downloaded and extracted."
 
 all : general extended

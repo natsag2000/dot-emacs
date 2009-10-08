@@ -53,15 +53,4 @@
 (global-set-key "\C-cp" 'postack-pop)
 
 
-;; NOTE. not used or temporary commented out snippets
-;; --------------------------------------------------
-;; цонх тохируулга
-;;(smart-frame-positioning-mode 0)
-;;(setq default-major-mode 'text-mode) ;; анхдагч текст горимд оруулах
-;;(setq-default default-fill-column 79)
-
 ;;(setq x-select-enable-primary nil)  ; stops killing/yanking interacting with primary X11 selection
-
-;; set temporary off
-;;(require 'tramp)
-;;(setq tramp-default-method "scp")

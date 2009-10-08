@@ -39,6 +39,9 @@
 (message "Loading nagi-special-functions.el ======================>")
 (ext-load-file "nagi-special-functions.el")
 
+(message "Loading nagi-mode-specific-functions.el ======================>")
+(ext-load-file "nagi-mode-specific-functions.el")
+
 (message "Loading nagi-skeletons.el ==============================>")
 (ext-load-file "nagi-skeletons.el")
 
