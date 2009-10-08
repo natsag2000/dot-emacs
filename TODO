@@ -1,0 +1,10 @@
+add:
+  psvn.el
+  git-emacs -> taesoo.org
+  SLIME
+
+multi OS.
+  tested on Linux, Mac OS
+
+selectable sources
+  cvs or tar.gz
