@@ -1,6 +1,7 @@
 * Install
 
 1. git clone  [git|ssh]://github.com/natsag2000/dot-emacs.git
+2. git checkout --track -b tsgan origin/tsgan
 2. cd dot-emacs/elisp
    ## following step will copy "elisp" folder under home directory and copies ~/.emacs file also
 3. make install
