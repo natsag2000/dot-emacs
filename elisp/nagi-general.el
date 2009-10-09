@@ -19,9 +19,9 @@
 ;; for menus and toolbars
 ;; зарим цэснээс харуулахгүй болгох
 ;; -----------------------------------
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+;;(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+;;(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 ;; for global options for unicode
 ;; Ерөнхийдөө бүгд юникод
@@ -126,8 +126,13 @@
 
 ;; setting default font
 ;; --------------------
-;; WARNING!! АНХААР
-(set-default-font "-misc-fixed-medium-r-*-*-14-130-75-75-*-*-iso10646-*")
+;; Use the predefined fontset "fontset-standard"
+(set-face-font 'default "fontset-standard")
+;; In "fontset-standard" use "misc fixed" for the charset
+;; `mule-unicode-0100-24ff'
+(set-fontset-font "fontset-standard"
+                  'mule-unicode-0100-24ff
+                  "-*-fixed-medium-r-*-*-15-*-*-*-*-*-iso10646-1")
 
 ;; recentf-open-files
 ;; сүүлд нээгдсэн файлуудыг нээх

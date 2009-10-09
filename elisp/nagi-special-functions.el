@@ -7,10 +7,10 @@
 ;; ispell ийн оронд aspell-г ашиглах
 ;; АНХААР: aspell-г суулгасан байх хэрэгтэй
 ;; --------------------------------------------
-(setq-default ispell-program-name "aspell")
-(setq-default ispell-extra-args '("--sug-mode=ultra"))
-;;(setq-default ispell-extra-args '("--reverse"))
-(require 'ispell)
+(setq-default ispell-program-name "/usr/local/bin/aspell")
+(setq ispell-really-aspell t)
+(setq ispell-extra-args '("--sug-mode=ultra"))
+(require 'ispell) 
 (setq ispell-dictionary "mongolian")
 
 

@@ -88,7 +88,7 @@
 (when (require 'color-theme nil t)
   ;; default color theme is billw (I liked it :)
   (color-theme-initialize)
-  (color-theme-oswald))
+  (color-theme-hober))
 
 ;; autoinstall mode
 ;; автоматаар суулгагч
