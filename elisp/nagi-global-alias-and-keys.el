@@ -30,6 +30,22 @@
 ;; -----------------------
 (global-set-key "\C-w" 'backward-kill-word)
 
+;; font scaling
+;; үсгийн хэмжээг өөрчлөх
+;; ------------------------
+(global-set-key [(control mouse-4)] (lambda () (interactive)
+                                      (text-scale-increase 1)))
+(global-set-key [(control mouse-5)] (lambda () (interactive)
+                                      (text-scale-decrease 1)))
+;; (global-set-key [(control ?+)] (lambda () (interactive)
+;;                                  (text-scale-increase 1)))
+;; (global-set-key [(control ?-)] (lambda () (interactive)
+;;                                  (text-scale-decrease 1)))
+;; (global-set-key [(control ?0)] (lambda () (interactive)
+;;                                  (text-scale-increase 0)))
+
+
+
 ;; kill region alternatives
 ;; Бүсэлсэн хэсгийг устгах
 ;; -------------------------

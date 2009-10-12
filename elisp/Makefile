@@ -31,6 +31,9 @@ yasnippet_NAME					 = "yasnippet"
 tagging.el_URL					 = "http://lisperati.com/tagging.el"
 psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
 nxml-mode_URL						 = "http://www.thaiopensource.com/download/nxml-mode-20041004.tar.gz"
+git-emacs_URL						 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
+git_emacs_GIT						 = "git://github.com/tsgates/git-emacs.git"
+
 
 
 
@@ -85,6 +88,13 @@ yasnippet: $(EXTERN)
 	fi
 
 nxml-mode: $(EXTERN)
+	if test ! -d "$(EXTERN)/$@"; \
+	then \
+		wget $($@_URL) -O $(DISTS)/$@.tar.gz && \
+		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) ;\
+	fi
+
+git-emacs: $(EXTERN)
 	if test ! -d "$(EXTERN)/$@"; \
 	then \
 		wget $($@_URL) -O $(DISTS)/$@.tar.gz && \

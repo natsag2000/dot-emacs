@@ -19,3 +19,9 @@ C-x h M-| xmllint --format -
 5. Save edited files
    M-x ibuffer  , mark unsaved files ( *-u ) ( same as marking )
    "S" -> save marked files
+
+* font customize
+Change the default font size:
+       M-x customize-face RET default RET instead.
+set font default size:
+    (text-scale-increase 0) 
