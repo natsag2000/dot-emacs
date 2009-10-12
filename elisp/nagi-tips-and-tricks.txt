@@ -24,4 +24,9 @@ C-x h M-| xmllint --format -
 Change the default font size:
        M-x customize-face RET default RET instead.
 set font default size:
-    (text-scale-increase 0) 
+    (text-scale-increase 0)
+
+* Meta key xterm emacs -nw
+эмаксийг Х гүй зөвхөн консол дээр ажиллуулна гэвэл emacs -nw гэж эхлүүлнэ.
+зарим тэрминал дээр ( жишээ нь xterm ) Алт товч ажиллахгүй бол:
+Control+Left key and select Meta sneds Escape
