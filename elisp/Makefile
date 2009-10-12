@@ -31,8 +31,9 @@ yasnippet_NAME					 = "yasnippet"
 tagging.el_URL					 = "http://lisperati.com/tagging.el"
 psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
 nxml-mode_URL						 = "http://www.thaiopensource.com/download/nxml-mode-20041004.tar.gz"
+# unable to download, temporary skipped!
 git-emacs_URL						 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
-git_emacs_GIT						 = "git://github.com/tsgates/git-emacs.git"
+git-emacs_GIT						 = "git://github.com/tsgates/git-emacs.git"
 
 
 
@@ -108,7 +109,7 @@ general: x-dict.el pager.el tabbar.el figlet.el htmlize.el \
 	echo "misc elisp files are downloaded and copied to right place."
 
 # more complex files which need to download and extract.
-extended: color-theme muse erlang distel yasnippet nxml-mode
+extended: color-theme muse erlang distel yasnippet nxml-mode 
 	echo "extended elisp files are downloaded and extracted."
 
 all : general extended

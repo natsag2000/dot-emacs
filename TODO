@@ -7,3 +7,7 @@ multi OS:
 
 selectable sources:
   cvs or tar.gz
+
+use system-type ( gnu/linux | bsd | windows )
+use window-system ( x | nil )
+tip: (message "%s" windows-system)
