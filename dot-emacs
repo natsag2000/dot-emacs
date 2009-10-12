@@ -53,6 +53,3 @@
 
 ;; (message "Loading nagi-printer.el ...")
 ;;(ext-load-file "nagi-printer.el")
-
-;; temp workaround ( in nagi-general.el, i set it -1 )
-(tool-bar-mode 1)
