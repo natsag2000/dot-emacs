@@ -4,6 +4,7 @@
 # |_|\_/_/ \_\___|___|  |___/ \___/ |_|    |___|_|  |_/_/ \_\___|___/
 #
 
+EMACS   = `which emacs`
 BASEDIR = elisp
 DISTS   = dist
 EXTERN  = ext
@@ -31,6 +32,12 @@ yasnippet_NAME					 = "yasnippet"
 tagging.el_URL					 = "http://lisperati.com/tagging.el"
 psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
 nxml-mode_URL						 = "http://www.thaiopensource.com/download/nxml-mode-20041004.tar.gz"
+flymake.el_URL					 = "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el"
+php-mode.el_URL					 = "http://php-mode.svn.sourceforge.net/svnroot/php-mode/tags/php-mode-1.5.0/php-mode.el"
+cc-mode_URL = "http://prdownloads.sourceforge.net/cc-mode/cc-mode-5.31.3.tar.gz"
+cc-mode_NAME = "cc-mode-5.31.3"
+pyflake_URL = "http://divmod.org/svn/Divmod/trunk/Pyflakes"
+pyflake_NAME = "pyflake"
 
 
 
@@ -91,14 +98,28 @@ nxml-mode: $(EXTERN)
 		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) ;\
 	fi
 
+cc-mode: $(EXTERN)
+	if test ! -d "$(EXTERN)/$@"; \
+	then \
+		wget $($@_URL) -O $(DISTS)/$@.tar.gz && \
+		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) && \
+		cd $(EXTERN)/$($@_NAME) && $(EMACS) -batch -no-site-file -q -f batch-byte-compile cc-*.el ;\
+	fi
+
+pyflake: $(EXTERN)
+	if test ! -d "$(EXTERN)/$@"; \
+	then \
+		svn export $($@_URL) $(EXTERN)/$($@_NAME) ;\
+	fi
+
 # general files that are mostly one elisp file.
 general: x-dict.el pager.el tabbar.el figlet.el htmlize.el \
 				 woof.el auto-install.el anything.el anything-config.el \
-				 tagging.el psvn.el
+				 tagging.el psvn.el flymake.el php-mode.el
 	echo "misc elisp files are downloaded and copied to right place."
 
 # more complex files which need to download and extract.
-extended: color-theme muse erlang distel yasnippet nxml-mode
+extended: color-theme muse erlang distel yasnippet nxml-mode cc-mode pyflake
 	echo "extended elisp files are downloaded and extracted."
 
 all : general extended
