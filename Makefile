@@ -4,11 +4,7 @@
 # |_|\_/_/ \_\___|___|  |___/ \___/ |_|    |___|_|  |_/_/ \_\___|___/
 #
 
-EMACS	 = `which emacs`
-BASEDIR	 = elisp
-DISTS	 = dist
-EXTERN	 = ext
-MISC		= misc
+BASEDIR = elisp
 
 REMOVE = rm -rf
 
@@ -25,4 +21,4 @@ all:
 	cd ~/$(BASEDIR); make install;
 
 clean:
-	cd ~/$(BASEDIR); $(REMOVE) $(MISC) $(EXTERN) $(DISTS)
+	$(REMOVE) ~/$(BASEDIR)
