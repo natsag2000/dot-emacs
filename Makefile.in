@@ -35,9 +35,6 @@ nxml-mode_URL						 = "http://www.thaiopensource.com/download/nxml-mode-20041004
 git-emacs_URL						 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
 git-emacs_GIT						 = "git://github.com/tsgates/git-emacs.git"
 
-
-
-
 REMOVE	= rm -rf
 
 autosaves:
@@ -118,20 +115,8 @@ general: x-dict.el pager.el tabbar.el figlet.el htmlize.el \
 extended: color-theme muse erlang distel yasnippet nxml-mode 
 	echo "extended elisp files are downloaded and extracted."
 
-all : autosaves backups install
+install: autosaves backups general extended
 	echo "DONE"
-
-install_ext: general extended
-
-install: autosaves backups
-	if test -d ~/$(BASEDIR)-old; then rm -rf ~/$(BASEDIR)-old 2>/dev/null; fi;
-	if test -d ~/$(BASEDIR); \
-	then \
-		mv ~/$(BASEDIR) ~/$(BASEDIR)-old ;\
-	fi; \
-	mkdir ~/$(BASEDIR); \
-	cp ../dot-emacs ~/.emacs && \
-	cp ./* ~/$(BASEDIR)/ && cd ~/$(BASEDIR); make install_ext;
 
 clean:
 	cd ~/$(BASEDIR); $(REMOVE) $(MISC) $(EXTERN) $(DISTS)
