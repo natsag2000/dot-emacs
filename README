@@ -2,10 +2,6 @@
 
 1. git clone  [git|ssh]://github.com/natsag2000/dot-emacs.git
 2. cd dot-emacs/elisp
-   ## following step will copy "elisp" folder under home directory and copies ~/.emacs file also
-3. make install
-4. cd ~/elisp
-   # next step will download all necessary elisp files
-5. make all
+3. make install or make all
 
 start Emacs and enjoy :)
