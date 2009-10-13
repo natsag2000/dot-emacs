@@ -3,17 +3,17 @@
   - subversion
 
 IMPORTANT: create ~/.autosaves and ~/.backups
-           энэ хоёр сан нь эмаксын файлын байгаа газар нь
-           автоматаар хадгалсан болон нөөцлөх файл үүсгэдгээс
-           сэргийлж төвлөрсөн нэг газар хадгалж зохицуулдаг.
+           энэ хоёр сан нь эмакс дээр хэрэглэгдэж байгаа файлд
+           автоматаар хадгалах болон нөөцлөх файл үүсгэхээс
+           сэргийлж төвлөрсөн нэг газар хадгалж зохицуулахад хэрэглэгдэнэ.
 
 * Install
 
-1. git clone  [git|ssh]://github.com/natsag2000/dot-emacs.git
+1. git clone  git://github.com/natsag2000/dot-emacs.git
 2. git checkout --track -b tsgan origin/tsgan
 2. cd dot-emacs/elisp
    ## following step will copy "elisp" folder under home directory and copies ~/.emacs file also
-   ## Дараах алхам нь шаардлагатай бүх файл болон ~/.emacs гэрийн санд буй elisp сан уруу хуулна.
+   ## Дараах алхам нь шаардлагатай бүх файл болон ~/.emacs файлыг гэрийн санд байгаа elisp сан уруу хуулна.
 3. make install
    ## хуулсны дараа ~/elisp сан уруу очиж суулгах үйлдлийг гүйцэтгэнэ.
 4. cd ~/elisp
