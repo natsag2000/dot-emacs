@@ -10,6 +10,8 @@ DISTS	 = dist
 EXTERN	 = ext
 MISC		= misc
 
+REMOVE = rm -rf
+
 all:
 	if test -d ~/$(BASEDIR)-old; then rm -rf ~/$(BASEDIR)-old 2>/dev/null; fi;
 	if test -d ~/$(BASEDIR); \
