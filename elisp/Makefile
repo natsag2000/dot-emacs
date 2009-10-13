@@ -4,44 +4,50 @@
 # |_|\_/_/ \_\___|___|  |___/ \___/ |_|    |___|_|  |_/_/ \_\___|___/
 #
 
-EMACS   = `which emacs`
-BASEDIR = elisp
-DISTS   = dist
-EXTERN  = ext
+EMACS	 = `which emacs`
+BASEDIR	 = elisp
+DISTS	 = dist
+EXTERN	 = ext
 MISC		= misc
 
-figlet.el_URL						 = "http://repo.or.cz/w/ShellArchive.git?a=blob_plain;hb=HEAD;f=figlet.el"
-htmlize.el_URL					 = "http://www.emacswiki.org/emacs/download/htmlize.el"
-auto-install.el_URL		   = "http://www.emacswiki.org/emacs/download/auto-install.el"
-anything.el_URL					 = "http://www.emacswiki.org/emacs/download/anything.el"
+figlet.el_URL		 = "http://repo.or.cz/w/ShellArchive.git?a=blob_plain;hb=HEAD;f=figlet.el"
+htmlize.el_URL		 = "http://www.emacswiki.org/emacs/download/htmlize.el"
+auto-install.el_URL	 = "http://www.emacswiki.org/emacs/download/auto-install.el"
+anything.el_URL		 = "http://www.emacswiki.org/emacs/download/anything.el"
 anything-config.el_URL	 = "http://www.emacswiki.org/emacs/download/anything-config.el"
-pager.el_URL						 = "http://user.it.uu.se/~mic/pager.el"
-tabbar.el_URL						 = "http://github.com/davidswelt/aquamacs-emacs/raw/master/aquamacs/src/site-lisp/tabbar/tabbar.el"
-woof.el_URL							 = "http://www.xsteve.at/prg/emacs/woof.el"
-x-dict.el_URL						 = "http://www.xsteve.at/prg/emacs/x-dict.el"
-color-theme_URL					 = "http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz"
-color-theme_NAME				 = "color-theme-6.6.0"
-muse_URL								 = "http://repo.or.cz/w/muse-el.git?a=snapshot;h=617fa8c5d1ed92e8b2eff4d6d2b53e608440db20;sf=tgz"
-muse_NAME								 = "muse-3.12"
-erlang_URL							 = "http://erlware-mode.googlecode.com/files/erlware-mode-0.1.16.tar.gz"
-erlang_NAME							 = "erlware-mode-0.1.16"
-distel_URL							 = "http://distel.googlecode.com/svn/trunk/"
-distel_NAME							 = "distel"
-yasnippet_URL						 = "http://yasnippet.googlecode.com/svn/trunk/"
-yasnippet_NAME					 = "yasnippet"
-tagging.el_URL					 = "http://lisperati.com/tagging.el"
-psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
-nxml-mode_URL						 = "http://www.thaiopensource.com/download/nxml-mode-20041004.tar.gz"
-flymake.el_URL					 = "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el"
-php-mode.el_URL					 = "http://php-mode.svn.sourceforge.net/svnroot/php-mode/tags/php-mode-1.5.0/php-mode.el"
-cc-mode_URL = "http://prdownloads.sourceforge.net/cc-mode/cc-mode-5.31.3.tar.gz"
-cc-mode_NAME = "cc-mode-5.31.3"
-pyflake_URL = "http://divmod.org/svn/Divmod/trunk/Pyflakes"
-pyflake_NAME = "pyflake"
+pager.el_URL		 = "http://user.it.uu.se/~mic/pager.el"
+tabbar.el_URL		 = "http://github.com/davidswelt/aquamacs-emacs/raw/master/aquamacs/src/site-lisp/tabbar/tabbar.el"
+woof.el_URL		 = "http://www.xsteve.at/prg/emacs/woof.el"
+x-dict.el_URL		 = "http://www.xsteve.at/prg/emacs/x-dict.el"
+color-theme_URL		 = "http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz"
+color-theme_NAME	 = "color-theme-6.6.0"
+muse_URL		 = "http://repo.or.cz/w/muse-el.git?a=snapshot;h=617fa8c5d1ed92e8b2eff4d6d2b53e608440db20;sf=tgz"
+muse_NAME		 = "muse-3.12"
+erlang_URL		 = "http://erlware-mode.googlecode.com/files/erlware-mode-0.1.16.tar.gz"
+erlang_NAME		 = "erlware-mode-0.1.16"
+distel_URL		 = "http://distel.googlecode.com/svn/trunk/"
+distel_NAME		 = "distel"
+yasnippet_URL		 = "http://yasnippet.googlecode.com/svn/trunk/"
+yasnippet_NAME		 = "yasnippet"
+tagging.el_URL		 = "http://lisperati.com/tagging.el"
+psvn.el_URL		 = "http://www.xsteve.at/prg/emacs/psvn.el"
+nxml-mode_URL		 = "http://www.thaiopensource.com/download/nxml-mode-20041004.tar.gz"
+flymake.el_URL		 = "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el"
+php-mode.el_URL		 = "http://php-mode.svn.sourceforge.net/svnroot/php-mode/tags/php-mode-1.5.0/php-mode.el"
+cc-mode_URL		 = "http://prdownloads.sourceforge.net/cc-mode/cc-mode-5.31.3.tar.gz"
+cc-mode_NAME		 = "cc-mode-5.31.3"
+pyflake_URL		 = "http://divmod.org/svn/Divmod/trunk/Pyflakes"
+pyflake_NAME		 = "pyflake"
 
 
 
 REMOVE	= rm -rf
+
+autosaves:
+	test -d ~/.autosaves || mkdir ~/.autosaves
+
+backups:
+	test -d ~/.backups || mkdir ~/.backups
 
 $(MISC):
 	test -d $@ || mkdir $@
@@ -122,7 +128,7 @@ general: x-dict.el pager.el tabbar.el figlet.el htmlize.el \
 extended: color-theme muse erlang distel yasnippet nxml-mode cc-mode pyflake
 	echo "extended elisp files are downloaded and extracted."
 
-all : general extended
+all : autosaves backups general extended
 	echo "DONE"
 
 install:

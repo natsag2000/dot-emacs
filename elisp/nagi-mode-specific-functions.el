@@ -46,8 +46,6 @@ by using nxml's indentation rules."
 ;'(flymake-errline ((((class color)) (:underline "OrangeRed"))))
 ;'(flymake-warnline ((((class color)) (:underline "yellow"))))
 
-
-
 ;; Flymake PHP extension
 ;; ---------------------
 (require 'flymake)
@@ -249,4 +247,3 @@ by using nxml's indentation rules."
 ;; Emacs 18ers can use (setq c-mode-common-hook 'my-c-mode-common-hook)
 ;;(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 (add-hook 'c-mode-common-hook 'des-c-mode-hook)
-

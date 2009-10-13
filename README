@@ -2,11 +2,6 @@
   - wget
   - subversion
 
-IMPORTANT: create ~/.autosaves and ~/.backups
-           энэ хоёр сан нь эмакс дээр хэрэглэгдэж байгаа файлд
-           автоматаар хадгалах болон нөөцлөх файл үүсгэхээс
-           сэргийлж төвлөрсөн нэг газар хадгалж зохицуулахад хэрэглэгдэнэ.
-
 * Install
 
 1. git clone  git://github.com/natsag2000/dot-emacs.git
