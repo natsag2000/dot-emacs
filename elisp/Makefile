@@ -40,6 +40,12 @@ git-emacs_GIT						 = "git://github.com/tsgates/git-emacs.git"
 
 REMOVE	= rm -rf
 
+autosaves:
+	test -d ~/.autosaves || mkdir ~/.autosaves
+
+backups:
+	test -d ~/.backups || mkdir ~/.backups
+
 $(MISC):
 	test -d $@ || mkdir $@
 
@@ -112,10 +118,12 @@ general: x-dict.el pager.el tabbar.el figlet.el htmlize.el \
 extended: color-theme muse erlang distel yasnippet nxml-mode 
 	echo "extended elisp files are downloaded and extracted."
 
-all : general extended
+all : autosaves backups install
 	echo "DONE"
 
-install:
+install_ext: general extended
+
+install: autosaves backups
 	if test -d ~/$(BASEDIR)-old; then rm -rf ~/$(BASEDIR)-old 2>/dev/null; fi;
 	if test -d ~/$(BASEDIR); \
 	then \
@@ -123,7 +131,7 @@ install:
 	fi; \
 	mkdir ~/$(BASEDIR); \
 	cp ../dot-emacs ~/.emacs && \
-	cp ./* ~/$(BASEDIR)/;
+	cp ./* ~/$(BASEDIR)/ && cd ~/$(BASEDIR); make install_ext;
 
 clean:
-	$(REMOVE) $(MISC) $(EXTERN) $(DISTS)
+	cd ~/$(BASEDIR); $(REMOVE) $(MISC) $(EXTERN) $(DISTS)
