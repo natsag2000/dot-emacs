@@ -10,6 +10,8 @@ DISTS	 = dist
 EXTERN	 = ext
 MISC		= misc
 
+REMOVE	= rm -rf
+
 figlet.el_URL		 = "http://repo.or.cz/w/ShellArchive.git?a=blob_plain;hb=HEAD;f=figlet.el"
 htmlize.el_URL		 = "http://www.emacswiki.org/emacs/download/htmlize.el"
 auto-install.el_URL	 = "http://www.emacswiki.org/emacs/download/auto-install.el"
@@ -38,10 +40,6 @@ cc-mode_URL		 = "http://prdownloads.sourceforge.net/cc-mode/cc-mode-5.31.3.tar.g
 cc-mode_NAME		 = "cc-mode-5.31.3"
 pyflake_URL		 = "http://divmod.org/svn/Divmod/trunk/Pyflakes"
 pyflake_NAME		 = "pyflake"
-
-
-
-REMOVE	= rm -rf
 
 autosaves:
 	test -d ~/.autosaves || mkdir ~/.autosaves
@@ -128,18 +126,8 @@ general: x-dict.el pager.el tabbar.el figlet.el htmlize.el \
 extended: color-theme muse erlang distel yasnippet nxml-mode cc-mode pyflake
 	echo "extended elisp files are downloaded and extracted."
 
-all : autosaves backups general extended
+install: autosaves backups general extended
 	echo "DONE"
-
-install:
-	if test -d ~/$(BASEDIR)-old; then rm -rf ~/$(BASEDIR)-old 2>/dev/null; fi;
-	if test -d ~/$(BASEDIR); \
-	then \
-		mv ~/$(BASEDIR) ~/$(BASEDIR)-old ;\
-	fi; \
-	mkdir ~/$(BASEDIR); \
-	cp ../dot-emacs ~/.emacs && \
-	cp ./* ~/$(BASEDIR)/;
 
 clean:
 	$(REMOVE) $(MISC) $(EXTERN) $(DISTS)
