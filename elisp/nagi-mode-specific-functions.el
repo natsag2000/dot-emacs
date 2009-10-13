@@ -50,7 +50,7 @@ by using nxml's indentation rules."
 
 ;; Flymake PHP extension
 ;; ---------------------
-;; uses flymake-php.el file
+(require 'flymake)
 (autoload 'php-mode "php-mode" "Mode for editing PHP source files")
 (add-to-list 'auto-mode-alist '("\\.\\(inc\\|php[s34]?\\)" . php-mode))
 

@@ -102,9 +102,9 @@ cc-mode: $(EXTERN)
 	if test ! -d "$(EXTERN)/$@"; \
 	then \
 		wget $($@_URL) -O $(DISTS)/$@.tar.gz && \
-		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) && \
-		cd $(EXTERN)/$($@_NAME) && $(EMACS) -batch -no-site-file -q -f batch-byte-compile cc-*.el ;\
-	fi
+		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN); fi
+#		cd $(EXTERN)/$($@_NAME) && $(EMACS) -batch -no-site-file -q -f batch-byte-compile cc-*.el ;\
+#	fi
 
 pyflake: $(EXTERN)
 	if test ! -d "$(EXTERN)/$@"; \

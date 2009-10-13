@@ -142,8 +142,11 @@
 
 ;; flymake-php.el
 ;; --------------
-(unless (load "flymake-php.el" t)
-  (message "####################> flymake-php.el is NOT found, so NOT LOADED!"))
+;; see flymake-php section in nagi-mode-specific-functions.el file
+;;
+;;(unless (load "flymake-php.el" t)
+;;  (message "####################> flymake-php.el is NOT found, so NOT LOADED!"))
+
 
 ;; cc-mode
 ;; ========
