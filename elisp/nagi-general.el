@@ -8,7 +8,7 @@
 ;; tab width
 ;; зай авалтын урт
 ;; ------------------
-(setq default-tab-width 2)
+(setq default-tab-width 4)
 
 ;; show more info in taskbar/icon than just "Emacs"
 ;; гарчигийн талбарт файлын нэр мөн бүтэн замыг харуулах
