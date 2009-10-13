@@ -5,9 +5,6 @@
 #
 
 BASEDIR = elisp
-DISTS   = dist
-EXTERN  = ext
-MISC		= misc
 
 REMOVE	= rm -rf
 
@@ -23,4 +20,4 @@ all:
 	cp elisp/* ~/$(BASEDIR)/ && cd ~/$(BASEDIR); make install;
 
 clean:
-	cd ~/$(BASEDIR); $(REMOVE) $(MISC) $(EXTERN) $(DISTS)
+	$(REMOVE) ~/$(BASEDIR)
