@@ -9,6 +9,8 @@ DISTS   = dist
 EXTERN  = ext
 MISC		= misc
 
+REMOVE	= rm -rf
+
 figlet.el_URL						 = "http://repo.or.cz/w/ShellArchive.git?a=blob_plain;hb=HEAD;f=figlet.el"
 htmlize.el_URL					 = "http://www.emacswiki.org/emacs/download/htmlize.el"
 auto-install.el_URL		   = "http://www.emacswiki.org/emacs/download/auto-install.el"
@@ -34,8 +36,6 @@ nxml-mode_URL						 = "http://www.thaiopensource.com/download/nxml-mode-20041004
 # unable to download, temporary skipped!
 git-emacs_URL						 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
 git-emacs_GIT						 = "git://github.com/tsgates/git-emacs.git"
-
-REMOVE	= rm -rf
 
 autosaves:
 	test -d ~/.autosaves || mkdir ~/.autosaves
@@ -119,4 +119,4 @@ install: autosaves backups general extended
 	echo "DONE"
 
 clean:
-	cd ~/$(BASEDIR); $(REMOVE) $(MISC) $(EXTERN) $(DISTS)
+	$(REMOVE) $(MISC) $(EXTERN) $(DISTS)
