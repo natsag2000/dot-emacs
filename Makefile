@@ -5,19 +5,36 @@
 #
 
 BASEDIR = elisp
+SNAPDIR = templates
+SNAPFILE = ext_and_misc.tar.gz
+CURDIR = $(shell pwd)
+
 
 REMOVE	= rm -rf
 
-all:
+all: folder copylisps
+	cd ~/$(BASEDIR); make install;
+
+all-snapshot: folder copylisps
+	tar xvfz $(SNAPDIR)/$(SNAPFILE) -C ~/$(BASEDIR) && \
+	cd ~/$(BASEDIR); make autosaves backups
+
+snapshot:
+	rm -f $(SNAPDIR)/$(SNAPFILE) 2>/dev/null;
+	cd ~/$(BASEDIR); tar cvfz $(CURDIR)/$(SNAPDIR)/$(SNAPFILE) misc ext ;
+
+folder:
 	if test -d ~/$(BASEDIR)-old; then rm -rf ~/$(BASEDIR)-old 2>/dev/null; fi;
 	if test -d ~/$(BASEDIR); \
 	then \
 		mv ~/$(BASEDIR) ~/$(BASEDIR)-old ;\
 	fi; \
-	mkdir ~/$(BASEDIR); \
+	mkdir ~/$(BASEDIR);
+
+copylisps:
 	cp dot-emacs ~/.emacs && \
-	cp Makefile.in ~/$(BASEDIR)/Makefile
-	cp elisp/* ~/$(BASEDIR)/ && cd ~/$(BASEDIR); make install;
+	cp Makefile.in ~/$(BASEDIR)/Makefile && \
+	cp elisp/*.el ~/$(BASEDIR)/
 
 clean:
 	$(REMOVE) ~/$(BASEDIR)
