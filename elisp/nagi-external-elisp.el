@@ -169,7 +169,8 @@
 ;(add-to-list 'load-path "~/elisp/ext/yasnippet")
 (when (require 'yasnippet nil t)
   (yas/initialize)
-  (yas/load-directory "~/elisp/ext/yasnippet/snippets/"))
+  (yas/load-directory "~/elisp/ext/yasnippet/snippets/")
+  (add-hook 'the-major-mode-hook 'yas/minor-mode-on))
 
 ;; nXML mode
 ;; ---------
