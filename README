@@ -6,6 +6,6 @@
 
 1. git clone  git://github.com/natsag2000/dot-emacs.git
 2. cd dot-emacs
-3. make all
+3. make all ( on BSD machine: gmake all )
 
 start Emacs and enjoy :)
