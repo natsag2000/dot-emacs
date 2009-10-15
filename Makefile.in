@@ -92,7 +92,7 @@ distel: $(EXTERN)
 yasnippet: $(EXTERN)
 	if test ! -d "$(EXTERN)/$@"; \
 	then \
-		svn export $($@_URL) $(EXTERN)/$($@_NAME) ;\
+		export LC_CTYPE=en_US.UTF-8; svn export $($@_URL) $(EXTERN)/$($@_NAME) ;\
 	fi
 
 nxml-mode: $(EXTERN)

@@ -5,20 +5,31 @@
 #
 
 BASEDIR = elisp
+OS = $(shell uname)
 
 REMOVE = rm -rf
 
-all:
-	if test -d ~/$(BASEDIR)-old; then rm -rf ~/$(BASEDIR)-old 2>/dev/null; fi;
+ifeq ("$(OS)", "FreeBSD")
+	MAKECMD = gmake
+else
+	MAKECMD = make
+endif
+
+all: folder copylisps
+	cd ~/$(BASEDIR); $(MAKECMD) install;
+
+folder:
+	if test -d ~/$(BASEDIR)-old; then rm -rf ~/$(BASEDIR)-old 2>/dev/null; fi; \
 	if test -d ~/$(BASEDIR); \
 	then \
 		mv ~/$(BASEDIR) ~/$(BASEDIR)-old ;\
 	fi; \
-	mkdir ~/$(BASEDIR); \
+	mkdir ~/$(BASEDIR);
+
+copylisps:
 	cp dot-emacs ~/.emacs && \
 	cp Makefile.in ~/$(BASEDIR)/Makefile && \
-	cp elisp/* ~/$(BASEDIR)/ && \
-	cd ~/$(BASEDIR); make install;
+	cp elisp/*.el ~/$(BASEDIR)/
 
 clean:
 	$(REMOVE) ~/$(BASEDIR)
