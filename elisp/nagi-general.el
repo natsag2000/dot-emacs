@@ -127,12 +127,12 @@
 ;; setting default font
 ;; --------------------
 ;; Use the predefined fontset "fontset-standard"
-(set-face-font 'default "fontset-standard")
+;;-(set-face-font 'default "fontset-standard")
 ;; In "fontset-standard" use "misc fixed" for the charset
 ;; `mule-unicode-0100-24ff'
-(set-fontset-font "fontset-standard"
-                  'mule-unicode-0100-24ff
-                  "-*-fixed-medium-r-*-*-15-*-*-*-*-*-iso10646-1")
+;;-(set-fontset-font "fontset-standard"
+;;-                  'mule-unicode-0100-24ff
+;;-                  "-*-fixed-medium-r-*-*-15-*-*-*-*-*-iso10646-1")
 
 ;; recentf-open-files
 ;; сүүлд нээгдсэн файлуудыг нээх
