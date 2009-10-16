@@ -8,23 +8,28 @@ BASEDIR = elisp
 SNAPDIR = templates
 SNAPFILE = ext_and_misc.tar.gz
 CURDIR = $(shell pwd)
-
-
+OS = $(shell uname)
 REMOVE	= rm -rf
 
+ifeq ("$(OS)", "FreeBSD")
+	MAKECMD = gmake
+else
+	MAKECMD = make
+endif
+
 all: folder copylisps
-	cd ~/$(BASEDIR); make install;
+	cd ~/$(BASEDIR); $(MAKECMD) install;
 
 all-snapshot: folder copylisps
 	tar xvfz $(SNAPDIR)/$(SNAPFILE) -C ~/$(BASEDIR) && \
-	cd ~/$(BASEDIR); make autosaves backups
+	cd ~/$(BASEDIR); $(MAKECMD) autosaves backups
 
 snapshot:
 	rm -f $(SNAPDIR)/$(SNAPFILE) 2>/dev/null;
 	cd ~/$(BASEDIR); tar cvfz $(CURDIR)/$(SNAPDIR)/$(SNAPFILE) misc ext ;
 
 folder:
-	if test -d ~/$(BASEDIR)-old; then rm -rf ~/$(BASEDIR)-old 2>/dev/null; fi;
+	if test -d ~/$(BASEDIR)-old; then rm -rf ~/$(BASEDIR)-old 2>/dev/null; fi; \
 	if test -d ~/$(BASEDIR); \
 	then \
 		mv ~/$(BASEDIR) ~/$(BASEDIR)-old ;\
