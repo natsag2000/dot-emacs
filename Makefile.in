@@ -4,42 +4,66 @@
 # |_|\_/_/ \_\___|___|  |___/ \___/ |_|    |___|_|  |_/_/ \_\___|___/
 #
 
-EMACS	 = `which emacs`
-BASEDIR	 = elisp
-DISTS	 = dist
-EXTERN	 = ext
+EMACS		= $(shell which emacs)
+BASEDIR	= elisp
+DISTS		= dist
+EXTERN	= ext
 MISC		= misc
 
+WGET		= $(shell which wget)
 REMOVE	= rm -rf
 
-figlet.el_URL		 = "http://repo.or.cz/w/ShellArchive.git?a=blob_plain;hb=HEAD;f=figlet.el"
-htmlize.el_URL		 = "http://www.emacswiki.org/emacs/download/htmlize.el"
-auto-install.el_URL	 = "http://www.emacswiki.org/emacs/download/auto-install.el"
-anything.el_URL		 = "http://www.emacswiki.org/emacs/download/anything.el"
+# single files
+# ------------
+figlet.el_URL						 = "http://repo.or.cz/w/ShellArchive.git?a=blob_plain;hb=HEAD;f=figlet.el"
+htmlize.el_URL					 = "http://www.emacswiki.org/emacs/download/htmlize.el"
+auto-install.el_URL			 = "http://www.emacswiki.org/emacs/download/auto-install.el"
+anything.el_URL					 = "http://www.emacswiki.org/emacs/download/anything.el"
 anything-config.el_URL	 = "http://www.emacswiki.org/emacs/download/anything-config.el"
+pager.el_URL						 = "http://user.it.uu.se/~mic/pager.el"
 tabbar.el_URL						 = "http://github.com/davidswelt/aquamacs-emacs/raw/master/aquamacs/src/site-lisp/tabbar/tabbar.el"
-woof.el_URL							 = "http://www.xsteve.at/prg/emacs/woof.el"
-x-dict.el_URL						 = "http://www.xsteve.at/prg/emacs/x-dict.el"
+tagging.el_URL					 = "http://lisperati.com/tagging.el"
+psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
+flymake.el_URL					 = "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el"
+php-mode.el_URL					 = "http://php-mode.svn.sourceforge.net/svnroot/php-mode/tags/php-mode-1.5.0/php-mode.el"
+
+# archive files
+#--------------
 color-theme_URL					 = "http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz"
 color-theme_NAME				 = "color-theme-6.6.0"
 muse_URL								 = "http://repo.or.cz/w/muse-el.git?a=snapshot;h=617fa8c5d1ed92e8b2eff4d6d2b53e608440db20;sf=tgz"
 muse_NAME								 = "muse-el"
-erlang_URL							 = "http://erlware-mode.googlecode.com/files/erlware-mode-0.1.16.tar.gz"
-erlang_NAME							 = "erlware-mode-0.1.16"
-distel_URL							 = "http://distel.googlecode.com/svn/trunk/"
-distel_NAME							 = "distel"
-yasnippet_URL						 = "http://yasnippet.googlecode.com/svn/trunk/"
-yasnippet_NAME					 = "yasnippet"
-tagging.el_URL					 = "http://lisperati.com/tagging.el"
-psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
 nxml-mode_URL						 = "http://www.thaiopensource.com/download/nxml-mode-20041004.tar.gz"
 nxml-mode_NAME					 = "nxml-mode-20041004"
-flymake.el_URL		 = "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el"
-php-mode.el_URL		 = "http://php-mode.svn.sourceforge.net/svnroot/php-mode/tags/php-mode-1.5.0/php-mode.el"
-cc-mode_URL		 = "http://prdownloads.sourceforge.net/cc-mode/cc-mode-5.31.3.tar.gz"
-cc-mode_NAME		 = "cc-mode-5.31.3"
-pyflake_URL		 = "http://divmod.org/svn/Divmod/trunk/Pyflakes"
-pyflake_NAME		 = "pyflake"
+cc-mode_URL							 = "http://prdownloads.sourceforge.net/cc-mode/cc-mode-5.31.3.tar.gz"
+cc-mode_NAME						 = "cc-mode-5.31.3"
+
+# cvs files
+#----------
+yasnippet_URL						 = "http://yasnippet.googlecode.com/svn/trunk/"
+yasnippet_NAME					 = "yasnippet"
+pyflake_URL							 = "http://divmod.org/svn/Divmod/trunk/Pyflakes"
+pyflake_NAME						 = "pyflake"
+
+# main installation
+# -----------------
+install: autosaves backups general extended
+	echo "DONE"
+
+# general files that are mostly one elisp file.
+#----------------------------------------------
+general: pager.el tabbar.el figlet.el htmlize.el \
+				 auto-install.el anything.el anything-config.el \
+				 tagging.el psvn.el flymake.el php-mode.el
+	echo "misc elisp files are downloaded and copied to right place."
+
+# more complex files which need to download and extract.
+#-------------------------------------------------------
+extended: color-theme muse yasnippet nxml-mode cc-mode pyflake
+	echo "extended elisp files are downloaded and extracted."
+
+clean:
+	$(REMOVE) $(MISC) $(EXTERN) $(DISTS)
 
 autosaves:
 	test -d ~/.autosaves || mkdir ~/.autosaves
@@ -59,34 +83,21 @@ $(DISTS):
 %.el: $(MISC)
 	if test ! -s "$(MISC)/$@"; \
 	then \
-		wget $($@_URL) -O $(MISC)/$@ ;\
+		$(WGET) $($@_URL) -O $(MISC)/$@ ;\
 	fi
 
 color-theme: $(EXTERN)
 	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
-		wget $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
+		$(WGET) $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
 		tar xvfz $(DISTS)/$($@_NAME).tar.gz -C $(EXTERN) ;\
 	fi
 
 muse: $(EXTERN)
 	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
-		wget $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
+		$(WGET) $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
 		tar xvfz $(DISTS)/$($@_NAME).tar.gz -C $(EXTERN) ;\
-	fi
-
-erlang: $(EXTERN)
-	if test ! -d "$(EXTERN)/$($@_NAME)"; \
-	then \
-		wget $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
-		tar xvfz $(DISTS)/$($@_NAME).tar.gz -C $(EXTERN) ;\
-	fi
-
-distel: $(EXTERN)
-	if test ! -d "$(EXTERN)/$($@_NAME)"; \
-	then \
-		svn export $($@_URL) $(EXTERN)/$($@_NAME) ;\
 	fi
 
 yasnippet: $(EXTERN)
@@ -98,14 +109,14 @@ yasnippet: $(EXTERN)
 nxml-mode: $(EXTERN)
 	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
-		wget $($@_URL) -O $(DISTS)/$@.tar.gz && \
+		$(WGET) $($@_URL) -O $(DISTS)/$@.tar.gz && \
 		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) ;\
 	fi
 
 cc-mode: $(EXTERN)
 	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
-		wget $($@_URL) -O $(DISTS)/$@.tar.gz && \
+		$(WGET) $($@_URL) -O $(DISTS)/$@.tar.gz && \
 		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN); fi
 #		cd $(EXTERN)/$($@_NAME) && $(EMACS) -batch -no-site-file -q -f batch-byte-compile cc-*.el ;\
 #	fi
@@ -115,19 +126,3 @@ pyflake: $(EXTERN)
 	then \
 		svn export $($@_URL) $(EXTERN)/$($@_NAME) ;\
 	fi
-
-# general files that are mostly one elisp file.
-general: x-dict.el pager.el tabbar.el figlet.el htmlize.el \
-				 woof.el auto-install.el anything.el anything-config.el \
-				 tagging.el psvn.el flymake.el php-mode.el
-	echo "misc elisp files are downloaded and copied to right place."
-
-# more complex files which need to download and extract.
-extended: color-theme muse erlang distel yasnippet nxml-mode cc-mode pyflake
-	echo "extended elisp files are downloaded and extracted."
-
-install: autosaves backups general extended
-	echo "DONE"
-
-clean:
-	$(REMOVE) $(MISC) $(EXTERN) $(DISTS)
