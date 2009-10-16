@@ -23,7 +23,7 @@ x-dict.el_URL						 = "http://www.xsteve.at/prg/emacs/x-dict.el"
 color-theme_URL					 = "http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz"
 color-theme_NAME				 = "color-theme-6.6.0"
 muse_URL								 = "http://repo.or.cz/w/muse-el.git?a=snapshot;h=617fa8c5d1ed92e8b2eff4d6d2b53e608440db20;sf=tgz"
-muse_NAME								 = "muse-3.12"
+muse_NAME								 = "muse-el"
 erlang_URL							 = "http://erlware-mode.googlecode.com/files/erlware-mode-0.1.16.tar.gz"
 erlang_NAME							 = "erlware-mode-0.1.16"
 distel_URL							 = "http://distel.googlecode.com/svn/trunk/"
@@ -33,8 +33,10 @@ yasnippet_NAME					 = "yasnippet"
 tagging.el_URL					 = "http://lisperati.com/tagging.el"
 psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
 nxml-mode_URL						 = "http://www.thaiopensource.com/download/nxml-mode-20041004.tar.gz"
+nxml-mode_NAME					 = "nxml-mode-20041004"
 # unable to download, temporary skipped!
 git-emacs_URL						 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
+git-emacs_NAME						= "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
 git-emacs_GIT						 = "git://github.com/tsgates/git-emacs.git"
 
 autosaves:
@@ -59,47 +61,47 @@ $(DISTS):
 	fi
 
 color-theme: $(EXTERN)
-	if test ! -d "$(EXTERN)/$@"; \
+	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
 		wget $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
 		tar xvfz $(DISTS)/$($@_NAME).tar.gz -C $(EXTERN) ;\
 	fi
 
 muse: $(EXTERN)
-	if test ! -d "$(EXTERN)/$@"; \
+	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
 		wget $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
 		tar xvfz $(DISTS)/$($@_NAME).tar.gz -C $(EXTERN) ;\
 	fi
 
 erlang: $(EXTERN)
-	if test ! -d "$(EXTERN)/$@"; \
+	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
 		wget $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
 		tar xvfz $(DISTS)/$($@_NAME).tar.gz -C $(EXTERN) ;\
 	fi
 
 distel: $(EXTERN)
-	if test ! -d "$(EXTERN)/$@"; \
+	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
 		svn export $($@_URL) $(EXTERN)/$($@_NAME) ;\
 	fi
 
 yasnippet: $(EXTERN)
-	if test ! -d "$(EXTERN)/$@"; \
+	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
 		export LC_CTYPE=en_US.UTF-8; svn export $($@_URL) $(EXTERN)/$($@_NAME) ;\
 	fi
 
 nxml-mode: $(EXTERN)
-	if test ! -d "$(EXTERN)/$@"; \
+	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
 		wget $($@_URL) -O $(DISTS)/$@.tar.gz && \
 		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) ;\
 	fi
 
 git-emacs: $(EXTERN)
-	if test ! -d "$(EXTERN)/$@"; \
+	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
 		wget $($@_URL) -O $(DISTS)/$@.tar.gz && \
 		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) ;\
