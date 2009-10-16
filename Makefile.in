@@ -4,13 +4,16 @@
 # |_|\_/_/ \_\___|___|  |___/ \___/ |_|    |___|_|  |_/_/ \_\___|___/
 #
 
-BASEDIR = elisp
-DISTS   = dist
-EXTERN  = ext
+BASEDIR	= elisp
+DISTS		= dist
+EXTERN	= ext
 MISC		= misc
 
+WGET		= $(shell which wget)
 REMOVE	= rm -rf
 
+# single files
+# ------------
 figlet.el_URL						 = "http://repo.or.cz/w/ShellArchive.git?a=blob_plain;hb=HEAD;f=figlet.el"
 htmlize.el_URL					 = "http://www.emacswiki.org/emacs/download/htmlize.el"
 auto-install.el_URL		   = "http://www.emacswiki.org/emacs/download/auto-install.el"
@@ -20,24 +23,51 @@ pager.el_URL						 = "http://user.it.uu.se/~mic/pager.el"
 tabbar.el_URL						 = "http://github.com/davidswelt/aquamacs-emacs/raw/master/aquamacs/src/site-lisp/tabbar/tabbar.el"
 woof.el_URL							 = "http://www.xsteve.at/prg/emacs/woof.el"
 x-dict.el_URL						 = "http://www.xsteve.at/prg/emacs/x-dict.el"
+tagging.el_URL					 = "http://lisperati.com/tagging.el"
+psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
+
+# archive files
+# -------------
 color-theme_URL					 = "http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz"
 color-theme_NAME				 = "color-theme-6.6.0"
 muse_URL								 = "http://repo.or.cz/w/muse-el.git?a=snapshot;h=617fa8c5d1ed92e8b2eff4d6d2b53e608440db20;sf=tgz"
 muse_NAME								 = "muse-el"
 erlang_URL							 = "http://erlware-mode.googlecode.com/files/erlware-mode-0.1.16.tar.gz"
 erlang_NAME							 = "erlware-mode-0.1.16"
+nxml-mode_URL						 = "http://www.thaiopensource.com/download/nxml-mode-20041004.tar.gz"
+nxml-mode_NAME					 = "nxml-mode-20041004"
+
+# cvs files
+# ----------------
 distel_URL							 = "http://distel.googlecode.com/svn/trunk/"
 distel_NAME							 = "distel"
 yasnippet_URL						 = "http://yasnippet.googlecode.com/svn/trunk/"
 yasnippet_NAME					 = "yasnippet"
-tagging.el_URL					 = "http://lisperati.com/tagging.el"
-psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
-nxml-mode_URL						 = "http://www.thaiopensource.com/download/nxml-mode-20041004.tar.gz"
-nxml-mode_NAME					 = "nxml-mode-20041004"
+
 # unable to download, temporary skipped!
 git-emacs_URL						 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
-git-emacs_NAME						= "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
+git-emacs_NAME					 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
 git-emacs_GIT						 = "git://github.com/tsgates/git-emacs.git"
+
+# main installation
+# -----------------
+install: autosaves backups general extended
+	echo "DONE"
+
+# general files that are mostly one elisp file.
+# --------------------------------------------
+general: x-dict.el pager.el tabbar.el figlet.el htmlize.el \
+				 woof.el auto-install.el anything.el anything-config.el \
+				 tagging.el psvn.el
+	echo "misc elisp files are downloaded and copied to right place."
+
+# more complex files which need to download and extract.
+# -----------------------------------------------------
+extended: color-theme muse erlang distel yasnippet nxml-mode
+	echo "extended elisp files are downloaded and extracted."
+
+clean:
+	$(REMOVE) $(MISC) $(EXTERN) $(DISTS)
 
 autosaves:
 	test -d ~/.autosaves || mkdir ~/.autosaves
@@ -54,33 +84,46 @@ $(EXTERN): $(DISTS)
 $(DISTS):
 	test -d $@ || mkdir $@
 
+# single files
+# ------------
 %.el: $(MISC)
 	if test ! -s "$(MISC)/$@"; \
 	then \
-		wget $($@_URL) -O $(MISC)/$@ ;\
+		$(WGET) $($@_URL) -O $(MISC)/$@ ;\
 	fi
 
+# archive files
+# -------------
 color-theme: $(EXTERN)
 	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
-		wget $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
+		$(WGET) $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
 		tar xvfz $(DISTS)/$($@_NAME).tar.gz -C $(EXTERN) ;\
 	fi
 
 muse: $(EXTERN)
 	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
-		wget $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
+		$(WGET) $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
 		tar xvfz $(DISTS)/$($@_NAME).tar.gz -C $(EXTERN) ;\
 	fi
 
 erlang: $(EXTERN)
 	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
-		wget $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
+		$(WGET) $($@_URL) -O $(DISTS)/$($@_NAME).tar.gz && \
 		tar xvfz $(DISTS)/$($@_NAME).tar.gz -C $(EXTERN) ;\
 	fi
 
+nxml-mode: $(EXTERN)
+	if test ! -d "$(EXTERN)/$($@_NAME)"; \
+	then \
+		$(WGET) $($@_URL) -O $(DISTS)/$@.tar.gz && \
+		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) ;\
+	fi
+
+# cvs files
+# ---------
 distel: $(EXTERN)
 	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
@@ -93,32 +136,11 @@ yasnippet: $(EXTERN)
 		export LC_CTYPE=en_US.UTF-8; svn export $($@_URL) $(EXTERN)/$($@_NAME) ;\
 	fi
 
-nxml-mode: $(EXTERN)
-	if test ! -d "$(EXTERN)/$($@_NAME)"; \
-	then \
-		wget $($@_URL) -O $(DISTS)/$@.tar.gz && \
-		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) ;\
-	fi
-
 git-emacs: $(EXTERN)
 	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
-		wget $($@_URL) -O $(DISTS)/$@.tar.gz && \
+		$(WGET) $($@_URL) -O $(DISTS)/$@.tar.gz && \
 		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) ;\
 	fi
 
-# general files that are mostly one elisp file.
-general: x-dict.el pager.el tabbar.el figlet.el htmlize.el \
-				 woof.el auto-install.el anything.el anything-config.el \
-				 tagging.el psvn.el
-	echo "misc elisp files are downloaded and copied to right place."
 
-# more complex files which need to download and extract.
-extended: color-theme muse erlang distel yasnippet nxml-mode 
-	echo "extended elisp files are downloaded and extracted."
-
-install: autosaves backups general extended
-	echo "DONE"
-
-clean:
-	$(REMOVE) $(MISC) $(EXTERN) $(DISTS)
