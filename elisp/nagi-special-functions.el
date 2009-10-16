@@ -54,3 +54,58 @@
 
 
 ;;(setq x-select-enable-primary nil)  ; stops killing/yanking interacting with primary X11 selection
+
+
+;; get current line
+;; ----------------
+(defmacro get-current-line()
+  "Current line string"
+  (buffer-substring (save-excursion (beginning-of-line) (point))
+            (save-excursion (end-of-line) (point))))
+
+;; duplicated lines removed and print duplicated numbers at the end
+;; --------------------------------
+(defun nagi-remove-duplicate-lines()
+  "Remove duplicate lines in a buffer"
+  (interactive)
+  (save-excursion
+    (let
+        ((lines_hash (make-hash-table :test #'equal))
+         (number_hash (make-hash-table :test #'equal))
+         (numlines (count-lines 1 (progn (end-of-buffer)(point)))))
+
+      ;; Make a hash table with key=line
+      ;;     and value=the smallest line number that contains a line.
+      (loop for i from numlines downto 1 do
+            (let ((line nil))
+              (goto-line i)
+              (setf line (get-current-line))
+              ;; Want to store the smallest line number for
+              ;;     a particular line.
+              (setf (gethash line lines_hash) i)))
+      ;; If a line has a line number not equal to the smallest line, kill it.
+      (loop for i from numlines downto 1 do
+            (let ((line nil))
+              (goto-line i)
+              (setf line (get-current-line))
+              (beginning-of-line)
+              (if (not (equal line ""))
+                  (if (not (= 
+                            (let ((min-line (gethash line lines_hash)))
+                              (if (null min-line)
+                                  -1
+                                min-line))
+                            i))
+                      (let ((min-line (gethash line lines_hash))
+                            (ccount nil))
+                        (kill-line 1)
+                        (setq ccount (gethash min-line number_hash))
+                        (if (null ccount)
+                            (setf (gethash min-line number_hash) 1)
+                          (setf (gethash min-line number_hash) (+ ccount 1))))
+                    (let ((lcount (gethash i number_hash)))
+                      (if (not (null lcount))
+                          (progn
+                            (end-of-line)
+                            (insert " " (int-to-string (+ lcount 1))))))
+                    )))))))
