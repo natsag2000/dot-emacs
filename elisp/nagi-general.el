@@ -27,10 +27,10 @@
 ;; Ерөнхийдөө бүгд юникод
 ;; -------------------------
 (setq locale-coding-system 'utf-8)
-   (set-terminal-coding-system 'utf-8)
-   (set-keyboard-coding-system 'utf-8)
-   (set-selection-coding-system 'utf-8)
-   (prefer-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 
 ;; using ido for switch buffer
 ;; буфер сэлгэх үйлдлийг амарчлагч
@@ -127,12 +127,12 @@
 ;; setting default font
 ;; --------------------
 ;; Use the predefined fontset "fontset-standard"
-;;-(set-face-font 'default "fontset-standard")
+(set-face-font 'default "fontset-standard")
 ;; In "fontset-standard" use "misc fixed" for the charset
 ;; `mule-unicode-0100-24ff'
-;;-(set-fontset-font "fontset-standard"
-;;-                  'mule-unicode-0100-24ff
-;;-                  "-*-fixed-medium-r-*-*-15-*-*-*-*-*-iso10646-1")
+(set-fontset-font "fontset-standard"
+                  'mule-unicode-0100-24ff
+                  "-*-fixed-medium-r-*-*-15-*-*-*-*-*-iso10646-1")
 
 ;; recentf-open-files
 ;; сүүлд нээгдсэн файлуудыг нээх
@@ -188,3 +188,11 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+
+;; aspell config
+;; -------------
+(setq-default ispell-program-name "/usr/local/bin/aspell")
+(setq ispell-really-aspell t)
+(setq ispell-extra-args '("--sug-mode=ultra"))
+(require 'ispell) 
+(setq ispell-dictionary "mongolian")
