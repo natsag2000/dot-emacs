@@ -25,7 +25,7 @@ woof.el_URL							 = "http://www.xsteve.at/prg/emacs/woof.el"
 x-dict.el_URL						 = "http://www.xsteve.at/prg/emacs/x-dict.el"
 tagging.el_URL					 = "http://lisperati.com/tagging.el"
 psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
-
+flymake.el_URL					 = "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el?revision=1.2.4.33"
 # archive files
 # -------------
 color-theme_URL					 = "http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz"
@@ -58,7 +58,7 @@ install: autosaves backups general extended
 # --------------------------------------------
 general: x-dict.el pager.el tabbar.el figlet.el htmlize.el \
 				 woof.el auto-install.el anything.el anything-config.el \
-				 tagging.el psvn.el
+				 tagging.el psvn.el flymake.el
 	echo "misc elisp files are downloaded and copied to right place."
 
 # more complex files which need to download and extract.

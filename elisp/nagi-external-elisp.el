@@ -26,6 +26,8 @@
   (unless (require mod nil t)
     (message "####################> %s is NOT found, so NOT LOADED!" mod)))
 
+
+
 ;; x-dict.el
 ;; --------
 ;; online dictionary
@@ -53,6 +55,10 @@
 ;; -------
 ;; CVS эх код зохицуулалт хийхийг амарчилсан эд.
 (nrequire 'psvn)
+
+;; load erlang configuration
+;; -------------------------
+(nrequire 'nagi-erlang-config)
 
 ;; pager.el
 ;; --------
@@ -123,44 +129,6 @@
          (:base "html" :path "~/mymuse-outputs/html")
          (:base "pdf" :path "~/mymuse-outputs/pdf")))))
 
-;; Erlang emacs mode
-;; -----------------
-;(add-to-list 'load-path "~/elisp/erlware-mode-0.1.11")
-(setq erlang-root-dir "/usr/lib/erlang")
-(setq exec-path (cons "/usr/local/bin" exec-path))
-(nrequire 'erlang-start)
-(setq erlang-man-root-dir "/usr/lib/erlang/man")
-
-;; this is needed for Distel setup
-(let ((distel-dir (expand-file-name "~/elisp/ext/distel/elisp")))
-  (unless (member distel-dir load-path)
-    ;; Add distel-dir to the end of load-path
-    (setq load-path (append load-path (list distel-dir)))))
-(nrequire 'distel)
-(distel-setup)
-
-;; Some Erlang customizations
-(add-hook 'erlang-mode-hook
-          (lambda ()
-            ;; when starting an Erlang shell in Emacs, default in the mode name
-            (setq inferior-erlang-machine-options '("-sname" "emacs"))
-            ;; add Erlang functions to an imenu menu
-            (imenu-add-to-menubar "imenu")))
-;; A number of the erlang-extended-mode key bindings are useful in the shell too
-(defconst distel-shell-keys
-  '(("\C-\M-i"  erl-complete)
-    ("\M-?"     erl-complete)
-    ("\M-."     erl-find-source-under-point)
-    ("\M-,"     erl-find-source-unwind)
-    ("\M-*"     erl-find-source-unwind)
-    )
-  "Additional keys to bind when in Erlang shell.")
-
-(add-hook 'erlang-shell-mode-hook
-          (lambda ()
-            ;; add some Distel bindings to the Erlang shell
-            (dolist (spec distel-shell-keys)
-              (definge-key erlang-shell-mode-map (car spec) (cadr spec)))))
 
 ;; yasnippet
 ;; ---------
