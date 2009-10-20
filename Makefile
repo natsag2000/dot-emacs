@@ -30,10 +30,12 @@ snapshot:
 
 folder:
 	test -d ~/$(BASEDIR) ||  mkdir ~/$(BASEDIR);
+	test -d ~/$(BASEDIR)/bin ||  mkdir ~/$(BASEDIR)/bin;
 
 copylisps:
 	cp dot-emacs ~/.emacs && \
 	cp Makefile.in ~/$(BASEDIR)/Makefile && \
+	cp bin/* ~/$(BASEDIR)/bin/ && \
 	cp elisp/*.el ~/$(BASEDIR)/
 
 clean:

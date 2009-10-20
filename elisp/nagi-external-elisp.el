@@ -26,7 +26,7 @@
   (unless (require mod nil t)
     (message "####################> %s is NOT found, so NOT LOADED!" mod)))
 
-
+(add-to-list 'exec-path "~/elisp/bin")
 
 ;; x-dict.el
 ;; --------

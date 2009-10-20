@@ -8,6 +8,7 @@ BASEDIR	= elisp
 DISTS		= dist
 EXTERN	= ext
 MISC		= misc
+BINDIR  = bin
 
 WGET		= $(shell which wget)
 REMOVE	= rm -rf
@@ -49,14 +50,17 @@ git-emacs_URL						 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
 git-emacs_NAME					 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
 git-emacs_GIT						 = "git://github.com/tsgates/git-emacs.git"
 
+# special files
+x-dict_URL = "http://www.xsteve.at/prg/python/x-dict"
+
 # main installation
 # -----------------
-install: autosaves backups general extended
+install: autosaves backups general extended setexec
 	echo "DONE"
 
 # general files that are mostly one elisp file.
 # --------------------------------------------
-general: x-dict.el pager.el tabbar.el figlet.el htmlize.el \
+general: x-dict.el x-dict pager.el tabbar.el figlet.el htmlize.el \
 				 woof.el auto-install.el anything.el anything-config.el \
 				 tagging.el psvn.el flymake.el
 	echo "misc elisp files are downloaded and copied to right place."
@@ -75,6 +79,12 @@ autosaves:
 backups:
 	test -d ~/.backups || mkdir ~/.backups
 
+setexec:
+	chmod +x ~/$(BASEDIR)/bin/*
+
+specials: x-dict
+	echo "special files are downloaded"
+
 $(MISC):
 	test -d $@ || mkdir $@
 
@@ -83,6 +93,15 @@ $(EXTERN): $(DISTS)
 
 $(DISTS):
 	test -d $@ || mkdir $@
+
+# special files
+# -------------
+
+x-dict:
+	if test ! -s "~/$(BASEDIR)/$(BINDIR)/$@"; \
+	then \
+		$(WGET) $($@_URL) -O ~/$(BASEDIR)/$(BINDIR)/$@ ;\
+	fi
 
 # single files
 # ------------
