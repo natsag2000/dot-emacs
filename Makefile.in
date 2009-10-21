@@ -9,6 +9,13 @@ DISTS		= dist
 EXTERN	= ext
 MISC		= misc
 BINDIR  = bin
+OS = $(shell uname)
+
+ifeq ("$(OS)", "FreeBSD")
+	MAKECMD = gmake
+else
+	MAKECMD = make
+endif
 
 WGET		= $(shell which wget)
 REMOVE	= rm -rf
@@ -146,7 +153,8 @@ nxml-mode: $(EXTERN)
 distel: $(EXTERN)
 	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
-		svn export $($@_URL) $(EXTERN)/$($@_NAME) ;\
+		svn export $($@_URL) $(EXTERN)/$($@_NAME) && \
+		cd $(EXTERN)/$($@_NAME); $(MAKECMD) ;\
 	fi
 
 yasnippet: $(EXTERN)
