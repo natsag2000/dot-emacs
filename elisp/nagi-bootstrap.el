@@ -18,6 +18,7 @@
 ;; автоматаар хадгалах файл
 ;; -----------------------------
 (setq custom-file (concat custom-basedir "nagi-emacs-custom-file.el"))
+(load custom-file)
 
 ;; add recursive path
 ;; custom-basedir дотор байгаа бүх сангуудыг нэмэх
