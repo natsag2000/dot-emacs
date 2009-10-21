@@ -6,9 +6,19 @@
 ;; distel
 ;; flymake
 ;(add-to-list 'load-path "~/elisp/erlware-mode-0.1.11")
-(add-to-list 'exec-path "/usr/local/bin")
-(setq erlang-root-dir "/usr/local/lib")
-(setq erlang-man-root-dir "/usr/local/lib/erlang/man")
+(setq erlang-exec-path (if (or (eq system-type 'gnu/linux)
+                               (eq system-type 'cygwin)
+                               (eq system-type 'linux))
+                           "/usr/bin" "/usr/local/bin"))
+
+(setq erlang-root-path (if (or (eq system-type 'gnu/linx)
+                               (eq system-type 'cygwin)
+                               (eq system-type 'linux))
+                           "/usr/lib" "/usr/local/lib"))
+
+(add-to-list 'exec-path erlang-exec-path)
+(setq erlang-root-dir erlang-root-path)
+(setq erlang-man-root-dir (concat erlang-root-path "/erlang/man"))
 (nrequire 'erlang-start)
 
 ;; this is needed for Distel setup
@@ -48,13 +58,13 @@
 
 (defun flymake-erlang-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
-		     'flymake-create-temp-inplace))
-	 (local-file (file-relative-name
-		      temp-file
-		      (file-name-directory buffer-file-name))))
+                     'flymake-create-temp-inplace))
+         (local-file (file-relative-name
+                      temp-file
+                      (file-name-directory buffer-file-name))))
     (list "~/elisp/bin/eflymake" (list local-file))))
 
 (add-to-list 'flymake-allowed-file-name-masks
-	     '("\\.erl\\'" flymake-erlang-init))
+             '("\\.erl\\'" flymake-erlang-init))
 
 (add-hook 'find-file-hook 'flymake-find-file-hook)

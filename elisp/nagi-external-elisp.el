@@ -2,24 +2,25 @@
 
 ;;;-----------------------------------------------------------------------
 ;;; Нэмэлт суулгах өргөтгөлүүд:
-;;;    x-dict.el
 ;;;    pager.el
 ;;;    tabbar.el
-;;;    figlet.el
 ;;;    htmlize.el
-;;;    woof.el
 ;;;    anything.el
 ;;;    anything-config.el
 ;;;    auto-install.el
 ;;;    psvn.el
 ;;;    tagging.el
+;;;    nxml
 ;;;    color-theme
 ;;;    muse
 ;;;    erlang
 ;;;    distel
 ;;;    yasnippet
-;;;    nxml
 ;;;
+;;; thies are interfaces which require extra installation
+;;;    x-dict.el  - x-dict
+;;;    figlet.el  - figlet
+;;;    woof.el    - woof ~/.woofrc
 ;;;-----------------------------------------------------------------------
 
 (defun nrequire (mod)
@@ -35,15 +36,22 @@
 ;; wget http://www.xsteve.at/prg/emacs/x-dict.el
 (nrequire 'x-dict)
 
-;; htmlize.el mode
-;; ---------------
-;; export a buffer to html
-(nrequire 'htmlize)
+;; figlet
+;; ------
+;; текстийг том зураасаар дүрслэгч
+(when (file-exists-p "~/elisp/misc/figlet.el")
+  (require 'figlet))
 
 ;; woof.el
 ;; -------
 ;; Web Offer One File
 (nrequire 'woof)
+
+;; htmlize.el mode
+;; ---------------
+;; export a buffer to html
+(nrequire 'htmlize)
+
 
 ;; anything mode
 ;; --------------
@@ -81,11 +89,6 @@
   (global-set-key "\M-[" 'tabbar-backward)
   (global-set-key "\M-]" 'tabbar-forward))
 
-;; figlet
-;; ------
-;; текстийг том зураасаар дүрслэгч
-(when (file-exists-p "~/elisp/misc/figlet.el")
-  (require 'figlet))
 
 ;; color-theme
 ;; ------------

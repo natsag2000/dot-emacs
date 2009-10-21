@@ -26,7 +26,7 @@ woof.el_URL							 = "http://www.xsteve.at/prg/emacs/woof.el"
 x-dict.el_URL						 = "http://www.xsteve.at/prg/emacs/x-dict.el"
 tagging.el_URL					 = "http://lisperati.com/tagging.el"
 psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
-flymake.el_URL					 = "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el?revision=1.2.4.33"
+flymake.el_URL					 = "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el"
 # archive files
 # -------------
 color-theme_URL					 = "http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz"
