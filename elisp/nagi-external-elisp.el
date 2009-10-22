@@ -44,6 +44,11 @@
 ;; -----------------------------------
 (nrequire 'nagi-ecb-config)
 
+;; load JDEE configuration
+;; java development environment 
+;; -----------------------------------
+(nrequire 'nagi-jdee-config)
+
 ;; x-dict.el
 ;; --------
 ;; online dictionary

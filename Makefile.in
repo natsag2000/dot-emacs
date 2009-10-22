@@ -34,6 +34,8 @@ x-dict.el_URL						 = "http://www.xsteve.at/prg/emacs/x-dict.el"
 tagging.el_URL					 = "http://lisperati.com/tagging.el"
 psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
 flymake.el_URL					 = "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el"
+jde-eclipse-compiler-server.el_URL = "http://www.emacswiki.org/cgi-bin/wiki/download/jde-eclipse-compiler-server.el"
+
 # archive files
 # -------------
 color-theme_URL					 = "http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz"
@@ -48,6 +50,17 @@ cedet_URL								 = "http://sourceforge.net/projects/cedet/files/cedet/1.0pre6/c
 cedet_NAME							 = "cedet-1.0pre6"
 ecb_URL									 = "http://sourceforge.net/projects/ecb/files/ecb/ECB%202.40/ecb-2.40.tar.gz/download"
 ecb_NAME								 = "ecb-2.40"
+elib_URL								 = "http://sourceforge.net/projects/jdee/files/jdee/Dependencies/elib.tar.gz/download"
+elib_NAME								 = "elib"
+elib_RNAME = 	"elib-1.0"
+jde_URL								 = "http://sourceforge.net/projects/jdee/files/jdee/2.3.5.1/jde-2.3.5.1.tar.gz/download"
+jde_NAME								 = "jde-2.3.5.1"
+# jde_URL								 = "https://jdee.svn.sourceforge.net/svnroot/jdee/tags/jde-2.3.5-devel/jde"
+# jde_NAME								 = "jde"
+beanshell_URL						 = "http://www.beanshell.org/bsh-2.0b4.jar"
+beanshell_NAME					 = "bsh.jar"
+
+
 
 # cvs files
 # ----------------
@@ -78,7 +91,7 @@ general: x-dict.el x-dict pager.el tabbar.el figlet.el htmlize.el \
 
 # more complex files which need to download and extract.
 # -----------------------------------------------------
-extended: color-theme muse erlang distel yasnippet nxml-mode cedet ecb
+extended: color-theme muse erlang distel yasnippet nxml-mode cedet ecb java_dev
 	echo "extended elisp files are downloaded and extracted."
 
 clean:
@@ -167,6 +180,42 @@ ecb: $(EXTERN)
 		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) && \
 		cd $(EXTERN)/$($@_NAME); $(MAKECMD) CEDET=../$(cedet_NAME) ;\
 	fi
+
+#-----------------------------------------------------------------
+# java development
+# ----------------
+java_dev: jde jde-eclipse-compiler-server.el
+	echo "java development environment is installed"
+
+# jde: $(EXTERN) beanshell elib
+# 	if test ! -d "$(EXTERN)/$($@_NAME)"; \
+# 	then \
+# 		svn export $($@_URL) $(EXTERN)/$($@_NAME) ;\
+# 	fi
+
+jde: $(EXTERN) beanshell elib
+	if test ! -d "$(EXTERN)/$($@_NAME)"; \
+	then \
+		$(WGET) $($@_URL) -O $(DISTS)/$@.tar.gz && \
+		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) && \
+		mv efc.el $(EXTERN)/$($@_NAME)/lisp/ ;\
+	fi
+
+beanshell:
+	if test ! -s "$(EXTERN)/$($@_NAME)"; \
+	then \
+		$(WGET) $($@_URL) -O $(EXTERN)/$($@_NAME) ;\
+	fi
+
+elib:
+	if test ! -d "$(EXTERN)/$($@_RNAME)"; \
+	then \
+		$(WGET) $($@_URL) -O $(DISTS)/$@.tar.gz && \
+		cd $(DISTS); tar xvfz $($@_NAME).tar.gz && \
+		cd $(DISTS); tar xvfz pub/comp/os/unix/gnu/elib/$($@_RNAME).tar.gz -C ../$(EXTERN) ;\
+		cd ../$(EXTERN)/$($@_RNAME); $(MAKECMD) ;\
+	fi
+#-----------------------------------------------------------------
 
 # cvs files
 # ---------
