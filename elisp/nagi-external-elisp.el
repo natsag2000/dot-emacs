@@ -16,6 +16,7 @@
 ;;;    erlang
 ;;;    distel
 ;;;    yasnippet
+;;;    cedet
 ;;;
 ;;; thies are interfaces which require extra installation
 ;;;    x-dict.el  - x-dict
@@ -28,6 +29,20 @@
     (message "####################> %s is NOT found, so NOT LOADED!" mod)))
 
 (add-to-list 'exec-path "~/elisp/bin")
+
+;; load erlang configuration
+;; -------------------------
+(nrequire 'nagi-erlang-config)
+
+;; load CEDET configuration
+;; Collection of Emacs Development Environment Tools
+;; -------------------------------------------------
+(nrequire 'nagi-cedet-config)
+
+;; load ECB configuration
+;; Emacs Code Browser (requires CEDET!)
+;; -----------------------------------
+(nrequire 'nagi-ecb-config)
 
 ;; x-dict.el
 ;; --------
@@ -63,10 +78,6 @@
 ;; -------
 ;; CVS эх код зохицуулалт хийхийг амарчилсан эд.
 (nrequire 'psvn)
-
-;; load erlang configuration
-;; -------------------------
-(nrequire 'nagi-erlang-config)
 
 ;; pager.el
 ;; --------

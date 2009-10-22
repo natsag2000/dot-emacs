@@ -44,6 +44,10 @@ erlang_URL							 = "http://erlware-mode.googlecode.com/files/erlware-mode-0.1.1
 erlang_NAME							 = "erlware-mode-0.1.16"
 nxml-mode_URL						 = "http://www.thaiopensource.com/download/nxml-mode-20041004.tar.gz"
 nxml-mode_NAME					 = "nxml-mode-20041004"
+cedet_URL								 = "http://sourceforge.net/projects/cedet/files/cedet/1.0pre6/cedet-1.0pre6.tar.gz/download"
+cedet_NAME							 = "cedet-1.0pre6"
+ecb_URL									 = "http://sourceforge.net/projects/ecb/files/ecb/ECB%202.40/ecb-2.40.tar.gz/download"
+ecb_NAME								 = "ecb-2.40"
 
 # cvs files
 # ----------------
@@ -74,7 +78,7 @@ general: x-dict.el x-dict pager.el tabbar.el figlet.el htmlize.el \
 
 # more complex files which need to download and extract.
 # -----------------------------------------------------
-extended: color-theme muse erlang distel yasnippet nxml-mode
+extended: color-theme muse erlang distel yasnippet nxml-mode cedet ecb
 	echo "extended elisp files are downloaded and extracted."
 
 clean:
@@ -105,7 +109,7 @@ $(DISTS):
 # -------------
 
 x-dict:
-	if test ! -s "~/$(BASEDIR)/$(BINDIR)/$@"; \
+	if test ! -s "$(BINDIR)/$@"; \
 	then \
 		$(WGET) $($@_URL) -O ~/$(BASEDIR)/$(BINDIR)/$@ ;\
 	fi
@@ -146,6 +150,22 @@ nxml-mode: $(EXTERN)
 	then \
 		$(WGET) $($@_URL) -O $(DISTS)/$@.tar.gz && \
 		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) ;\
+	fi
+
+cedet: $(EXTERN)
+	if test ! -d "$(EXTERN)/$($@_NAME)"; \
+	then \
+		$(WGET) $($@_URL) -O $(DISTS)/$@.tar.gz && \
+		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) && \
+		cd $(EXTERN)/$($@_NAME); $(MAKECMD) ;\
+	fi
+
+ecb: $(EXTERN)
+	if test ! -d "$(EXTERN)/$($@_NAME)"; \
+	then \
+		$(WGET) $($@_URL) -O $(DISTS)/$@.tar.gz && \
+		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) && \
+		cd $(EXTERN)/$($@_NAME); $(MAKECMD) CEDET=../$(cedet_NAME) ;\
 	fi
 
 # cvs files
