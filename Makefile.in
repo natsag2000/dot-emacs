@@ -8,8 +8,12 @@ BASEDIR	= elisp
 DISTS		= dist
 EXTERN	= ext
 MISC		= misc
-BINDIR  = bin
-OS = $(shell uname)
+BINDIR					 = bin
+OS							 = $(shell uname)
+
+# for jde-compiler configuration (eclipse batch compiler)
+JDT_CORE				 = "/home/nagi/opt/eclipse/plugins/org.eclipse.jdt.core_3.4.4.v_894_R34x.jar"
+JDE_CUSTOM_FILE	 = "nagi-emacs-custom-file.el"
 
 ifeq ("$(OS)", "FreeBSD")
 	MAKECMD = gmake
@@ -198,7 +202,9 @@ jde: $(EXTERN) beanshell elib
 	then \
 		$(WGET) $($@_URL) -O $(DISTS)/$@.tar.gz && \
 		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) && \
-		mv efc.el $(EXTERN)/$($@_NAME)/lisp/ ;\
+		mv efc.el $(EXTERN)/$($@_NAME)/lisp/ && \
+		echo "(custom-set-variables " > $(JDE_CUSTOM_FILE) && \
+		echo " '(jde-compiler (quote ((\"eclipse java compiler server\" \"$(JDT_CORE)\")))))" >> $(JDE_CUSTOM_FILE) ;\
 	fi
 
 beanshell:

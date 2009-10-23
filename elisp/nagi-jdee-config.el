@@ -7,6 +7,16 @@
 
 (push '(".+\\.java$" jde-ecj-flymake-init  jde-ecj-flymake-cleanup) flymake-allowed-file-name-masks)
 
+;; set jde-compiler (DONE in makefile.in!)
+;; ---------------
+;; (custom-set-variables
+;;   ;; custom-set-variables was added by Custom.
+;;   ;; If you edit it by hand, you could mess it up, so be careful.
+;;   ;; Your init file should contain only one such instance.
+;;   ;; If there is more than one, they won't work right.
+;;  '(jde-compiler (quote (("eclipse java compiler server" "/home/nagi/opt/eclipse/plugins/org.eclipse.jdt.core_3.4.4.v_894_R34x.jar")))))
+
+
 ;; ;;--flymake without jde configuration
 ;;(push '(".+\\.java$" flymake-java-ecj-init flymake-java-ecj-cleanup) flymake-allowed-file-name-masks)
 ;; (defvar flymake-java-version "1.6")
@@ -19,7 +29,7 @@
 ;;          (local-file (file-relative-name
 ;;                       temp-file
 ;;                       (file-name-directory buffer-file-name))))
-;;     (list "java" (list "-jar" ecj-jar-path "-Xemacs" "-d" "none" 
+;;     (list "java" (list "-jar" ecj-jar-path "-Xemacs" "-d" "none"
 ;;                        ;; "-warn:none"
 ;;                        ;;"-source" flymake-java-version "-target" flymake-java-version "-proceedOnError"
 ;;                        ;;"-classpath" flymake-java-classpath
@@ -37,7 +47,7 @@
 ;;   (file-truename (expand-file-name (file-name-nondirectory file-name)
 ;;                                    (expand-file-name  (int-to-string (abs (random))) (flymake-get-temp-dir)))))
 
-;; (defun credmp/flymake-display-err-minibuf () 
+;; (defun credmp/flymake-display-err-minibuf ()
 ;;   "Displays the error/warning for the current line in the minibuffer"
 ;;   (interactive)
 ;;   (let* ((line-no             (flymake-current-line-no))
