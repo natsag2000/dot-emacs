@@ -17,14 +17,14 @@
 ;; эмаксад хийсэн өөрчлөлтүүдийг
 ;; автоматаар хадгалах файл
 ;; -----------------------------
-(setq custom-file (concat custom-basedir "nagi-emacs-custom-file.el"))
+(setq custom-file (concat my-basedir "nagi-emacs-custom-file.el"))
 (load custom-file)
 
 ;; add recursive path
-;; custom-basedir дотор байгаа бүх сангуудыг нэмэх
+;; my-basedir дотор байгаа бүх сангуудыг нэмэх
 ;; --------------------------------------------------
 (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-    (let* ((my-lisp-dir "~/elisp/")
+    (let* ((my-lisp-dir my-basedir)
            (default-directory my-lisp-dir))
       (setq load-path (cons my-lisp-dir load-path))
       (normal-top-level-add-subdirs-to-load-path)))

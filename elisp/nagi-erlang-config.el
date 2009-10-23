@@ -22,7 +22,7 @@
 (nrequire 'erlang-start)
 
 ;; this is needed for Distel setup
-(let ((distel-dir (expand-file-name "~/elisp/ext/distel/elisp")))
+(let ((distel-dir (in-basedir-ext "distel/elisp")))
   (unless (member distel-dir load-path)
     ;; Add distel-dir to the end of load-path
     (setq load-path (append load-path (list distel-dir)))))
@@ -62,7 +62,7 @@
          (local-file (file-relative-name
                       temp-file
                       (file-name-directory buffer-file-name))))
-    (list "~/elisp/bin/eflymake" (list local-file))))
+    (list (in-basedir-bin "eflymake") (list local-file))))
 
 (add-to-list 'flymake-allowed-file-name-masks
              '("\\.erl\\'" flymake-erlang-init))

@@ -2,7 +2,7 @@
 
 ;; look at http://xtalk.msk.su/~ott/en/writings/emacs-devenv/EmacsCedet.html
 
-(load-file "~/elisp/ext/cedet-1.0pre6/common/cedet.el")
+(load-file (in-basedir-ext "cedet-1.0pre6/common/cedet.el"))
 
 ;; Semantic
 ;; --------

@@ -7,6 +7,7 @@
 
 (push '(".+\\.java$" jde-ecj-flymake-init  jde-ecj-flymake-cleanup) flymake-allowed-file-name-masks)
 
+;; ;;--flymake without jde configuration
 ;;(push '(".+\\.java$" flymake-java-ecj-init flymake-java-ecj-cleanup) flymake-allowed-file-name-masks)
 ;; (defvar flymake-java-version "1.6")
 ;; (defconst ecj-jar-path "/home/nagi/elisp/jdtcore.jar")

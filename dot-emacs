@@ -6,15 +6,22 @@
 ;; My custom elisp file directory
 ;; Энэ санд миний бусад тохиргоонууд байрлана
 ;; -----------------------------------------------
-(setq custom-basedir (expand-file-name "~/elisp/"))
+(setq my-basedir (expand-file-name "~/elisp/"))
 
-(defun add-path (p)
-  (add-to-list 'load-path (concat custom-basedir p)))
+(defun add-to-load-path (p)
+  (add-to-list 'load-path (concat my-basedir p)))
 
-(add-path "misc")
+(defun in-basedir-ext (p)
+  (concat my-basedir "ext/" p))
+
+(defun in-basedir-bin (p)
+  (concat my-basedir "bin/" p))
+
+(defun in-basedir-misc (p)
+  (concat my-basedir "misc/" p))
 
 (defun ext-load-file (p)
-  (load-file (concat custom-basedir p)))
+  (load-file (concat my-basedir p)))
 
 (message "Loading nagi-bootstrap.el ==============================>")
 (ext-load-file "nagi-bootstrap.el")
