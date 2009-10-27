@@ -7,6 +7,24 @@
 
 (push '(".+\\.java$" jde-ecj-flymake-init  jde-ecj-flymake-cleanup) flymake-allowed-file-name-masks)
 
+(custom-set-variables
+    '(flymake-no-changes-timeout 2.0)
+    '(flymake-log-level 3)
+    '(flymake-start-syntax-check-on-newline nil)
+    '(jde-ecj-command-line-args (quote ("-d" "none" "-1.5" "-warn:unused,semicolon" "-maxProblems" "50" "-g")))
+  )
+
+;; (custom-set-variables
+;;    '(flymake-allowed-file-name-masks
+;;         (cons '("\\.java\\'"  . (jde-ecj-server-flymake-init jde-ecj-flymake-cleanup))
+;;               flymake-allowed-file-name-masks  ))
+;;     '(flymake-no-changes-timeout 2.0)
+;;     '(flymake-log-level 3)
+;;     '(flymake-start-syntax-check-on-newline nil)
+;;     '(jde-compiler '(("eclipse java compiler server" "~/emacs/ecj-3.3M6.jar")))
+;;     '(jde-ecj-command-line-args (quote ("-d" "none" "-1.5" "-warn:unused,semicolon" "-maxProblems" "50" "-g")))
+;;   )
+
 ;; set jde-compiler (DONE in makefile.in!)
 ;; ---------------
 ;; (custom-set-variables
