@@ -95,7 +95,7 @@ general: x-dict.el x-dict pager.el tabbar.el figlet.el htmlize.el \
 
 # more complex files which need to download and extract.
 # -----------------------------------------------------
-extended: color-theme muse erlang distel yasnippet nxml-mode cedet ecb java_dev
+extended: color-theme muse erlang distel yasnippet nxml-mode 
 	echo "extended elisp files are downloaded and extracted."
 
 clean:
@@ -173,8 +173,7 @@ cedet: $(EXTERN)
 	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
 		$(WGET) $($@_URL) -O $(DISTS)/$@.tar.gz && \
-		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) && \
-		cd $(EXTERN)/$($@_NAME); $(MAKECMD) ;\
+		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) ; \
 	fi
 
 ecb: $(EXTERN)

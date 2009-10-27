@@ -5,11 +5,12 @@
 #
 
 BASEDIR = elisp
-SNAPDIR = templates
+TEMPDIR = templates
 SNAPFILE = ext_and_misc.tar.gz
 CURDIR = $(shell pwd)
 OS = $(shell uname)
 REMOVE	= rm -rf
+ESCRIPT_PATH = $(shell which escript)
 
 ifeq ("$(OS)", "FreeBSD")
 	MAKECMD = gmake
@@ -21,12 +22,12 @@ all: folder copylisps
 	cd ~/$(BASEDIR); $(MAKECMD) install;
 
 all-snapshot: folder copylisps
-	tar xvfz $(SNAPDIR)/$(SNAPFILE) -C ~/$(BASEDIR) && \
+	tar xvfz $(TEMPDIR)/$(SNAPFILE) -C ~/$(BASEDIR) && \
 	cd ~/$(BASEDIR); $(MAKECMD) autosaves backups
 
 snapshot:
-	rm -f $(SNAPDIR)/$(SNAPFILE) 2>/dev/null;
-	cd ~/$(BASEDIR); tar cvfz $(CURDIR)/$(SNAPDIR)/$(SNAPFILE) misc ext ;
+	rm -f $(TEMPDIR)/$(SNAPFILE) 2>/dev/null;
+	cd ~/$(BASEDIR); tar cvfz $(CURDIR)/$(TEMPDIR)/$(SNAPFILE) misc ext ;
 
 folder:
 	test -d ~/$(BASEDIR) ||  mkdir ~/$(BASEDIR);
@@ -35,7 +36,8 @@ folder:
 copylisps:
 	cp dot-emacs ~/.emacs && \
 	cp Makefile.in ~/$(BASEDIR)/Makefile && \
-	cp bin/* ~/$(BASEDIR)/bin/ && \
+	echo "#!"$(ESCRIPT_PATH)  > ~/$(BASEDIR)/bin/eflymake && \
+	cat $(TEMPDIR)/eflymake_tail >> ~/$(BASEDIR)/bin/eflymake && \
 	cp elisp/*.el ~/$(BASEDIR)/
 
 clean:
