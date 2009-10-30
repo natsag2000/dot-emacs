@@ -87,6 +87,9 @@ x-dict_URL = "http://www.xsteve.at/prg/python/x-dict"
 install: autosaves backups general extended setexec
 	echo "DONE"
 
+install-without-java: autosaves backups general without-cedet-java setexec
+	echo "DONE"
+
 # general files that are mostly one elisp file.
 # --------------------------------------------
 general: x-dict.el x-dict pager.el tabbar.el figlet.el htmlize.el \
@@ -96,8 +99,11 @@ general: x-dict.el x-dict pager.el tabbar.el figlet.el htmlize.el \
 
 # more complex files which need to download and extract.
 # -----------------------------------------------------
-extended: color-theme muse erlang distel yasnippet nxml-mode 
+extended: color-theme muse erlang distel yasnippet nxml-mode cedet ecb java_dev
 	echo "extended elisp files are downloaded and extracted."
+
+without-cedet-java: color-theme muse erlang distel yasnippet nxml-mode
+	echo "extended elisp files without CEDET ECB JAVA are downloaded and installed."
 
 clean:
 	$(REMOVE) $(MISC) $(EXTERN) $(DISTS)

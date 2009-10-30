@@ -21,6 +21,9 @@ endif
 all: folder copylisps
 	cd ~/$(BASEDIR); $(MAKECMD) install;
 
+all-without-java: folder copylisps
+	cd ~/$(BASEDIR); $(MAKECMD) install-without-java;
+
 all-snapshot: folder copylisps
 	tar xvfz $(TEMPDIR)/$(SNAPFILE) -C ~/$(BASEDIR) && \
 	cd ~/$(BASEDIR); $(MAKECMD) autosaves backups

@@ -10,14 +10,17 @@
 ;; load CEDET configuration
 ;; Collection of Emacs Development Environment Tools
 ;; -------------------------------------------------
-(nrequire 'nagi-cedet-config)
+(when (file-accessible-directory-p (in-basedir-ext "cedet-1.0pre6"))
+  (nrequire 'nagi-cedet-config))
 
 ;; load ECB configuration
 ;; Emacs Code Browser (requires CEDET!)
 ;; -----------------------------------
-(nrequire 'nagi-ecb-config)
+(when (file-accessible-directory-p (in-basedir-ext "ecb-2.40"))
+  (nrequire 'nagi-ecb-config))
 
 ;; load JDEE configuration
 ;; java development environment
 ;; -----------------------------------
-(nrequire 'nagi-jdee-config)
+(when (file-accessible-directory-p (in-basedir-ext "jde-2.3.5.1"))
+  (nrequire 'nagi-jdee-config))
