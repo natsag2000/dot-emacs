@@ -7,14 +7,13 @@
 
 1. git clone  git://github.com/natsag2000/dot-emacs.git
 2. cd dot-emacs
-3a. make all-snapshot
-- OR (Эсвэл)
-3b. make all
+3. do one of following: ( өөртөө тохирохоосоо нэгийг сонгож гүйцэтгэнэ )
+
+make all-snapshot  # do not download from internet, just extract the files from archive data.
+make all           # download all files from internet
+make all-without-java # download all files from internet without java related files (Жаавагүй горим )
 
 start Emacs and enjoy :)
 
-NOTE: The 3a way installs all files extracting from a local tar.gz file. The 3b way downloads all files from internet. Do only ONE of them!
-
 АНХААР:
-        - 3а юмуу 3б хоёрын нэгийг нь л гүйцэтгэх хэрэгтэй. Эхнийх нь өөртэйгөө хамт ирсэн файлыг задалж суулгана. Хоёрдахь нь шаардлагатай бүх файлыг интернэтээс татаж суулгана. Хэрэв интернэт удаан юмуу эсвэл зарим сервер нь хариу өгөхгүй, ажиллахгүй тохиолдолд эхний арга нь тохиромжтойг санана уу.
-        - BSD төрлийн үйлдлийн систем дээр make биш gmake гэж хэрэглэнэ үү.
+  BSD төрлийн үйлдлийн систем дээр make биш gmake гэж хэрэглэнэ үү.
