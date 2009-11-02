@@ -43,5 +43,14 @@ copylisps:
 	cat $(TEMPDIR)/eflymake_tail >> ~/$(BASEDIR)/bin/eflymake && \
 	cp elisp/*.el ~/$(BASEDIR)/
 
+usage:
+	@echo "My .emacs file configuration."
+	@echo ""
+	@echo "Possible targets:"
+	@echo ""
+	@echo " all                    # install complete files with CEDET, ECB and JDEE. (default)"
+	@echo " all-without-java       # install all except CEDET, ECB and JDEE"
+	@echo " all-snapshot           # extract snapshot in the templates folder without download"
+	@echo " snapshot               # create snapshot"
 clean:
 	$(REMOVE) ~/$(BASEDIR)
