@@ -5,20 +5,22 @@
 Installation
 ------------
 
-;;This must be inserted to leim-list.el file
+;; -------------------------------------------------------
+;; This must be inserted to leim-list.el file
+;; Энэ хэсэг нь leim-list.el файл дотор нэмэгдэх ёстой
+;; -------------------------------------------------------
 
 (register-input-method
  "mongolian-cyrillic" "Mongolian" 'quail-use-package
  "MN" "Mongolian standart computer layout"
  "quail/cyrillic")
-(register-input-method
- "nara-mongolian-cyrillic" "Mongolian-Nara" 'quail-use-package
- "MNN" "Mongolian computer keyboard layout for my b-wife"
- "quail/cyrillic")
+
 
 ;; -----------------------------------------------------------------
+;; Энэ хэсэг нь quail/cyrillic.el файл уруу нэмэгдэх ёстой
 ;; this must be inserted into cyrillic.el file
 ;; to convert into cyrillic.elc file:
+;; Хувиргахдаа дараах тушаалыг өгнө:
 ;; emacs -batch -f batch-byte-compile cyrillic.el
 ;; -----------------------------------------------------------------
 ;; This is mongolian standart keyboard layout.
@@ -127,6 +129,16 @@ Installation
  ("<" ?Ь)
  (">" ?В)
  ("?" ?Ю))
+
+
+
+;; Энэ хэсэг өөр хүн зориулсан гарын тохиргоо
+;; ---------------------------------------------
+
+(register-input-method
+ "nara-mongolian-cyrillic" "Mongolian-Nara" 'quail-use-package
+ "MNN" "Mongolian computer keyboard layout for my b-wife"
+ "quail/cyrillic")
 
 
 ;; This is mongolian standart keyboard layout for my wife.
