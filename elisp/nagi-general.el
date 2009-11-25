@@ -76,8 +76,14 @@
 ;; ------------
 ;; save a list of open files in ~/.emacs.desktop
 ;; save the desktop file automatically if it already exists
-(setq desktop-save 'if-exists)
-(desktop-save-mode 1)
+;; <--
+;; эмакс далд сервер болж ажилладаг болсон болохоор олон
+;; төрлийн эмакс зэрэг ажиллуулах нөхцөл бүрдсэн юм. Тэр бүр
+;; энэ тохиргоо тохиромжтой ажиллахгүй байгаа. Бүгдээрээ нэг тохиргоо
+;; руу хандаж байгаа болохоор эмакс гацсан юм шиг үзэгдэл үүссэн.
+;; -->
+;; (setq desktop-save 'if-exists)
+;; (desktop-save-mode 1)
 
 ;; save a bunch of variables to the desktop file
 ;; for lists specify the len of the maximal saved data also
@@ -109,8 +115,11 @@
 (setq x-select-enable-clipboard t)
 
 ;; Эмаксийг сервер болгож ажиллуулах
+;; ~/bin/preload_emacs ийн тусламжтайгаар
+;; эмаксийг далд ажиллуулдаг болсон учраас
+;; сервер болгож ажиллуулах шаардлагаггүй болов
 ;; -------------------------------------
-(server-start)
+;; (server-start)
 
 ;; Эхлэл тэмдэг зургийг нь хорих
 ;; --------------------------------
