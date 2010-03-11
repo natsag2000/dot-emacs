@@ -89,6 +89,13 @@
 (unless (load "tagging.el" t)
   (message "####################> tagging.el is NOT found, so NOT LOADED"))
 
+;; screencast.el
+;; ----------
+;; info : http://www.emacswiki.org/emacs/ScreencastMode
+(unless (load "screencast.el" t)
+  (message "####################> screencast.el is NOT found, so NOT LOADED"))
+
+
 ;; muse
 ;; ----
 ;; текст засварлагч, экспортлогч

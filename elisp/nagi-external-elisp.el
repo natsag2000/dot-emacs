@@ -16,6 +16,7 @@
 ;;;    color-theme
 ;;;    muse
 ;;;    yasnippet
+;;;    screencast.el
 ;;;
 ;;; extended ( has own config file ):
 ;;;    erlang

@@ -39,7 +39,8 @@ tagging.el_URL					 = "http://lisperati.com/tagging.el"
 psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
 flymake.el_URL					 = "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el"
 jde-eclipse-compiler-server.el_URL = "http://www.emacswiki.org/cgi-bin/wiki/download/jde-eclipse-compiler-server.el"
-pom-parser.el_URL = "http://svn.grumblesmurf.org/svn/pom-el/trunk/pom-parser.el"
+pom-parser.el_URL				= "http://svn.grumblesmurf.org/svn/pom-el/trunk/pom-parser.el"
+screencast.el_URL				= "http://www.emacswiki.org/emacs/download/screencast.el"
 
 # archive files
 # -------------
