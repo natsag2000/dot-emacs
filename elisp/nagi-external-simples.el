@@ -136,3 +136,8 @@
 (setq nxml-slash-auto-complete-flag 1)
 ;; sexp element functions on xml elements
 (setq nxml-sexp-element-flag 1)
+
+;; graphviz-dot-mode.el
+;; --------------------
+(unless (load (in-basedir-misc "graphviz-dot-mode.el"))
+  (message "####################> graphviz-dot-mode.el is NOT found, so NOT LOADED!"))

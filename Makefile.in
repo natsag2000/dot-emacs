@@ -41,6 +41,7 @@ flymake.el_URL					 = "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs
 jde-eclipse-compiler-server.el_URL = "http://www.emacswiki.org/cgi-bin/wiki/download/jde-eclipse-compiler-server.el"
 pom-parser.el_URL				= "http://svn.grumblesmurf.org/svn/pom-el/trunk/pom-parser.el"
 screencast.el_URL				= "http://www.emacswiki.org/emacs/download/screencast.el"
+graphviz-dot-mode.el_URL = "http://users.skynet.be/ppareit/projects/graphviz-dot-mode/graphviz-dot-mode.el"
 
 # archive files
 # -------------
