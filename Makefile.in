@@ -96,7 +96,7 @@ install-without-java: autosaves backups general without-cedet-java setexec
 # --------------------------------------------
 general: x-dict.el x-dict pager.el tabbar.el figlet.el htmlize.el \
 				 woof.el auto-install.el anything.el anything-config.el \
-				 tagging.el psvn.el flymake.el graphviz-dot-mode.el
+				 tagging.el psvn.el flymake.el screencast.el graphviz-dot-mode.el
 	echo "misc elisp files are downloaded and copied to right place."
 
 # more complex files which need to download and extract.
