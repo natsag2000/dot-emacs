@@ -74,3 +74,8 @@
 ;; next and previous buffer selection
 (global-set-key '[C-tab] 'bs-cycle-next)
 (global-set-key [S-tab] 'bs-cycle-previous)
+
+;; for bookmark
+;; хадгалсан хаяг руугаа үсрэхэд хэрэгтэй
+;; --------------------------------------
+(global-set-key (quote [f9]) (quote bookmark-jump))
