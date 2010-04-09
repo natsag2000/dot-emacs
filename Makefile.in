@@ -3,6 +3,13 @@
 # | .` |/ _ \ (_ || |___| |) | (_) || ||___| _|| |\/| |/ _ \ (__\__ \
 # |_|\_/_/ \_\___|___|  |___/ \___/ |_|    |___|_|  |_/_/ \_\___|___/
 #
+# single file installation tip:
+# 1. add an entry under "single files" section with the format 'name.el_URL = "htt://download_path"'
+# 2. add the name of *.el file to the "general" section
+# archive file installation tip:
+# 1. add an entry under "archive files" section with the format 'name_URL = "http://download_path"'
+# 2. add an entry name_NAME = "extracted name"
+# 3. add the name to the "extended" section
 
 BASEDIR	= elisp
 DISTS		= dist
@@ -59,13 +66,15 @@ ecb_URL									 = "http://sourceforge.net/projects/ecb/files/ecb/ECB%202.40/ecb
 ecb_NAME								 = "ecb-2.40"
 elib_URL								 = "http://sourceforge.net/projects/jdee/files/jdee/Dependencies/elib.tar.gz/download"
 elib_NAME								 = "elib"
-elib_RNAME = 	"elib-1.0"
-jde_URL								 = "http://sourceforge.net/projects/jdee/files/jdee/2.3.5.1/jde-2.3.5.1.tar.gz/download"
+elib_RNAME							 = 	"elib-1.0"
+jde_URL									 = "http://sourceforge.net/projects/jdee/files/jdee/2.3.5.1/jde-2.3.5.1.tar.gz/download"
 jde_NAME								 = "jde-2.3.5.1"
 # jde_URL								 = "https://jdee.svn.sourceforge.net/svnroot/jdee/tags/jde-2.3.5-devel/jde"
-# jde_NAME								 = "jde"
+# jde_NAME							 = "jde"
 beanshell_URL						 = "http://www.beanshell.org/bsh-2.0b4.jar"
 beanshell_NAME					 = "bsh.jar"
+slime_URL								 = "http://common-lisp.net/project/slime/snapshots/slime-current.tgz"
+slime_NAME							 = "slime"
 
 
 
@@ -104,7 +113,7 @@ general: x-dict.el x-dict pager.el tabbar.el figlet.el htmlize.el \
 extended: color-theme muse erlang distel yasnippet nxml-mode cedet ecb java_dev
 	echo "extended elisp files are downloaded and extracted."
 
-without-cedet-java: color-theme muse erlang distel yasnippet nxml-mode
+without-cedet-java: color-theme muse erlang distel yasnippet nxml-mode slime
 	echo "extended elisp files without CEDET ECB JAVA are downloaded and installed."
 
 clean:
@@ -191,6 +200,15 @@ ecb: $(EXTERN)
 		$(WGET) $($@_URL) -O $(DISTS)/$@.tar.gz && \
 		tar xvfz $(DISTS)/$@.tar.gz -C $(EXTERN) && \
 		cd $(EXTERN)/$($@_NAME); $(MAKECMD) CEDET=../$(cedet_NAME) ;\
+	fi
+
+# WARNING: /tmp/slime* ???
+slime: $(EXTERN)
+	if test ! -d "$(EXTERN)/$($@_NAME)"; \
+	then \
+		$(WGET) $($@_URL) -O $(DISTS)/$@.tgz && \
+		tar xvfz $(DISTS)/$@.tgz -C /tmp && \
+		mv /tmp/slime* $(EXTERN)/$($@_NAME) ;\
 	fi
 
 #-----------------------------------------------------------------

@@ -24,3 +24,9 @@
 ;; -----------------------------------
 (when (file-accessible-directory-p (in-basedir-ext "jde-2.3.5.1"))
   (nrequire 'nagi-jdee-config))
+
+;; load SLIME configuration
+;; common lisp development environment
+;; -----------------------------------
+(when (file-accessible-directory-p (in-basedir-ext "slime"))
+  (nrequire 'nagi-slime-config))

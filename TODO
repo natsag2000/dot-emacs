@@ -4,10 +4,9 @@ add:
 
 multi OS:
   tested on Linux, Mac OS
-
+qqqqqq
 selectable sources:
-  cvs or tar.gz
+  cvs or tar.gzqqqq
 
 use system-type ( gnu/linux | bsd | windows )
 use window-system ( x | nil )
-tip: (message "%s" windows-system)
