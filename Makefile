@@ -18,15 +18,18 @@ else
 	MAKECMD = make
 endif
 
-all: folder copylisps
-	cd ~/$(BASEDIR); $(MAKECMD) install;
-
 all-without-java: folder copylisps
 	cd ~/$(BASEDIR); $(MAKECMD) install-without-java;
+
+all: folder copylisps
+	cd ~/$(BASEDIR); $(MAKECMD) install;
 
 all-snapshot: folder copylisps
 	tar xvfz $(TEMPDIR)/$(SNAPFILE) -C ~/$(BASEDIR) && \
 	cd ~/$(BASEDIR); $(MAKECMD) autosaves backups
+
+slime:
+	cd ~/$(BASEDIR); $(MAKECMD) $@
 
 snapshot:
 	rm -f $(TEMPDIR)/$(SNAPFILE) 2>/dev/null;
@@ -48,9 +51,13 @@ usage:
 	@echo ""
 	@echo "Possible targets:"
 	@echo ""
-	@echo " all                    # install complete files with CEDET, ECB and JDEE. (default)"
 	@echo " all-without-java       # install all except CEDET, ECB and JDEE"
+	@echo " all                    # install complete files with CEDET, ECB and JDEE. (default)"
+	@echo " -----:"
+	@echo " slime                  # install SLIME after above configurations!"
+	@echo " -----:"
 	@echo " all-snapshot           # extract snapshot in the templates folder without download"
 	@echo " snapshot               # create snapshot"
+	@echo "\n"
 clean:
 	$(REMOVE) ~/$(BASEDIR)

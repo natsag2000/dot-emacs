@@ -113,7 +113,7 @@ general: x-dict.el x-dict pager.el tabbar.el figlet.el htmlize.el \
 extended: color-theme muse erlang distel yasnippet nxml-mode cedet ecb java_dev
 	echo "extended elisp files are downloaded and extracted."
 
-without-cedet-java: color-theme muse erlang distel yasnippet nxml-mode slime
+without-cedet-java: color-theme muse erlang distel yasnippet nxml-mode
 	echo "extended elisp files without CEDET ECB JAVA are downloaded and installed."
 
 clean:
