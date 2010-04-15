@@ -70,8 +70,11 @@
 ;;(add-to-list 'load-path "~/elisp/color-theme-6.6.0")
 (when (require 'color-theme nil t)
   ;; default color theme is billw (I liked it :)
+  ;;   (color-theme-ramangalahy) ;; also nice
   (color-theme-initialize)
   (color-theme-oswald))
+
+
 
 ;; autoinstall mode
 ;; автоматаар суулгагч
