@@ -1,3 +1,4 @@
+# ----------------------------------------------------------------------------------------------------
 #  _  _   _   ___ ___    ___   ___ _____    ___ __  __   _   ___ ___
 # | \| | /_\ / __|_ _|__|   \ / _ \_   _|__| __|  \/  | /_\ / __/ __|
 # | .` |/ _ \ (_ || |___| |) | (_) || ||___| _|| |\/| |/ _ \ (__\__ \
@@ -10,13 +11,14 @@
 # 1. add an entry under "archive files" section with the format 'name_URL = "http://download_path"'
 # 2. add an entry name_NAME = "extracted name"
 # 3. add the name to the "extended" section
+# ----------------------------------------------------------------------------------------------------
 
 BASEDIR	= elisp
 DISTS		= dist
 EXTERN	= ext
 MISC		= misc
-BINDIR					 = bin
-OS							 = $(shell uname)
+BINDIR	= bin
+OS			= $(shell uname)
 
 # for jde-compiler configuration (eclipse batch compiler)
 JDT_CORE				 = "/home/nagi/opt/eclipse/plugins/org.eclipse.jdt.core_3.4.4.v_894_R34x.jar"
@@ -31,27 +33,32 @@ endif
 WGET		= $(shell which wget)
 REMOVE	= rm -rf
 
+# ------------
 # single files
 # ------------
-figlet.el_URL						 = "http://repo.or.cz/w/ShellArchive.git?a=blob_plain;hb=HEAD;f=figlet.el"
-htmlize.el_URL					 = "http://www.emacswiki.org/emacs/download/htmlize.el"
-auto-install.el_URL		   = "http://www.emacswiki.org/emacs/download/auto-install.el"
-anything.el_URL					 = "http://www.emacswiki.org/emacs/download/anything.el"
-anything-config.el_URL	 = "http://www.emacswiki.org/emacs/download/anything-config.el"
-pager.el_URL						 = "http://user.it.uu.se/~mic/pager.el"
-tabbar.el_URL						 = "http://github.com/davidswelt/aquamacs-emacs/raw/master/aquamacs/src/site-lisp/tabbar/tabbar.el"
-woof.el_URL							 = "http://www.xsteve.at/prg/emacs/woof.el"
-x-dict.el_URL						 = "http://www.xsteve.at/prg/emacs/x-dict.el"
-tagging.el_URL					 = "http://lisperati.com/tagging.el"
-psvn.el_URL							 = "http://www.xsteve.at/prg/emacs/psvn.el"
-flymake.el_URL					 = "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el"
-jde-eclipse-compiler-server.el_URL = "http://www.emacswiki.org/cgi-bin/wiki/download/jde-eclipse-compiler-server.el"
-pom-parser.el_URL				= "http://svn.grumblesmurf.org/svn/pom-el/trunk/pom-parser.el"
-screencast.el_URL				= "http://www.emacswiki.org/emacs/download/screencast.el"
-graphviz-dot-mode.el_URL = "http://users.skynet.be/ppareit/projects/graphviz-dot-mode/graphviz-dot-mode.el"
 
-# archive files
-# -------------
+figlet.el_URL														= "http://repo.or.cz/w/ShellArchive.git?a=blob_plain;hb=HEAD;f=figlet.el"
+htmlize.el_URL													= "http://www.emacswiki.org/emacs/download/htmlize.el"
+auto-install.el_URL											= "http://www.emacswiki.org/emacs/download/auto-install.el"
+anything.el_URL													= "http://www.emacswiki.org/emacs/download/anything.el"
+anything-config.el_URL									= "http://www.emacswiki.org/emacs/download/anything-config.el"
+zenburn.el_URL													= "http://www.emacswiki.org/emacs/download/zenburn.el"
+jde-eclipse-compiler-server.el_URL			= "http://www.emacswiki.org/cgi-bin/wiki/download/jde-eclipse-compiler-server.el"
+screencast.el_URL												= "http://www.emacswiki.org/emacs/download/screencast.el"
+pager.el_URL														= "http://user.it.uu.se/~mic/pager.el"
+tabbar.el_URL														= "http://github.com/davidswelt/aquamacs-emacs/raw/master/aquamacs/src/site-lisp/tabbar/tabbar.el"
+woof.el_URL															= "http://www.xsteve.at/prg/emacs/woof.el"
+x-dict.el_URL														= "http://www.xsteve.at/prg/emacs/x-dict.el"
+tagging.el_URL													= "http://lisperati.com/tagging.el"
+psvn.el_URL															= "http://www.xsteve.at/prg/emacs/psvn.el"
+flymake.el_URL													= "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el"
+pom-parser.el_URL												= "http://svn.grumblesmurf.org/svn/pom-el/trunk/pom-parser.el"
+graphviz-dot-mode.el_URL								= "http://users.skynet.be/ppareit/projects/graphviz-dot-mode/graphviz-dot-mode.el"
+
+# ----------------
+# archived files
+# ----------------
+
 color-theme_URL					 = "http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz"
 color-theme_NAME				 = "color-theme-6.6.0"
 muse_URL								 = "http://repo.or.cz/w/muse-el.git?a=snapshot;h=617fa8c5d1ed92e8b2eff4d6d2b53e608440db20;sf=tgz"
@@ -77,9 +84,10 @@ slime_URL								 = "http://common-lisp.net/project/slime/snapshots/slime-curren
 slime_NAME							 = "slime"
 
 
-
+# ----------------
 # cvs files
 # ----------------
+
 distel_URL							 = "http://distel.googlecode.com/svn/trunk/"
 distel_NAME							 = "distel"
 yasnippet_URL						 = "http://yasnippet.googlecode.com/svn/trunk/"
@@ -90,26 +98,35 @@ git-emacs_URL						 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
 git-emacs_NAME					 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
 git-emacs_GIT						 = "git://github.com/tsgates/git-emacs.git"
 
+# -----------------
 # special files
+# -----------------
+
 x-dict_URL = "http://www.xsteve.at/prg/python/x-dict"
 
+# -----------------
 # main installation
 # -----------------
+
 install: autosaves backups general extended setexec
 	echo "DONE"
 
 install-without-java: autosaves backups general without-cedet-java setexec
 	echo "DONE"
 
-# general files that are mostly one elisp file.
 # --------------------------------------------
+# general single elisp file.
+# --------------------------------------------
+
 general: x-dict.el x-dict pager.el tabbar.el figlet.el htmlize.el \
 				 woof.el auto-install.el anything.el anything-config.el \
-				 tagging.el psvn.el flymake.el screencast.el graphviz-dot-mode.el
+				 tagging.el psvn.el flymake.el screencast.el graphviz-dot-mode.el zenburn.el
 	echo "misc elisp files are downloaded and copied to right place."
 
+# -----------------------------------------------------
 # more complex files which need to download and extract.
 # -----------------------------------------------------
+
 extended: color-theme muse erlang distel yasnippet nxml-mode cedet ecb java_dev
 	echo "extended elisp files are downloaded and extracted."
 
@@ -140,6 +157,8 @@ $(EXTERN): $(DISTS)
 $(DISTS):
 	test -d $@ || mkdir $@
 
+
+# -------------
 # special files
 # -------------
 
@@ -149,16 +168,20 @@ x-dict:
 		$(WGET) $($@_URL) -O ~/$(BASEDIR)/$(BINDIR)/$@ ;\
 	fi
 
+# ------------
 # single files
 # ------------
+
 %.el: $(MISC)
 	if test ! -s "$(MISC)/$@"; \
 	then \
 		$(WGET) $($@_URL) -O $(MISC)/$@ ;\
 	fi
 
+# -------------
 # archive files
 # -------------
+
 color-theme: $(EXTERN)
 	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \
@@ -211,9 +234,10 @@ slime: $(EXTERN)
 		mv /tmp/slime* $(EXTERN)/$($@_NAME) ;\
 	fi
 
-#-----------------------------------------------------------------
+# ----------------
 # java development
 # ----------------
+
 java_dev: jde jde-eclipse-compiler-server.el pom-parser.el
 	echo "java development environment is installed"
 
@@ -247,10 +271,11 @@ elib:
 		cd $(DISTS); tar xvfz pub/comp/os/unix/gnu/elib/$($@_RNAME).tar.gz -C ../$(EXTERN) ;\
 		cd ../$(EXTERN)/$($@_RNAME); $(MAKECMD) ;\
 	fi
-#-----------------------------------------------------------------
 
+# ---------
 # cvs files
 # ---------
+
 distel: $(EXTERN)
 	if test ! -d "$(EXTERN)/$($@_NAME)"; \
 	then \

@@ -1,8 +1,10 @@
+# ----------------------------------------------------------------------
 #  _  _   _   ___ ___    ___   ___ _____    ___ __  __   _   ___ ___
 # | \| | /_\ / __|_ _|__|   \ / _ \_   _|__| __|  \/  | /_\ / __/ __|
 # | .` |/ _ \ (_ || |___| |) | (_) || ||___| _|| |\/| |/ _ \ (__\__ \
 # |_|\_/_/ \_\___|___|  |___/ \___/ |_|    |___|_|  |_/_/ \_\___|___/
 #
+# ----------------------------------------------------------------------
 
 BASEDIR = elisp
 TEMPDIR = templates
@@ -51,8 +53,8 @@ usage:
 	@echo ""
 	@echo "Possible targets:"
 	@echo ""
-	@echo " all-without-java       # install all except CEDET, ECB and JDEE"
-	@echo " all                    # install complete files with CEDET, ECB and JDEE. (default)"
+	@echo " all-without-java       # install all except CEDET, ECB and JDEE (default)"
+	@echo " all                    # install complete files with CEDET, ECB and JDEE."
 	@echo " -----:"
 	@echo " slime                  # install SLIME after above configurations!"
 	@echo " -----:"
