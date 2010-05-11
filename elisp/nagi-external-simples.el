@@ -71,10 +71,9 @@
 (when (require 'color-theme nil t)
   ;; default color theme is billw (I liked it :)
   ;;   (color-theme-ramangalahy) ;; also nice
+  ;; color-theme-oswald  is also good
   (color-theme-initialize)
-  (color-theme-oswald))
-
-
+  (color-theme-zenburn))
 
 ;; autoinstall mode
 ;; автоматаар суулгагч
