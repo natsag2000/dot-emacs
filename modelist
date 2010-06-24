@@ -1,0 +1,53 @@
+# ------------
+# single files
+# ------------
+
+figlet.el                       "http://repo.or.cz/w/ShellArchive.git?a=blob_plain;hb=HEAD;f=figlet.el"
+htmlize.el                      "http://www.emacswiki.org/emacs/download/htmlize.el"
+auto-install.el                 "http://www.emacswiki.org/emacs/download/auto-install.el"
+anything.el                     "http://www.emacswiki.org/emacs/download/anything.el"
+anything-config.el              "http://www.emacswiki.org/emacs/download/anything-config.el"
+zenburn.el                      "http://www.emacswiki.org/emacs/download/zenburn.el"
+jde-eclipse-compiler-server.el  "http://www.emacswiki.org/cgi-bin/wiki/download/jde-eclipse-compiler-server.el"
+screencast.el                   "http://www.emacswiki.org/emacs/download/screencast.el"
+pager.el                        "http://user.it.uu.se/~mic/pager.el"
+tabbar.el                       "http://github.com/davidswelt/aquamacs-emacs/raw/master/aquamacs/src/site-lisp/tabbar/tabbar.el"
+woof.el                         "http://www.xsteve.at/prg/emacs/woof.el"
+x-dict.el                       "http://www.xsteve.at/prg/emacs/x-dict.el"
+tagging.el                      "http://lisperati.com/tagging.el"
+psvn.el                         "http://www.xsteve.at/prg/emacs/psvn.el"
+flymake.el                      "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el"
+pom-parser.el                   "http://svn.grumblesmurf.org/svn/pom-el/trunk/pom-parser.el"
+graphviz-dot-mode.el            "http://users.skynet.be/ppareit/projects/graphviz-dot-mode/graphviz-dot-mode.el"
+
+# ----------------
+# archived files
+# ----------------
+
+color-theme  "http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz" "color-theme-6.6.0"
+muse         "http://repo.or.cz/w/muse-el.git?a=snapshot;h=617fa8c5d1ed92e8b2eff4d6d2b53e608440db20;sf=tgz" "muse-el"
+erlang       "http://erlware-mode.googlecode.com/files/erlware-mode-0.1.19.tar.gz" "erlware-mode-0.1.19"
+nxml-mode    "http://www.thaiopensource.com/download/nxml-mode-20041004.tar.gz" "nxml-mode-20041004"
+cedet        "http://sourceforge.net/projects/cedet/files/cedet/1.0pre6/cedet-1.0pre6.tar.gz/download" "cedet-1.0pre6"
+ecb          "http://sourceforge.net/projects/ecb/files/ecb/ECB%202.40/ecb-2.40.tar.gz/download" "ecb-2.40"
+elib         "http://sourceforge.net/projects/jdee/files/jdee/Dependencies/elib.tar.gz/download" "elib"
+jde          "http://sourceforge.net/projects/jdee/files/jdee/2.3.5.1/jde-2.3.5.1.tar.gz/download" "jde-2.3.5.1"
+beanshell    "http://www.beanshell.org/bsh-2.0b4.jar" "bsh.jar"
+slime        "http://common-lisp.net/project/slime/snapshots/slime-current.tgz" "slime"
+
+# ----------------
+# cvs files
+# ----------------
+
+distel     "http://distel.googlecode.com/svn/trunk/" "distel"
+yasnippet  "http://yasnippet.googlecode.com/svn/trunk/" "yasnippet"
+
+# unable to download, temporary skipped!
+git-emacs_URL						 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
+git-emacs_NAME					 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
+git-emacs_GIT						 = "git://github.com/tsgates/git-emacs.git"
+
+# -----------------------
+# special non elisp files
+# -----------------------
+x-dict  "http://www.xsteve.at/prg/python/x-dict"
