@@ -1,6 +1,9 @@
-# ------------
-# single files
-# ------------
+#-*- mode: org; mode:visual-line; mode:org-indent -*-
+#+TITLE: Миний эмакс дээр нэмж суулгадаг горимууд
+#+STARTUP: indent
+#+STARTUP: hidestars
+
+* Нэг ширхэг файлууд
 
 figlet.el                       "http://repo.or.cz/w/ShellArchive.git?a=blob_plain;hb=HEAD;f=figlet.el"
 htmlize.el                      "http://www.emacswiki.org/emacs/download/htmlize.el"
@@ -20,9 +23,7 @@ flymake.el                      "http://cvs.savannah.gnu.org/viewvc/*checkout*/e
 pom-parser.el                   "http://svn.grumblesmurf.org/svn/pom-el/trunk/pom-parser.el"
 graphviz-dot-mode.el            "http://users.skynet.be/ppareit/projects/graphviz-dot-mode/graphviz-dot-mode.el"
 
-# ----------------
-# archived files
-# ----------------
+* Шахсан хэлбэртэй татагддаг нь
 
 color-theme  "http://download.gna.org/color-theme/color-theme-6.6.0.tar.gz" "color-theme-6.6.0"
 muse         "http://repo.or.cz/w/muse-el.git?a=snapshot;h=617fa8c5d1ed92e8b2eff4d6d2b53e608440db20;sf=tgz" "muse-el"
@@ -35,19 +36,16 @@ jde          "http://sourceforge.net/projects/jdee/files/jdee/2.3.5.1/jde-2.3.5.
 beanshell    "http://www.beanshell.org/bsh-2.0b4.jar" "bsh.jar"
 slime        "http://common-lisp.net/project/slime/snapshots/slime-current.tgz" "slime"
 
-# ----------------
-# cvs files
-# ----------------
+* Код зохицуулагчаар татагддаг нь
 
 distel     "http://distel.googlecode.com/svn/trunk/" "distel"
 yasnippet  "http://yasnippet.googlecode.com/svn/trunk/" "yasnippet"
 
-# unable to download, temporary skipped!
+* Зарим алдаатай байгаа нь (Суугдаагүй)
 git-emacs_URL						 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
 git-emacs_NAME					 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
 git-emacs_GIT						 = "git://github.com/tsgates/git-emacs.git"
 
-# -----------------------
-# special non elisp files
-# -----------------------
+* elisp төрлийн биш мөртлөө татагдах ёстой файлууд
+
 x-dict  "http://www.xsteve.at/prg/python/x-dict"
