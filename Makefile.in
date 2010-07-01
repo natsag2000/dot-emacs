@@ -11,13 +11,18 @@
 # 1. add an entry under "archive files" section with the format 'name_URL = "http://download_path"'
 # 2. add an entry name_NAME = "extracted name"
 # 3. add the name to the "extended" section
+
+
+# TODO:
+# check "if test ! -s $(MISC)/$@; \" if this line works on all platform!!
+# some times "$(MISC/$@" doesn't work when it surrounded with (") !!
 # ----------------------------------------------------------------------------------------------------
 
-BASEDIR	= elisp
-DISTS		= dist
-EXTERN	= ext
-MISC		= misc
-BINDIR	= bin
+BASEDIR	= ~/mydotemacstest
+DISTS		= $(BASEDIR)/dist
+EXTERN	= $(BASEDIR)/ext
+MISC		= $(BASEDIR)/misc
+BINDIR	= $(BASEDIR)/bin
 OS			= $(shell uname)
 
 # for jde-compiler configuration (eclipse batch compiler)
@@ -54,6 +59,7 @@ psvn.el_URL															= "http://www.xsteve.at/prg/emacs/psvn.el"
 flymake.el_URL													= "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el"
 pom-parser.el_URL												= "http://svn.grumblesmurf.org/svn/pom-el/trunk/pom-parser.el"
 graphviz-dot-mode.el_URL								= "http://users.skynet.be/ppareit/projects/graphviz-dot-mode/graphviz-dot-mode.el"
+irfc.el_URL															= "http://www.emacswiki.org/emacs/download/irfc.el"
 
 # ----------------
 # archived files
@@ -149,13 +155,13 @@ specials: x-dict
 	echo "special files are downloaded"
 
 $(MISC):
-	test -d $@ || mkdir $@
+	test -d $@ || mkdir -p $@
 
 $(EXTERN): $(DISTS)
-	test -d $@ || mkdir $@
+	test -d $@ || mkdir -p $@
 
 $(DISTS):
-	test -d $@ || mkdir $@
+	test -d $@ || mkdir -p $@
 
 
 # -------------
@@ -173,7 +179,7 @@ x-dict:
 # ------------
 
 %.el: $(MISC)
-	if test ! -s "$(MISC)/$@"; \
+	if test ! -s $(MISC)/$@; \
 	then \
 		$(WGET) $($@_URL) -O $(MISC)/$@ ;\
 	fi
@@ -268,8 +274,8 @@ elib:
 	then \
 		$(WGET) $($@_URL) -O $(DISTS)/$@.tar.gz && \
 		cd $(DISTS); tar xvfz $($@_NAME).tar.gz && \
-		cd $(DISTS); tar xvfz pub/comp/os/unix/gnu/elib/$($@_RNAME).tar.gz -C ../$(EXTERN) ;\
-		cd ../$(EXTERN)/$($@_RNAME); $(MAKECMD) ;\
+		cd $(DISTS); tar xvfz pub/comp/os/unix/gnu/elib/$($@_RNAME).tar.gz -C $(EXTERN) ;\
+		cd $(EXTERN)/$($@_RNAME); $(MAKECMD) ;\
 	fi
 
 # ---------

@@ -13,6 +13,7 @@ anything-config.el              "http://www.emacswiki.org/emacs/download/anythin
 zenburn.el                      "http://www.emacswiki.org/emacs/download/zenburn.el"
 jde-eclipse-compiler-server.el  "http://www.emacswiki.org/cgi-bin/wiki/download/jde-eclipse-compiler-server.el"
 screencast.el                   "http://www.emacswiki.org/emacs/download/screencast.el"
+irfc.el                         "http://www.emacswiki.org/emacs/download/irfc.el"
 pager.el                        "http://user.it.uu.se/~mic/pager.el"
 tabbar.el                       "http://github.com/davidswelt/aquamacs-emacs/raw/master/aquamacs/src/site-lisp/tabbar/tabbar.el"
 woof.el                         "http://www.xsteve.at/prg/emacs/woof.el"
@@ -40,6 +41,7 @@ slime        "http://common-lisp.net/project/slime/snapshots/slime-current.tgz" 
 
 distel     "http://distel.googlecode.com/svn/trunk/" "distel"
 yasnippet  "http://yasnippet.googlecode.com/svn/trunk/" "yasnippet"
+org        "http://repo.or.cz/r/org-mode.git" org-mode
 
 * Зарим алдаатай байгаа нь (Суугдаагүй)
 git-emacs_URL						 = "http://files.taesoo.org/git-emacs/git-emacs-1.1.tar.gz"
