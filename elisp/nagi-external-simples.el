@@ -67,14 +67,15 @@
 ;; color-theme
 ;; ------------
 ;; Төрөл бүрийн харуулах маягнууд
-;;(add-to-list 'load-path "~/elisp/color-theme-6.6.0")
-(load (in-basedir-misc "zenburn.el"))
+(add-to-list 'load-path (concat (expand-file-name *MYBASEDIR*) "ext/color-theme-6.6.0"))
+;; (load (in-basedir-misc "zenburn.el"))  --only for me
 (when (require 'color-theme nil t)
   ;; default color theme is billw (I liked it :)
   ;;   (color-theme-ramangalahy) ;; also nice
   ;; color-theme-oswald  is also good
   (color-theme-initialize)
-  (color-theme-zenburn))
+  (color-theme-oswald)
+;;  (color-theme-zenburn))  --only for me
 
 ;; autoinstall mode
 ;; автоматаар суулгагч
@@ -83,8 +84,8 @@
 ;; ---------------------------------------------------
 ;;(add-to-list 'load-path (expand-file-name "~/elisp"))
 (nrequire 'auto-install)
-(add-to-list 'load-path (expand-file-name "~/elisp/automatic/"))
-(setq auto-install-directory "~/elisp/automatic/")
+(add-to-list 'load-path (concat (expand-file-name *MYBASEDIR*) "automatic/"))
+(setq auto-install-directory (concat (expand-file-name *MYBASEDIR*) "automatic/"))
 
 ;; tagging.el
 ;; ----------
@@ -99,29 +100,11 @@
   (message "####################> screencast.el is NOT found, so NOT LOADED"))
 
 
-;; muse
-;; ----
-;; текст засварлагч, экспортлогч
-;; git clone git://repo.or.cz/muse-el.git muse or with use web URL
-;;(add-to-list 'load-path "~/elisp/muse")
-(when (require 'muse-mode nil t)
-  (require 'muse-html)  ; load publishing styles
-  (require 'muse-latex)
-  (require 'muse-texinfo)
-  (require 'muse-docbook)
-  (require 'muse-project) ; publish files in project
-  ; my muse project folder
-  (setq muse-project-alist
-      '(("howto-pages" ("~/mymuses" :default "index")
-         (:base "html" :path "~/mymuse-outputs/html")
-         (:base "pdf" :path "~/mymuse-outputs/pdf")))))
-
-
 ;; yasnippet
 ;; ---------
 ;; төрөл бүрийн програмуудад тохирсон товчлолууд
 ;; xx-bundle.el хувилбар нь анхлан хэрэглэгчийнх шүү!!
-;(add-to-list 'load-path "~/elisp/ext/yasnippet")
+(add-to-list 'load-path (in-basedir-ext "yasnippet"))
 (when (require 'yasnippet nil t)
   (yas/initialize)
   (yas/load-directory (in-basedir-ext "yasnippet/snippets/"))

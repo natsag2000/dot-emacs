@@ -9,16 +9,16 @@
 (setq erlang-exec-path (if (or (eq system-type 'gnu/linux)
                                (eq system-type 'cygwin)
                                (eq system-type 'linux))
-                           "/usr/bin" "/usr/local/bin"))
+                           "~/erlang/current/bin" "~/erlang/current/bin"))
 
 (setq erlang-root-path (if (or (eq system-type 'gnu/linx)
                                (eq system-type 'cygwin)
                                (eq system-type 'linux))
-                           "/usr/lib" "/usr/local/lib"))
+                           "~/erlang/current" "~/erlang/current"))
 
 (add-to-list 'exec-path erlang-exec-path)
 (setq erlang-root-dir erlang-root-path)
-(setq erlang-man-root-dir (concat erlang-root-path "/erlang/man"))
+(setq erlang-man-root-dir "~/erlang/current/lib/erlang")
 (nrequire 'erlang-start)
 
 ;; this is needed for Distel setup

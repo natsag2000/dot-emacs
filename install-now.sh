@@ -5,10 +5,12 @@
 
 # Variables
 # ---------
-MODELST="./config/modelist"
+BASEFOLDER="$HOME/elisp"
+MODELST="./config/modelisttest"
 MAKEFILE="./Makefile.in"
 OS=$(uname)
 
+#DATEFMT=`date '+%y_%m_%y_%H_%M_%S'`
 
 # Check OS
 # --------
@@ -54,4 +56,21 @@ done
 # Install modes from list file
 # ----------------------------
 #cat $MODELST | grep -v "[*]" | grep -v '^$' | grep -v '^#' | cut -d" " -f1
-cat $MODELST | grep -v "[*]" | grep -v '^$' | grep -v '^#' | cut -d" " -f1 | xargs $MAKECMD -I {} -f $MAKEFILE
+cat $MODELST | grep -v "[*]" | grep -v '^$' | grep -v '^#' | cut -d" " -f1 | xargs $MAKECMD -I {} -f $MAKEFILE BASEDIR="$BASEFOLDER"
+
+# copy elisp files
+cp elisp/* $BASEFOLDER
+
+
+# create bin dir
+if [ ! -d $BASEFOLDER/bin ]
+then
+    mkdir $BASEFOLDER/bin
+fi
+
+# for erlang development
+echo "#!$HOME/erlang/current/bin/escript" > $BASEFOLDER/bin/eflymake
+echo "" >> $BASEFOLDER/bin/eflymake
+cat templates/eflymake_tail >> $BASEFOLDER/bin/eflymake && chmod +x $BASEFOLDER/bin/eflymake
+
+sed "s_ELISPHOME_$BASEFOLDER/_" dot-emacs > $HOME/.emacs

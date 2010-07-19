@@ -6,7 +6,9 @@
 ;; My custom elisp file directory
 ;; Энэ санд миний бусад тохиргоонууд байрлана
 ;; -----------------------------------------------
-(setq my-basedir (expand-file-name "~/elisp/"))
+
+(defvar *MYBASEDIR* "ELISPHOME")
+(setq my-basedir (expand-file-name *MYBASEDIR* ))
 
 (defun add-to-load-path (p)
   (add-to-list 'load-path (concat my-basedir p)))

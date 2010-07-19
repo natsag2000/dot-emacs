@@ -18,7 +18,7 @@
 # some times "$(MISC/$@" doesn't work when it surrounded with (") !!
 # ----------------------------------------------------------------------------------------------------
 
-BASEDIR	= ~/mydotemacstest
+BASEDIR	= /tmp/mydotemacstest
 DISTS		= $(BASEDIR)/dist
 EXTERN	= $(BASEDIR)/ext
 MISC		= $(BASEDIR)/misc
