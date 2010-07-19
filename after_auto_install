@@ -1,0 +1,12 @@
+#-*- mode: org; mode:visual-line; mode:org-indent -*-
+#+TITLE: AutoInstall ийн дараах горимууд
+#+STARTUP: indent
+#+STARTUP: hidestars
+
+* Товч
+  AutoInstall.el файлыг суулгасан бол дараах горимуудыг суулгаж болно.
+
+** text translator
+   M-x auto-install-batch text translator
+   татаж аваад асуух болгонд C-c C-c гэж цаашлана
+   elisp/nagi-afterinstall.el файлд text translator гэсэн хэсгийн тохиргоог засварлана

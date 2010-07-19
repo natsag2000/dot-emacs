@@ -5,7 +5,10 @@
 
 # Variables
 # ---------
+#BASEFOLDER="/tmp/elisp" # for test
+#DOTEMACSPATH="/tmp"     # for test
 BASEFOLDER="$HOME/elisp"
+DOTEMACSPATH="$HOME"
 MODELST="./config/modelisttest"
 MAKEFILE="./Makefile.in"
 OS=$(uname)
@@ -73,4 +76,4 @@ echo "#!$HOME/erlang/current/bin/escript" > $BASEFOLDER/bin/eflymake
 echo "" >> $BASEFOLDER/bin/eflymake
 cat templates/eflymake_tail >> $BASEFOLDER/bin/eflymake && chmod +x $BASEFOLDER/bin/eflymake
 
-sed "s_ELISPHOME_$BASEFOLDER/_" dot-emacs > $HOME/.emacs
+sed "s_ELISPHOME_$BASEFOLDER/_" dot-emacs > $DOTEMACSPATH/.emacs

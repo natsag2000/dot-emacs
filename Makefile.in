@@ -60,6 +60,7 @@ flymake.el_URL													= "http://cvs.savannah.gnu.org/viewvc/*checkout*/emac
 pom-parser.el_URL												= "http://svn.grumblesmurf.org/svn/pom-el/trunk/pom-parser.el"
 graphviz-dot-mode.el_URL								= "http://users.skynet.be/ppareit/projects/graphviz-dot-mode/graphviz-dot-mode.el"
 irfc.el_URL															= "http://www.emacswiki.org/emacs/download/irfc.el"
+nitrogen-mode.el_URL                    = "http://github.com/rklophaus/nitrogen/raw/master/support/nitrogen-mode/nitrogen-mode.el"
 
 # ----------------
 # archived files

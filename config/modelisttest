@@ -23,6 +23,7 @@ tabbar.el                       "http://github.com/davidswelt/aquamacs-emacs/raw
 flymake.el                      "http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/emacs/lisp/progmodes/flymake.el"
 # pom-parser.el                   "http://svn.grumblesmurf.org/svn/pom-el/trunk/pom-parser.el"
 graphviz-dot-mode.el            "http://users.skynet.be/ppareit/projects/graphviz-dot-mode/graphviz-dot-mode.el"
+nitrogen-mode.el                "http://github.com/rklophaus/nitrogen/raw/master/support/nitrogen-mode/nitrogen-mode.el"
 
 # * Шахсан хэлбэртэй татагддаг нь
 

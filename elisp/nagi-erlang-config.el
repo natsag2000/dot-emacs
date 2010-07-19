@@ -68,3 +68,9 @@
              '("\\.erl\\'" flymake-erlang-init))
 
 (add-hook 'find-file-hook 'flymake-find-file-hook)
+
+
+;; nitrogen-mode.el
+;; --------------------
+(unless (load (in-basedir-misc "nitrogen-mode.el"))
+  (message "####################> nitrogen-mode.el is NOT found, so NOT LOADED!"))

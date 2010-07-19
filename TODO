@@ -1,12 +1,18 @@
+post installation configuration needed! ( bitlbee, mew, etc )
+.emacs файл уруу post-install autoInstall ийн тохиргооны файлуудыг оруулж өгөх!!
+
 add:
   git-emacs -> taesoo.org
   SLIME
+  EMMS
+  babel
+  e-blog.el or webblogger.el
 
 multi OS:
   tested on Linux, Mac OS
-qqqqqq
-selectable sources:
-  cvs or tar.gzqqqq
 
-use system-type ( gnu/linux | bsd | windows )
+selectable sources:
+  cvs or tar.gz
+
+DONE use system-type ( gnu/linux | bsd | windows )
 use window-system ( x | nil )
