@@ -74,7 +74,7 @@
   ;;   (color-theme-ramangalahy) ;; also nice
   ;; color-theme-oswald  is also good
   (color-theme-initialize)
-  (color-theme-oswald)
+  (color-theme-oswald))
 ;;  (color-theme-zenburn))  --only for me
 
 ;; autoinstall mode
