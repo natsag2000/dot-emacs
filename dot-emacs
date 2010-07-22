@@ -52,5 +52,8 @@
 (message "Loading nagi-external-elisp.el =========================>")
 (ext-load-file "nagi-external-elisp.el")
 
+(message "Loading nagi-misc-configs.el =========================>")
+(ext-load-file "nagi-misc-configs.el")
+
 ;; (message "Loading nagi-printer.el ...")
 ;;(ext-load-file "nagi-printer.el")
