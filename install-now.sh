@@ -22,7 +22,7 @@ if [ x$OS = xLinux ]; then
 fi
 
 if [ x$OS = xFreeBSD ]; then
-    MAKCMD=gmake
+    MAKECMD=gmake
 fi
 
 if [ x$OS = x ]; then
@@ -59,7 +59,13 @@ done
 # Install modes from list file
 # ----------------------------
 #cat $MODELST | grep -v "[*]" | grep -v '^$' | grep -v '^#' | cut -d" " -f1
-cat $MODELST | grep -v "[*]" | grep -v '^$' | grep -v '^#' | cut -d" " -f1 | xargs $MAKECMD -I {} -f $MAKEFILE BASEDIR="$BASEFOLDER"
+echo $MAKECMD
+for F in `cat $MODELST | grep -v "[*]" | grep -v '^$' | grep -v '^#' | cut -d" " -f1`
+do
+    $MAKECMD $F -f $MAKEFILE BASEDIR=$BASEFOLDER
+done
+
+#cat $MODELST | grep -v "[*]" | grep -v '^$' | grep -v '^#' | cut -d" " -f1 | xargs "$MAKECMD" -I '{}' "-f $MAKEFILE" BASEDIR="$BASEFOLDER"
 
 # copy elisp files
 cp elisp/* $BASEFOLDER
